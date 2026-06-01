@@ -1,0 +1,2476 @@
+#-----------------------------------------------------------
+# Vivado v2017.3 (64-bit)
+# SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
+# IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
+# Start of session at: Tue May 19 22:15:09 2026
+# Process ID: 2804
+# Current directory: C:/mipi_all
+# Command line: vivado.exe -mode batch -source C:/mipi_all/fpga/vivado/run_impl_route_only.tcl -tclargs mipi_csi2_capture_fpga_head_20260519 mipi_csi2_capture_fpga_wrapper 4
+# Log file: C:/mipi_all/vivado.log
+# Journal file: C:/mipi_all\vivado.jou
+#-----------------------------------------------------------
+source C:/mipi_all/fpga/vivado/run_impl_route_only.tcl
+# set script_dir [file normalize [file dirname [info script]]]
+# set project_name "mipi_csi2_capture"
+# set top_module   "mipi_csi2_capture_top"
+# set jobs         4
+# if {[info exists ::env(VIVADO_JOBS)] && ($::env(VIVADO_JOBS) ne "")} {
+#     set jobs $::env(VIVADO_JOBS)
+# }
+# if {[llength $argv] >= 1} {
+#     set project_name [lindex $argv 0]
+# }
+# if {[llength $argv] >= 2} {
+#     set top_module [lindex $argv 1]
+# }
+# if {[llength $argv] >= 3} {
+#     set jobs [lindex $argv 2]
+# }
+# proc file_list_has_module {files module_name} {
+#     set module_re [format {(^|[;[:space:]])module[[:space:]]+%s([[:space:]#;(]|$)} $module_name]
+# 
+#     foreach src_file $files {
+#         if {![file exists $src_file]} {
+#             continue
+#         }
+#         set fp [open $src_file r]
+#         set text [read $fp]
+#         close $fp
+#         if {[regexp $module_re $text]} {
+#             return 1
+#         }
+#     }
+#     return 0
+# }
+# proc assert_run_complete {run_name} {
+#     set run_obj [get_runs $run_name]
+#     set progress [get_property PROGRESS $run_obj]
+#     set status   [get_property STATUS $run_obj]
+# 
+#     if {($progress ne "100%") || ![regexp {Complete} $status]} {
+#         puts "ERROR: Run $run_name did not complete successfully."
+#         puts "ERROR: PROGRESS=$progress"
+#         puts "ERROR: STATUS=$status"
+#         return -code error "$run_name failed"
+#     }
+# }
+# set project_file [file join $script_dir work $project_name "${project_name}.xpr"]
+# set report_root  [file join $script_dir reports $project_name]
+# if {![file exists $project_file]} {
+#     puts "ERROR: Vivado project not found: $project_file"
+#     return -code error "missing Vivado project"
+# }
+# file mkdir $report_root
+# puts "INFO: Opening project : $project_file"
+INFO: Opening project : C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/vivado/work/mipi_csi2_capture_fpga_head_20260519/mipi_csi2_capture_fpga_head_20260519.xpr
+# puts "INFO: Requested top   : $top_module"
+INFO: Requested top   : mipi_csi2_capture_fpga_wrapper
+# puts "INFO: Jobs            : $jobs"
+INFO: Jobs            : 4
+# open_project $project_file
+INFO: [ProjectBase 1-489] The host OS only allows 260 characters in a normal path. The project is stored in a path with more than 80 characters. If you experience issues with IP, Block Designs, or files not being found, please consider moving the project to a location with a shorter path. Alternately consider using the OS subst command to map part of the path to a drive letter.
+Current project path is 'C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/vivado/work/mipi_csi2_capture_fpga_head_20260519'
+Scanning sources...
+Finished scanning sources
+# set source_files [get_files -quiet -of_objects [get_filesets sources_1]]
+# if {![file_list_has_module $source_files $top_module]} {
+#     puts "ERROR: Top module '$top_module' was not found in current project sources."
+#     close_project
+#     return -code error "missing top integration RTL"
+# }
+# set_property top $top_module [current_fileset]
+# update_compile_order -fileset sources_1
+# puts "INFO: Starting synthesis."
+INFO: Starting synthesis.
+# reset_run synth_1
+# launch_runs synth_1 -jobs $jobs
+[Tue May 19 22:15:18 2026] Launched synth_1...
+Run output will be captured here: C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/vivado/work/mipi_csi2_capture_fpga_head_20260519/mipi_csi2_capture_fpga_head_20260519.runs/synth_1/runme.log
+# wait_on_run synth_1
+[Tue May 19 22:15:18 2026] Waiting for synth_1 to finish...
+
+*** Running vivado
+    with args -log mipi_csi2_capture_fpga_wrapper.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source mipi_csi2_capture_fpga_wrapper.tcl
+
+
+****** Vivado v2017.3 (64-bit)
+  **** SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
+  **** IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
+    ** Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+
+source mipi_csi2_capture_fpga_wrapper.tcl -notrace
+Command: synth_design -top mipi_csi2_capture_fpga_wrapper -part xczu9eg-ffvb1156-2-e
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xczu9eg'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xczu9eg'
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 51612 
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 387.207 ; gain = 71.047
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'mipi_csi2_capture_fpga_wrapper' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/top/mipi_csi2_capture_fpga_wrapper.sv:6]
+	Parameter LANE_NUM bound to: 32'sb00000000000000000000000000000100 
+	Parameter DESKEW_DEPTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter BYTE_FIFO_ADDR_WIDTH bound to: 32'sb00000000000000000000000000000100 
+	Parameter AXI_ADDR_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter AXI_DATA_WIDTH bound to: 32'sb00000000000000000000000010000000 
+	Parameter AXI_MAX_BURST_LEN bound to: 32'sb00000000000000000000000000010000 
+INFO: [Synth 8-638] synthesizing module 'fpga_apb_boot_cfg' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/top/fpga_apb_boot_cfg.sv:6]
+	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter AXI_ADDR_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter AXI_MAX_BURST_LEN bound to: 32'sb00000000000000000000000000010000 
+	Parameter IMG_WIDTH bound to: 16'b0000011110000000 
+	Parameter IMG_HEIGHT bound to: 16'b0000010000111000 
+	Parameter LANE_NUM_MINUS1 bound to: 2'b01 
+	Parameter LANE_ENABLE_MASK bound to: 4'b0011 
+	Parameter DT_CODE bound to: 8'b00101010 
+	Parameter VC_ID bound to: 8'b00000000 
+	Parameter FRAME_BASE_ADDR bound to: 0 - type: integer 
+	Parameter LINE_STRIDE bound to: 4096 - type: integer 
+	Parameter AXI_MAX_BURST_LEN_CFG bound to: 9'b000010000 
+	Parameter APB_ADDR_CTRL bound to: 16'b0000000000000000 
+	Parameter APB_ADDR_IMG_WIDTH bound to: 16'b0000000000001000 
+	Parameter APB_ADDR_IMG_HEIGHT bound to: 16'b0000000000001100 
+	Parameter APB_ADDR_LANE_CFG bound to: 16'b0000000000010000 
+	Parameter APB_ADDR_DT_CFG bound to: 16'b0000000000010100 
+	Parameter APB_ADDR_FRAME_BASE bound to: 16'b0000000000011000 
+	Parameter APB_ADDR_LINE_STRIDE bound to: 16'b0000000000011100 
+	Parameter APB_ADDR_ERR_POLICY bound to: 16'b0000000000110100 
+	Parameter APB_ADDR_PREPROC_CFG bound to: 16'b0000000000111000 
+	Parameter APB_ADDR_AXI_CFG bound to: 16'b0000000001000000 
+	Parameter CFG_ENTRY_NUM bound to: 32'sb00000000000000000000000000001000 
+	Parameter ST_SETUP bound to: 2'b00 
+	Parameter ST_ENABLE bound to: 2'b01 
+	Parameter ST_DONE bound to: 2'b10 
+INFO: [Synth 8-256] done synthesizing module 'fpga_apb_boot_cfg' (1#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/top/fpga_apb_boot_cfg.sv:6]
+INFO: [Synth 8-638] synthesizing module 'mipi_csi2_capture_top' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/top/mipi_csi2_capture_top.sv:7]
+	Parameter LANE_NUM bound to: 32'sb00000000000000000000000000000100 
+	Parameter DESKEW_DEPTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter BYTE_FIFO_ADDR_WIDTH bound to: 32'sb00000000000000000000000000000100 
+	Parameter AXI_ADDR_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter AXI_DATA_WIDTH bound to: 32'sb00000000000000000000000010000000 
+	Parameter AXI_MAX_BURST_LEN bound to: 32'sb00000000000000000000000000010000 
+	Parameter DT_FS bound to: 6'b000000 
+	Parameter DT_FE bound to: 6'b000001 
+	Parameter DT_LS bound to: 6'b000010 
+	Parameter DT_LE bound to: 6'b000011 
+	Parameter DT_YUV422 bound to: 6'b011110 
+	Parameter DT_RGB888 bound to: 6'b100100 
+	Parameter DT_RAW8 bound to: 6'b101010 
+	Parameter DT_RAW10 bound to: 6'b101011 
+	Parameter DEGRADED_LANE_NUM bound to: 32'sb00000000000000000000000000000010 
+	Parameter PIXFMT_RAW8 bound to: 3'b000 
+	Parameter PIXFMT_RAW10 bound to: 3'b001 
+	Parameter PIXFMT_RGB888 bound to: 3'b010 
+	Parameter PIXFMT_YUV422 bound to: 3'b011 
+INFO: [Synth 8-638] synthesizing module 'cfg_reg_if_apb' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reg_if/cfg_reg_if_apb.sv:6]
+	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter AXI_ADDR_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter AXI_MAX_BURST_LEN bound to: 32'sb00000000000000000000000000010000 
+	Parameter APB_ADDR_CTRL bound to: 16'b0000000000000000 
+	Parameter APB_ADDR_STATUS bound to: 16'b0000000000000100 
+	Parameter APB_ADDR_IMG_WIDTH bound to: 16'b0000000000001000 
+	Parameter APB_ADDR_IMG_HEIGHT bound to: 16'b0000000000001100 
+	Parameter APB_ADDR_LANE_CFG bound to: 16'b0000000000010000 
+	Parameter APB_ADDR_DT_CFG bound to: 16'b0000000000010100 
+	Parameter APB_ADDR_FRAME_BASE_ADDR bound to: 16'b0000000000011000 
+	Parameter APB_ADDR_LINE_STRIDE bound to: 16'b0000000000011100 
+	Parameter APB_ADDR_ERR_CNT_ECC bound to: 16'b0000000000100000 
+	Parameter APB_ADDR_ERR_CNT_CRC bound to: 16'b0000000000100100 
+	Parameter APB_ADDR_ERR_CNT_SYNC bound to: 16'b0000000000101000 
+	Parameter APB_ADDR_FRAME_CNT bound to: 16'b0000000000101100 
+	Parameter APB_ADDR_LINE_CNT bound to: 16'b0000000000110000 
+	Parameter APB_ADDR_ERR_POLICY bound to: 16'b0000000000110100 
+	Parameter APB_ADDR_PREPROC_CFG bound to: 16'b0000000000111000 
+	Parameter APB_ADDR_DBG_SEL bound to: 16'b0000000000111100 
+	Parameter APB_ADDR_AXI_CFG bound to: 16'b0000000001000000 
+	Parameter APB_ADDR_LAST_ERR bound to: 16'b0000000001000100 
+	Parameter APB_ADDR_ADAPT_GAIN bound to: 16'b0000000001001000 
+	Parameter APB_ADDR_ADAPT_STAT0 bound to: 16'b0000000001001100 
+	Parameter APB_ADDR_ADAPT_STAT1 bound to: 16'b0000000001010000 
+INFO: [Synth 8-256] done synthesizing module 'cfg_reg_if_apb' (2#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reg_if/cfg_reg_if_apb.sv:6]
+INFO: [Synth 8-638] synthesizing module 'phy_digital_adapter' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/phy_adapter/phy_digital_adapter.sv:8]
+	Parameter LANE_NUM bound to: 32'sb00000000000000000000000000000100 
+INFO: [Synth 8-256] done synthesizing module 'phy_digital_adapter' (3#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/phy_adapter/phy_digital_adapter.sv:8]
+INFO: [Synth 8-638] synthesizing module 'lane_deskew_buffer' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/lane_deskew_buffer.sv:3]
+	Parameter LANE_NUM bound to: 32'sb00000000000000000000000000000100 
+	Parameter DESKEW_DEPTH bound to: 32'sb00000000000000000000000000010000 
+	Parameter PTR_WIDTH bound to: 32'sb00000000000000000000000000000100 
+	Parameter CNT_WIDTH bound to: 32'sb00000000000000000000000000000101 
+	Parameter LAST_PTR bound to: 4'b1111 
+	Parameter DEPTH_CNT bound to: 5'b10000 
+INFO: [Synth 8-256] done synthesizing module 'lane_deskew_buffer' (4#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/lane_deskew_buffer.sv:3]
+INFO: [Synth 8-638] synthesizing module 'lane_reorder_merge' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/lane_reorder_merge.sv:3]
+	Parameter LANE_NUM bound to: 32'sb00000000000000000000000000000100 
+	Parameter IDX_WIDTH bound to: 32'sb00000000000000000000000000000010 
+	Parameter LAST_IDX bound to: 2'b11 
+INFO: [Synth 8-256] done synthesizing module 'lane_reorder_merge' (5#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/lane_reorder_merge.sv:3]
+INFO: [Synth 8-638] synthesizing module 'async_fifo' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/buffer/async_fifo.sv:3]
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000000001000 
+	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000000100 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000010000 
+INFO: [Synth 8-256] done synthesizing module 'async_fifo' (6#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/buffer/async_fifo.sv:3]
+INFO: [Synth 8-638] synthesizing module 'csi2_long_packet_parser' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/csi2_long_packet_parser.sv:3]
+	Parameter ENABLE_CRC_TRAILER bound to: 1'b1 
+	Parameter ST_HDR0 bound to: 3'b000 
+	Parameter ST_HDR1 bound to: 3'b001 
+	Parameter ST_HDR2 bound to: 3'b010 
+	Parameter ST_HDR3 bound to: 3'b011 
+	Parameter ST_ECC_REQ bound to: 3'b100 
+	Parameter ST_WAIT_ECC bound to: 3'b101 
+	Parameter ST_HDR_OUT bound to: 3'b110 
+	Parameter ST_PAYLOAD bound to: 3'b111 
+	Parameter ST_CRC0 bound to: 4'b1000 
+	Parameter ST_CRC1 bound to: 4'b1001 
+INFO: [Synth 8-638] synthesizing module 'csi2_header_ecc_checker' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/csi2_header_ecc_checker.sv:3]
+INFO: [Synth 8-256] done synthesizing module 'csi2_header_ecc_checker' (7#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/csi2_header_ecc_checker.sv:3]
+INFO: [Synth 8-256] done synthesizing module 'csi2_long_packet_parser' (8#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/csi2_long_packet_parser.sv:3]
+INFO: [Synth 8-638] synthesizing module 'packet_error_policy' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/packet_error_policy.sv:6]
+INFO: [Synth 8-256] done synthesizing module 'packet_error_policy' (9#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/packet_error_policy.sv:6]
+INFO: [Synth 8-638] synthesizing module 'frame_line_sync_fsm' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/frame_line_sync_fsm.sv:3]
+	Parameter DT_FS bound to: 6'b000000 
+	Parameter DT_FE bound to: 6'b000001 
+	Parameter DT_LS bound to: 6'b000010 
+	Parameter DT_LE bound to: 6'b000011 
+INFO: [Synth 8-256] done synthesizing module 'frame_line_sync_fsm' (10#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/frame_line_sync_fsm.sv:3]
+INFO: [Synth 8-638] synthesizing module 'raw8_unpack' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/pixel/raw8_unpack.sv:3]
+INFO: [Synth 8-256] done synthesizing module 'raw8_unpack' (11#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/pixel/raw8_unpack.sv:3]
+INFO: [Synth 8-638] synthesizing module 'raw10_unpack' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/pixel/raw10_unpack.sv:3]
+	Parameter STATE_COLLECT bound to: 1'b0 
+	Parameter STATE_OUTPUT bound to: 1'b1 
+INFO: [Synth 8-226] default block is never used [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/pixel/raw10_unpack.sv:57]
+WARNING: [Synth 8-6014] Unused sequential element pixel_reg_reg[0] was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/pixel/raw10_unpack.sv:46]
+INFO: [Synth 8-256] done synthesizing module 'raw10_unpack' (12#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/pixel/raw10_unpack.sv:3]
+INFO: [Synth 8-638] synthesizing module 'rgb888_unpack' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/pixel/rgb888_unpack.sv:3]
+INFO: [Synth 8-256] done synthesizing module 'rgb888_unpack' (13#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/pixel/rgb888_unpack.sv:3]
+INFO: [Synth 8-638] synthesizing module 'yuv422_unpack' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/pixel/yuv422_unpack.sv:3]
+	Parameter STATE_COLLECT bound to: 1'b0 
+	Parameter STATE_OUTPUT bound to: 1'b1 
+INFO: [Synth 8-226] default block is never used [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/pixel/yuv422_unpack.sv:52]
+INFO: [Synth 8-256] done synthesizing module 'yuv422_unpack' (14#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/pixel/yuv422_unpack.sv:3]
+INFO: [Synth 8-638] synthesizing module 'pixel_frame_stats_v1' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/preprocess/adaptive_v1/pixel_frame_stats_v1.sv:7]
+	Parameter PIXFMT_RAW8 bound to: 3'b000 
+	Parameter PIXFMT_RAW10 bound to: 3'b001 
+	Parameter PIXFMT_RGB888 bound to: 3'b010 
+	Parameter PIXFMT_YUV422 bound to: 3'b011 
+	Parameter DARK_TH bound to: 8'b00010000 
+	Parameter BRIGHT_TH bound to: 8'b11110000 
+INFO: [Synth 8-256] done synthesizing module 'pixel_frame_stats_v1' (15#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/preprocess/adaptive_v1/pixel_frame_stats_v1.sv:7]
+INFO: [Synth 8-638] synthesizing module 'adaptive_preprocess_ctrl_v1' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/preprocess/adaptive_v1/adaptive_preprocess_ctrl_v1.sv:6]
+	Parameter GAIN_IDENTITY bound to: 8'b10000000 
+	Parameter GAIN_MIN_Q17 bound to: 8'b00100000 
+	Parameter GAIN_MAX_Q17 bound to: 8'b11111111 
+	Parameter STRETCH_MIN_RANGE bound to: 32'b00000000000000000000000000011000 
+INFO: [Synth 8-256] done synthesizing module 'adaptive_preprocess_ctrl_v1' (16#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/preprocess/adaptive_v1/adaptive_preprocess_ctrl_v1.sv:6]
+INFO: [Synth 8-638] synthesizing module 'brightness_adjust' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/preprocess/brightness_adjust.sv:3]
+INFO: [Synth 8-256] done synthesizing module 'brightness_adjust' (17#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/preprocess/brightness_adjust.sv:3]
+INFO: [Synth 8-638] synthesizing module 'contrast_adjust' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/preprocess/contrast_adjust.sv:3]
+INFO: [Synth 8-256] done synthesizing module 'contrast_adjust' (18#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/preprocess/contrast_adjust.sv:3]
+INFO: [Synth 8-638] synthesizing module 'gray_balance' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/preprocess/gray_balance.sv:3]
+INFO: [Synth 8-256] done synthesizing module 'gray_balance' (19#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/preprocess/gray_balance.sv:3]
+INFO: [Synth 8-638] synthesizing module 'preprocess_bypass_mux' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/preprocess/preprocess_bypass_mux.sv:3]
+INFO: [Synth 8-256] done synthesizing module 'preprocess_bypass_mux' (20#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/preprocess/preprocess_bypass_mux.sv:3]
+INFO: [Synth 8-638] synthesizing module 'csi2_payload_crc_checker' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/csi2_payload_crc_checker.sv:3]
+	Parameter CRC_INIT bound to: 16'b1111111111111111 
+INFO: [Synth 8-256] done synthesizing module 'csi2_payload_crc_checker' (21#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/csi2_payload_crc_checker.sv:3]
+INFO: [Synth 8-638] synthesizing module 'err_classifier' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_classifier.sv:3]
+	Parameter ERR_TYPE_NONE bound to: 3'b000 
+	Parameter ERR_TYPE_ECC bound to: 3'b001 
+	Parameter ERR_TYPE_CRC bound to: 3'b010 
+	Parameter ERR_TYPE_SYNC bound to: 3'b011 
+	Parameter ERR_TYPE_LANE bound to: 3'b100 
+INFO: [Synth 8-256] done synthesizing module 'err_classifier' (22#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_classifier.sv:3]
+INFO: [Synth 8-638] synthesizing module 'err_frame_line_logger' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_frame_line_logger.sv:3]
+	Parameter ERR_TYPE_ECC bound to: 3'b001 
+	Parameter ERR_TYPE_CRC bound to: 3'b010 
+	Parameter ERR_TYPE_SYNC bound to: 3'b011 
+	Parameter ERR_TYPE_LANE bound to: 3'b100 
+INFO: [Synth 8-256] done synthesizing module 'err_frame_line_logger' (23#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_frame_line_logger.sv:3]
+INFO: [Synth 8-638] synthesizing module 'resync_ctrl_fsm' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/resync_ctrl_fsm.sv:3]
+	Parameter STATE_IDLE bound to: 1'b0 
+	Parameter STATE_REQ bound to: 1'b1 
+INFO: [Synth 8-226] default block is never used [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/resync_ctrl_fsm.sv:32]
+INFO: [Synth 8-4471] merging register 'drop_packet_o_reg' into 'resync_req_o_reg' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/resync_ctrl_fsm.sv:26]
+INFO: [Synth 8-4471] merging register 'resync_busy_o_reg' into 'resync_req_o_reg' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/resync_ctrl_fsm.sv:27]
+WARNING: [Synth 8-6014] Unused sequential element drop_packet_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/resync_ctrl_fsm.sv:26]
+WARNING: [Synth 8-6014] Unused sequential element resync_busy_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/resync_ctrl_fsm.sv:27]
+INFO: [Synth 8-256] done synthesizing module 'resync_ctrl_fsm' (24#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/resync_ctrl_fsm.sv:3]
+INFO: [Synth 8-638] synthesizing module 'degrade_recover_fsm' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/degrade_recover_fsm.sv:3]
+	Parameter FULL_LANE_NUM bound to: 32'sb00000000000000000000000000000100 
+	Parameter DEGRADED_LANE_NUM bound to: 32'sb00000000000000000000000000000010 
+	Parameter RECOVER_GOOD_FRAME_TH bound to: 32'sb00000000000000000000000000000011 
+	Parameter GOOD_CNT_WIDTH bound to: 32'sb00000000000000000000000000000010 
+	Parameter FULL_LANES bound to: 3'b100 
+	Parameter DEGRADED_LANES bound to: 3'b010 
+	Parameter RECOVER_TH bound to: 2'b11 
+INFO: [Synth 8-256] done synthesizing module 'degrade_recover_fsm' (25#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/degrade_recover_fsm.sv:3]
+INFO: [Synth 8-638] synthesizing module 'pixel_to_axi_writer' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/pixel_to_axi_writer.sv:3]
+	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000010000000 
+	Parameter MAX_BURST_LEN bound to: 32'sb00000000000000000000000000010000 
+	Parameter FIFO_ADDR_WIDTH bound to: 32'sb00000000000000000000000000000110 
+	Parameter DATA_BYTES bound to: 32'sb00000000000000000000000000010000 
+	Parameter DATA_FIFO_WIDTH bound to: 32'sb00000000000000000000000010010000 
+	Parameter CMD_FIFO_WIDTH bound to: 32'sb00000000000000000000000000100001 
+	Parameter PIXELS_PER_BEAT bound to: 32'sb00000000000000000000000000000100 
+INFO: [Synth 8-638] synthesizing module 'async_fifo__parameterized0' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/buffer/async_fifo.sv:3]
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000010010000 
+	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000000110 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000001000000 
+INFO: [Synth 8-256] done synthesizing module 'async_fifo__parameterized0' (25#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/buffer/async_fifo.sv:3]
+INFO: [Synth 8-638] synthesizing module 'async_fifo__parameterized1' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/buffer/async_fifo.sv:3]
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000000100001 
+	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000000011 
+	Parameter DEPTH bound to: 32'sb00000000000000000000000000001000 
+INFO: [Synth 8-256] done synthesizing module 'async_fifo__parameterized1' (25#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/buffer/async_fifo.sv:3]
+INFO: [Synth 8-638] synthesizing module 'addr_gen_frame_based' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/addr_gen_frame_based.sv:3]
+	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000100000 
+INFO: [Synth 8-256] done synthesizing module 'addr_gen_frame_based' (26#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/addr_gen_frame_based.sv:3]
+INFO: [Synth 8-638] synthesizing module 'axi_write_master' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/axi_write_master.sv:3]
+	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000010000000 
+	Parameter MAX_BURST_LEN bound to: 32'sb00000000000000000000000000010000 
+	Parameter DATA_BYTES bound to: 32'sb00000000000000000000000000010000 
+	Parameter AXI_SIZE bound to: 3'b100 
+	Parameter AXI_BURST_INCR bound to: 2'b01 
+	Parameter ST_IDLE bound to: 2'b00 
+	Parameter ST_AW bound to: 2'b01 
+	Parameter ST_W bound to: 2'b10 
+	Parameter ST_B bound to: 2'b11 
+INFO: [Synth 8-638] synthesizing module 'axi_burst_gen' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/axi_burst_gen.sv:3]
+	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000010000000 
+	Parameter MAX_BURST_LEN bound to: 32'sb00000000000000000000000000010000 
+	Parameter DATA_BYTES bound to: 32'sb00000000000000000000000000010000 
+	Parameter DEFAULT_MAX_BURST bound to: 9'b000010000 
+INFO: [Synth 8-256] done synthesizing module 'axi_burst_gen' (27#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/axi_burst_gen.sv:3]
+INFO: [Synth 8-226] default block is never used [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/axi_write_master.sv:155]
+INFO: [Synth 8-256] done synthesizing module 'axi_write_master' (28#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/axi_write_master.sv:3]
+WARNING: [Synth 8-6014] Unused sequential element cmd_line_id_q_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/pixel_to_axi_writer.sv:407]
+INFO: [Synth 8-4471] merging register 'cmd_fifo_clear_wr_sys_reg' into 'data_fifo_clear_wr_sys_reg' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/pixel_to_axi_writer.sv:203]
+INFO: [Synth 8-4471] merging register 'cmd_fifo_clear_rd_axi_reg' into 'data_fifo_clear_rd_axi_reg' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/pixel_to_axi_writer.sv:204]
+WARNING: [Synth 8-6014] Unused sequential element cmd_fifo_clear_wr_sys_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/pixel_to_axi_writer.sv:203]
+WARNING: [Synth 8-6014] Unused sequential element cmd_fifo_clear_rd_axi_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/pixel_to_axi_writer.sv:204]
+INFO: [Synth 8-256] done synthesizing module 'pixel_to_axi_writer' (29#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/pixel_to_axi_writer.sv:3]
+INFO: [Synth 8-256] done synthesizing module 'mipi_csi2_capture_top' (30#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/top/mipi_csi2_capture_top.sv:7]
+INFO: [Synth 8-638] synthesizing module 'axi_write_null_slave' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/axi_write_null_slave.sv:6]
+	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000010000000 
+INFO: [Synth 8-256] done synthesizing module 'axi_write_null_slave' (31#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/axi_write_null_slave.sv:6]
+INFO: [Synth 8-256] done synthesizing module 'mipi_csi2_capture_fpga_wrapper' (32#1) [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/top/mipi_csi2_capture_fpga_wrapper.sv:6]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[31]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[30]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[29]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[28]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[27]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[26]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[25]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[24]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[23]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[22]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[21]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[20]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[19]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[18]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[17]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[16]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[15]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[14]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[13]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[12]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[11]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[10]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[9]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[8]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[7]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[6]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[5]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[4]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[3]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[2]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[1]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awaddr_i[0]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awsize_i[2]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awsize_i[1]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awsize_i[0]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awburst_i[1]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_awburst_i[0]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[127]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[126]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[125]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[124]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[123]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[122]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[121]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[120]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[119]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[118]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[117]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[116]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[115]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[114]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[113]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[112]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[111]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[110]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[109]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[108]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[107]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[106]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[105]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[104]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[103]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[102]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[101]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[100]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[99]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[98]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[97]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[96]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[95]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[94]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[93]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[92]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[91]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[90]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[89]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[88]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[87]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[86]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[85]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[84]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[83]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[82]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[81]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[80]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[79]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[78]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[77]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[76]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[75]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[74]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[73]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[72]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[71]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[70]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[69]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[68]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[67]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[66]
+WARNING: [Synth 8-3331] design axi_write_null_slave has unconnected port s_axi_wdata_i[65]
+INFO: [Common 17-14] Message 'Synth 8-3331' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 455.340 ; gain = 139.180
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 455.340 ; gain = 139.180
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xczu9eg-ffvb1156-2-e
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/xdc/top_constraints.xdc]
+Finished Parsing XDC File [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/xdc/top_constraints.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/xdc/top_constraints.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/mipi_csi2_capture_fpga_wrapper_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/mipi_csi2_capture_fpga_wrapper_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1265.098 ; gain = 0.000
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:41 ; elapsed = 00:00:46 . Memory (MB): peak = 1265.098 ; gain = 948.938
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xczu9eg-ffvb1156-2-e
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:41 ; elapsed = 00:00:46 . Memory (MB): peak = 1265.098 ; gain = 948.938
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:41 ; elapsed = 00:00:46 . Memory (MB): peak = 1265.098 ; gain = 948.938
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5544] ROM "cfg_idx_q" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "ctrl_written_q" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "cfg_addr_next" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "cfg_data_next" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+WARNING: [Synth 8-6014] Unused sequential element cfg_idx_q_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/top/fpga_apb_boot_cfg.sv:102]
+INFO: [Synth 8-5546] ROM "cfg_enable_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "cfg_preprocess_bypass_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "cfg_enable_err_log_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "cfg_lane_num_minus1_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "cfg_dt_code_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "cfg_frame_base_addr_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "cfg_line_stride_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "cfg_img_width_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "cfg_img_height_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "cfg_dbg_sel_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "cfg_axi_max_burst_len_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/lane_deskew_buffer.sv:97]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/lane_deskew_buffer.sv:97]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/lane_deskew_buffer.sv:97]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/lane_deskew_buffer.sv:97]
+INFO: [Synth 8-5546] ROM "all_lane_nonempty" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][0]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][1]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][2]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][3]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][4]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][5]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][6]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][7]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][8]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][9]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][10]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][11]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][12]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][13]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][14]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][15]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][0]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][1]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][2]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][3]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][4]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][5]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][6]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][7]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][8]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][9]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][10]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][11]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][12]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][13]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][14]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][15]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[2][0]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[2][1]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[2][2]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[2][3]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[2][4]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[2][5]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[2][6]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[2][7]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[2][8]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[2][9]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[2][10]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[2][11]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[2][12]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[2][13]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[2][14]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[2][15]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[3][0]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[3][1]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[3][2]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[3][3]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[3][4]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[3][5]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[3][6]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[3][7]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[3][8]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[3][9]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[3][10]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[3][11]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[3][12]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[3][13]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[3][14]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[3][15]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+WARNING: [Synth 8-6014] Unused sequential element lane_cnt_reg[0] was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/lane_deskew_buffer.sv:63]
+WARNING: [Synth 8-6014] Unused sequential element lane_cnt_reg[1] was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/lane_deskew_buffer.sv:63]
+WARNING: [Synth 8-6014] Unused sequential element lane_cnt_reg[2] was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/lane_deskew_buffer.sv:63]
+WARNING: [Synth 8-6014] Unused sequential element lane_cnt_reg[3] was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/lane_deskew_buffer.sv:63]
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][0]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][1]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][2]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][3]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][4]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][5]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][6]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][7]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][8]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][9]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][10]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][11]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][12]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][13]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][14]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[0][15]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][0]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][1]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][2]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][3]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][4]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][5]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][6]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][7]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][8]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][9]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][10]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][11]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][12]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][13]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][14]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "fifo_mem_reg[1][15]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Common 17-14] Message 'Synth 8-5544' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+WARNING: [Synth 8-6014] Unused sequential element wr_ptr_bin_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/buffer/async_fifo.sv:88]
+WARNING: [Synth 8-6014] Unused sequential element rd_ptr_bin_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/buffer/async_fifo.sv:84]
+WARNING: [Synth 8-6014] Unused sequential element rd_ptr_bin_reg_rep was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/buffer/async_fifo.sv:84]
+INFO: [Synth 8-5546] ROM "syndrome_is_single_bit_error" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'csi2_long_packet_parser'
+INFO: [Synth 8-5546] ROM "packet_done" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "state" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "frame_active" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "frame_start" won't be mapped to RAM because it is too sparse
+WARNING: [Synth 8-6014] Unused sequential element frame_cnt_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/frame_line_sync_fsm.sv:43]
+WARNING: [Synth 8-6014] Unused sequential element line_cnt_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/frame_line_sync_fsm.sv:44]
+INFO: [Synth 8-4471] merging register 'pixel_valid_o_reg' into 'state_reg' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/pixel/raw10_unpack.sv:52]
+WARNING: [Synth 8-6014] Unused sequential element pixel_valid_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/pixel/raw10_unpack.sv:52]
+INFO: [Synth 8-802] inferred FSM for state register 'byte_idx_reg' in module 'raw10_unpack'
+INFO: [Synth 8-802] inferred FSM for state register 'out_idx_reg' in module 'raw10_unpack'
+INFO: [Synth 8-802] inferred FSM for state register 'byte_idx_reg' in module 'yuv422_unpack'
+INFO: [Synth 8-5546] ROM "calc_awb_gain_q17" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "calc_awb_gain_q170" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "calc_awb_gain_q171" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/preprocess/contrast_adjust.sv:50]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/preprocess/contrast_adjust.sv:50]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/preprocess/contrast_adjust.sv:50]
+WARNING: [Synth 8-6014] Unused sequential element err_cnt_ecc_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_classifier.sv:50]
+WARNING: [Synth 8-6014] Unused sequential element err_cnt_crc_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_classifier.sv:51]
+WARNING: [Synth 8-6014] Unused sequential element err_cnt_sync_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_classifier.sv:52]
+WARNING: [Synth 8-6014] Unused sequential element err_cnt_lane_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_classifier.sv:53]
+WARNING: [Synth 8-6014] Unused sequential element total_err_cnt_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_frame_line_logger.sv:49]
+WARNING: [Synth 8-6014] Unused sequential element ecc_err_cnt_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_frame_line_logger.sv:50]
+WARNING: [Synth 8-6014] Unused sequential element crc_err_cnt_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_frame_line_logger.sv:51]
+WARNING: [Synth 8-6014] Unused sequential element sync_err_cnt_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_frame_line_logger.sv:52]
+WARNING: [Synth 8-6014] Unused sequential element lane_err_cnt_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_frame_line_logger.sv:53]
+WARNING: [Synth 8-6014] Unused sequential element wr_ptr_bin_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/buffer/async_fifo.sv:88]
+WARNING: [Synth 8-6014] Unused sequential element rd_ptr_bin_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/buffer/async_fifo.sv:84]
+WARNING: [Synth 8-6014] Unused sequential element rd_ptr_bin_reg_rep was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/buffer/async_fifo.sv:84]
+WARNING: [Synth 8-6014] Unused sequential element wr_ptr_bin_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/buffer/async_fifo.sv:88]
+WARNING: [Synth 8-6014] Unused sequential element rd_ptr_bin_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/buffer/async_fifo.sv:84]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/axi_burst_gen.sv:75]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/axi_burst_gen.sv:75]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <multiplier> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/axi_burst_gen.sv:75]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/axi_burst_gen.sv:75]
+INFO: [Synth 8-5546] ROM "remaining_beat_cnt" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "burst_valid_o" won't be mapped to RAM because it is too sparse
+WARNING: [Synth 8-6014] Unused sequential element sys_line_byte_cnt_q_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/pixel_to_axi_writer.sv:220]
+WARNING: [Synth 8-6014] Unused sequential element discard_bytes_left_q_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/pixel_to_axi_writer.sv:410]
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                 ST_HDR0 |                       0000000001 |                             0000
+                 ST_HDR1 |                       0000000010 |                             0001
+                 ST_HDR2 |                       0000000100 |                             0010
+                 ST_HDR3 |                       0000001000 |                             0011
+              ST_ECC_REQ |                       0000010000 |                             0100
+             ST_WAIT_ECC |                       0000100000 |                             0101
+              ST_HDR_OUT |                       0001000000 |                             0110
+              ST_PAYLOAD |                       0010000000 |                             0111
+                 ST_CRC0 |                       0100000000 |                             1000
+                 ST_CRC1 |                       1000000000 |                             1001
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'one-hot' in module 'csi2_long_packet_parser'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                  iSTATE |                            00001 |                              000
+                 iSTATE0 |                            00010 |                              001
+                 iSTATE1 |                            00100 |                              010
+                 iSTATE2 |                            01000 |                              011
+                 iSTATE3 |                            10000 |                              100
+*
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'byte_idx_reg' using encoding 'one-hot' in module 'raw10_unpack'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                  iSTATE |                               00 |                               00
+                 iSTATE0 |                               01 |                               01
+                 iSTATE1 |                               10 |                               10
+                 iSTATE2 |                               11 |                               11
+*
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'out_idx_reg' using encoding 'sequential' in module 'raw10_unpack'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                  iSTATE |                             0001 |                               00
+                 iSTATE0 |                             0010 |                               01
+                 iSTATE1 |                             0100 |                               10
+                 iSTATE2 |                             1000 |                               11
+*
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'byte_idx_reg' using encoding 'one-hot' in module 'yuv422_unpack'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:44 ; elapsed = 00:00:49 . Memory (MB): peak = 1265.098 ; gain = 948.938
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     48 Bit       Adders := 3     
+	   2 Input     32 Bit       Adders := 3     
+	   3 Input     32 Bit       Adders := 4     
+	   2 Input     24 Bit       Adders := 3     
+	   2 Input     20 Bit       Adders := 6     
+	   3 Input     18 Bit       Adders := 1     
+	   2 Input     17 Bit       Adders := 2     
+	   2 Input     16 Bit       Adders := 6     
+	   3 Input     16 Bit       Adders := 1     
+	   3 Input     10 Bit       Adders := 1     
+	   3 Input      9 Bit       Adders := 1     
+	   2 Input      9 Bit       Adders := 8     
+	   2 Input      8 Bit       Adders := 3     
+	   2 Input      7 Bit       Adders := 4     
+	   3 Input      7 Bit       Adders := 2     
+	   2 Input      5 Bit       Adders := 8     
+	   3 Input      5 Bit       Adders := 2     
+	   2 Input      4 Bit       Adders := 13    
+	   3 Input      4 Bit       Adders := 2     
+	   2 Input      3 Bit       Adders := 2     
+	   2 Input      2 Bit       Adders := 2     
++---XORs : 
+	   2 Input     16 Bit         XORs := 8     
+	   2 Input      7 Bit         XORs := 2     
+	   2 Input      6 Bit         XORs := 1     
+	   2 Input      5 Bit         XORs := 2     
+	   2 Input      4 Bit         XORs := 2     
+	   2 Input      1 Bit         XORs := 41    
+	   6 Input      1 Bit         XORs := 1     
+	   8 Input      1 Bit         XORs := 2     
+	  12 Input      1 Bit         XORs := 1     
+	  13 Input      1 Bit         XORs := 1     
+	  11 Input      1 Bit         XORs := 2     
++---Registers : 
+	              128 Bit    Registers := 1     
+	               48 Bit    Registers := 3     
+	               32 Bit    Registers := 21    
+	               24 Bit    Registers := 9     
+	               16 Bit    Registers := 18    
+	               13 Bit    Registers := 1     
+	               10 Bit    Registers := 3     
+	                9 Bit    Registers := 7     
+	                8 Bit    Registers := 92    
+	                7 Bit    Registers := 9     
+	                6 Bit    Registers := 7     
+	                5 Bit    Registers := 12    
+	                4 Bit    Registers := 20    
+	                3 Bit    Registers := 7     
+	                2 Bit    Registers := 14    
+	                1 Bit    Registers := 121   
++---Multipliers : 
+	                16x32  Multipliers := 1     
++---RAMs : 
+	               9K Bit         RAMs := 1     
+	              264 Bit         RAMs := 1     
+	              128 Bit         RAMs := 1     
++---Muxes : 
+	   2 Input    128 Bit        Muxes := 1     
+	   6 Input     48 Bit        Muxes := 1     
+	   2 Input     48 Bit        Muxes := 3     
+	   2 Input     32 Bit        Muxes := 11    
+	   5 Input     32 Bit        Muxes := 1     
+	  10 Input     24 Bit        Muxes := 2     
+	   3 Input     24 Bit        Muxes := 1     
+	   2 Input     24 Bit        Muxes := 6     
+	   5 Input     24 Bit        Muxes := 1     
+	   2 Input     16 Bit        Muxes := 24    
+	  10 Input     16 Bit        Muxes := 1     
+	   9 Input     13 Bit        Muxes := 1     
+	  12 Input     10 Bit        Muxes := 1     
+	   4 Input     10 Bit        Muxes := 1     
+	   6 Input      9 Bit        Muxes := 1     
+	   2 Input      9 Bit        Muxes := 11    
+	   4 Input      9 Bit        Muxes := 1     
+	   4 Input      8 Bit        Muxes := 5     
+	   2 Input      8 Bit        Muxes := 42    
+	   6 Input      8 Bit        Muxes := 3     
+	   9 Input      7 Bit        Muxes := 1     
+	   5 Input      5 Bit        Muxes := 1     
+	   4 Input      4 Bit        Muxes := 2     
+	   2 Input      4 Bit        Muxes := 8     
+	   4 Input      3 Bit        Muxes := 2     
+	   2 Input      3 Bit        Muxes := 6     
+	   5 Input      3 Bit        Muxes := 1     
+	   4 Input      2 Bit        Muxes := 3     
+	   3 Input      2 Bit        Muxes := 4     
+	   5 Input      2 Bit        Muxes := 2     
+	   2 Input      2 Bit        Muxes := 9     
+	   2 Input      1 Bit        Muxes := 291   
+	  12 Input      1 Bit        Muxes := 13    
+	   3 Input      1 Bit        Muxes := 5     
+	   5 Input      1 Bit        Muxes := 9     
+	  10 Input      1 Bit        Muxes := 7     
+	   4 Input      1 Bit        Muxes := 21    
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module fpga_apb_boot_cfg 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      4 Bit       Adders := 1     
++---Registers : 
+	               13 Bit    Registers := 1     
+	                7 Bit    Registers := 1     
+	                4 Bit    Registers := 1     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 5     
++---Muxes : 
+	   9 Input     13 Bit        Muxes := 1     
+	   9 Input      7 Bit        Muxes := 1     
+	   4 Input      2 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 18    
+Module cfg_reg_if_apb 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 3     
+	               16 Bit    Registers := 2     
+	                9 Bit    Registers := 1     
+	                8 Bit    Registers := 2     
+	                4 Bit    Registers := 1     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 13    
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 1     
+	  12 Input      1 Bit        Muxes := 13    
+	   2 Input      1 Bit        Muxes := 19    
+Module phy_digital_adapter 
+Detailed RTL Component Info : 
++---Muxes : 
+	   4 Input      4 Bit        Muxes := 1     
+Module lane_deskew_buffer 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      5 Bit       Adders := 4     
+	   2 Input      4 Bit       Adders := 8     
++---Registers : 
+	                8 Bit    Registers := 64    
+	                5 Bit    Registers := 4     
+	                4 Bit    Registers := 8     
+	                1 Bit    Registers := 1     
++---Muxes : 
+	   2 Input      4 Bit        Muxes := 8     
+	   3 Input      2 Bit        Muxes := 4     
+	   3 Input      1 Bit        Muxes := 4     
+	   2 Input      1 Bit        Muxes := 68    
+	   5 Input      1 Bit        Muxes := 1     
+Module lane_reorder_merge 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      2 Bit       Adders := 1     
++---Registers : 
+	                8 Bit    Registers := 4     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 1     
++---Muxes : 
+	   4 Input      8 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 6     
+Module async_fifo 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      5 Bit       Adders := 4     
+	   3 Input      5 Bit       Adders := 2     
++---XORs : 
+	   2 Input      5 Bit         XORs := 2     
+	   2 Input      1 Bit         XORs := 8     
++---Registers : 
+	                5 Bit    Registers := 8     
++---RAMs : 
+	              128 Bit         RAMs := 1     
+Module csi2_header_ecc_checker 
+Detailed RTL Component Info : 
++---XORs : 
+	   2 Input      6 Bit         XORs := 1     
+	   2 Input      1 Bit         XORs := 3     
+	   6 Input      1 Bit         XORs := 1     
+	   8 Input      1 Bit         XORs := 2     
+	  12 Input      1 Bit         XORs := 1     
+	  13 Input      1 Bit         XORs := 1     
+	  11 Input      1 Bit         XORs := 2     
++---Registers : 
+	                6 Bit    Registers := 2     
+	                1 Bit    Registers := 3     
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 2     
+Module csi2_long_packet_parser 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     16 Bit       Adders := 2     
++---Registers : 
+	               24 Bit    Registers := 1     
+	               16 Bit    Registers := 2     
+	                8 Bit    Registers := 1     
+	                6 Bit    Registers := 2     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	  10 Input     24 Bit        Muxes := 2     
+	   2 Input     16 Bit        Muxes := 1     
+	  10 Input     16 Bit        Muxes := 1     
+	  12 Input     10 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 3     
+	  10 Input      1 Bit        Muxes := 7     
+	   4 Input      1 Bit        Muxes := 1     
+Module packet_error_policy 
+Detailed RTL Component Info : 
++---Registers : 
+	                1 Bit    Registers := 1     
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 1     
+Module frame_line_sync_fsm 
+Detailed RTL Component Info : 
++---Registers : 
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 7     
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 14    
+	   4 Input      1 Bit        Muxes := 10    
+Module raw8_unpack 
+Detailed RTL Component Info : 
++---Registers : 
+	               24 Bit    Registers := 1     
+	                1 Bit    Registers := 3     
++---Muxes : 
+	   3 Input     24 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 1     
+Module raw10_unpack 
+Detailed RTL Component Info : 
++---Registers : 
+	               24 Bit    Registers := 1     
+	               10 Bit    Registers := 3     
+	                8 Bit    Registers := 4     
+	                1 Bit    Registers := 5     
++---Muxes : 
+	   2 Input     24 Bit        Muxes := 1     
+	   4 Input     10 Bit        Muxes := 1     
+	   5 Input      5 Bit        Muxes := 1     
+	   5 Input      2 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 13    
+	   5 Input      1 Bit        Muxes := 1     
+	   4 Input      1 Bit        Muxes := 2     
+Module rgb888_unpack 
+Detailed RTL Component Info : 
++---Registers : 
+	               24 Bit    Registers := 1     
+	                8 Bit    Registers := 2     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 5     
++---Muxes : 
+	   2 Input      2 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 11    
+Module yuv422_unpack 
+Detailed RTL Component Info : 
++---Registers : 
+	               24 Bit    Registers := 1     
+	                8 Bit    Registers := 4     
+	                1 Bit    Registers := 7     
++---Muxes : 
+	   2 Input     24 Bit        Muxes := 1     
+	   4 Input      4 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 18    
+	   4 Input      1 Bit        Muxes := 1     
+Module pixel_frame_stats_v1 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     48 Bit       Adders := 3     
+	   2 Input     32 Bit       Adders := 3     
+	   3 Input     10 Bit       Adders := 1     
++---Registers : 
+	               48 Bit    Registers := 3     
+	               32 Bit    Registers := 6     
+	               16 Bit    Registers := 3     
+	                8 Bit    Registers := 4     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	   6 Input     48 Bit        Muxes := 1     
+	   2 Input     48 Bit        Muxes := 3     
+	   2 Input     32 Bit        Muxes := 3     
+	   5 Input     32 Bit        Muxes := 1     
+	   4 Input      8 Bit        Muxes := 4     
+	   2 Input      8 Bit        Muxes := 4     
+	   2 Input      2 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 11    
+Module adaptive_preprocess_ctrl_v1 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     24 Bit       Adders := 3     
+	   3 Input     18 Bit       Adders := 1     
+	   2 Input     17 Bit       Adders := 1     
+	   2 Input     16 Bit       Adders := 1     
+	   3 Input      9 Bit       Adders := 1     
++---Registers : 
+	                9 Bit    Registers := 1     
+	                8 Bit    Registers := 4     
+	                1 Bit    Registers := 1     
++---Muxes : 
+	   2 Input     16 Bit        Muxes := 5     
+	   6 Input      9 Bit        Muxes := 1     
+	   2 Input      9 Bit        Muxes := 3     
+	   6 Input      8 Bit        Muxes := 3     
+	   2 Input      8 Bit        Muxes := 17    
+	   2 Input      1 Bit        Muxes := 2     
+Module brightness_adjust 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     20 Bit       Adders := 3     
++---Registers : 
+	               24 Bit    Registers := 1     
+	                1 Bit    Registers := 3     
++---Muxes : 
+	   2 Input     24 Bit        Muxes := 1     
+	   2 Input      8 Bit        Muxes := 6     
+	   2 Input      1 Bit        Muxes := 1     
+Module contrast_adjust 
+Detailed RTL Component Info : 
++---Adders : 
+	   3 Input     32 Bit       Adders := 3     
+	   2 Input      9 Bit       Adders := 6     
++---Registers : 
+	               24 Bit    Registers := 1     
+	                1 Bit    Registers := 3     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 6     
+	   2 Input     24 Bit        Muxes := 1     
+	   2 Input      8 Bit        Muxes := 6     
+	   2 Input      1 Bit        Muxes := 1     
+Module gray_balance 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     20 Bit       Adders := 3     
++---Registers : 
+	               24 Bit    Registers := 1     
+	                1 Bit    Registers := 3     
++---Muxes : 
+	   2 Input     24 Bit        Muxes := 1     
+	   2 Input      8 Bit        Muxes := 6     
+	   2 Input      1 Bit        Muxes := 1     
+Module preprocess_bypass_mux 
+Detailed RTL Component Info : 
++---Registers : 
+	               24 Bit    Registers := 1     
+	                1 Bit    Registers := 3     
++---Muxes : 
+	   2 Input     24 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 4     
+Module csi2_payload_crc_checker 
+Detailed RTL Component Info : 
++---XORs : 
+	   2 Input     16 Bit         XORs := 8     
+	   2 Input      1 Bit         XORs := 8     
++---Registers : 
+	               16 Bit    Registers := 3     
+	                1 Bit    Registers := 5     
++---Muxes : 
+	   2 Input     16 Bit        Muxes := 11    
+	   2 Input      1 Bit        Muxes := 16    
+Module err_classifier 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 2     
+	                6 Bit    Registers := 1     
+	                3 Bit    Registers := 1     
+	                2 Bit    Registers := 2     
+	                1 Bit    Registers := 1     
++---Muxes : 
+	   4 Input      3 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 2     
+	   2 Input      2 Bit        Muxes := 3     
+	   2 Input      1 Bit        Muxes := 1     
+Module err_frame_line_logger 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 2     
+	                6 Bit    Registers := 1     
+	                3 Bit    Registers := 1     
+	                2 Bit    Registers := 2     
+	                1 Bit    Registers := 1     
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 1     
+	   5 Input      1 Bit        Muxes := 4     
+Module resync_ctrl_fsm 
+Detailed RTL Component Info : 
++---Registers : 
+	                1 Bit    Registers := 3     
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 4     
+	   3 Input      1 Bit        Muxes := 1     
+Module degrade_recover_fsm 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      2 Bit       Adders := 1     
++---Registers : 
+	                3 Bit    Registers := 1     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	   2 Input      3 Bit        Muxes := 2     
+	   4 Input      3 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 10    
+Module async_fifo__parameterized0 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      7 Bit       Adders := 4     
+	   3 Input      7 Bit       Adders := 2     
++---XORs : 
+	   2 Input      7 Bit         XORs := 2     
+	   2 Input      1 Bit         XORs := 12    
++---Registers : 
+	                7 Bit    Registers := 8     
++---RAMs : 
+	               9K Bit         RAMs := 1     
+Module async_fifo__parameterized1 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      4 Bit       Adders := 4     
+	   3 Input      4 Bit       Adders := 2     
++---XORs : 
+	   2 Input      4 Bit         XORs := 2     
+	   2 Input      1 Bit         XORs := 6     
++---Registers : 
+	                4 Bit    Registers := 8     
++---RAMs : 
+	              264 Bit         RAMs := 1     
+Module addr_gen_frame_based 
+Detailed RTL Component Info : 
++---Adders : 
+	   3 Input     32 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 1     
+	                1 Bit    Registers := 1     
++---Multipliers : 
+	                16x32  Multipliers := 1     
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 1     
+Module axi_burst_gen 
+Detailed RTL Component Info : 
++---Adders : 
+	   3 Input     16 Bit       Adders := 1     
+	   2 Input      8 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 2     
+	               16 Bit    Registers := 1     
+	                9 Bit    Registers := 1     
+	                8 Bit    Registers := 1     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 1     
+	   2 Input     16 Bit        Muxes := 2     
+	   2 Input      9 Bit        Muxes := 8     
+	   2 Input      8 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 9     
+Module axi_write_master 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     17 Bit       Adders := 1     
+	   2 Input      9 Bit       Adders := 2     
++---Registers : 
+	               32 Bit    Registers := 1     
+	                9 Bit    Registers := 2     
+	                8 Bit    Registers := 1     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 3     
++---Muxes : 
+	   2 Input     16 Bit        Muxes := 1     
+	   4 Input      9 Bit        Muxes := 1     
+	   5 Input      2 Bit        Muxes := 1     
+	   4 Input      1 Bit        Muxes := 7     
+	   2 Input      1 Bit        Muxes := 5     
+Module pixel_to_axi_writer 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     16 Bit       Adders := 3     
+	   2 Input      3 Bit       Adders := 1     
++---XORs : 
+	   2 Input      1 Bit         XORs := 2     
++---Registers : 
+	              128 Bit    Registers := 1     
+	               32 Bit    Registers := 4     
+	               16 Bit    Registers := 7     
+	                9 Bit    Registers := 2     
+	                3 Bit    Registers := 2     
+	                1 Bit    Registers := 21    
++---Muxes : 
+	   2 Input    128 Bit        Muxes := 1     
+	   2 Input     16 Bit        Muxes := 4     
+	   2 Input      1 Bit        Muxes := 35    
+Module mipi_csi2_capture_top 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      3 Bit       Adders := 1     
++---XORs : 
+	   2 Input      1 Bit         XORs := 2     
++---Registers : 
+	                6 Bit    Registers := 1     
+	                4 Bit    Registers := 2     
+	                3 Bit    Registers := 2     
+	                2 Bit    Registers := 2     
+	                1 Bit    Registers := 12    
++---Muxes : 
+	   5 Input     24 Bit        Muxes := 1     
+	   5 Input      3 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 2     
+	   2 Input      2 Bit        Muxes := 2     
+	   4 Input      2 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 11    
+	   5 Input      1 Bit        Muxes := 3     
+Module axi_write_null_slave 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      8 Bit       Adders := 2     
++---Registers : 
+	                8 Bit    Registers := 1     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	   2 Input      8 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 4     
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 2520 (col length:168)
+BRAMs: 1824 (col length: RAMB18 168 RAMB36 84)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5546] ROM "cfg_enable_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "cfg_img_width_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "cfg_img_height_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "cfg_lane_num_minus1_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "cfg_dt_code_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "cfg_frame_base_addr_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "cfg_line_stride_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "cfg_enable_err_log_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "cfg_preprocess_bypass_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "cfg_dbg_sel_o" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "cfg_axi_max_burst_len_o" won't be mapped to RAM because it is too sparse
+WARNING: [Synth 8-6014] Unused sequential element lane_cnt_reg[1] was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/lane_deskew_buffer.sv:63]
+WARNING: [Synth 8-6014] Unused sequential element lane_cnt_reg[2] was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/lane_deskew_buffer.sv:63]
+WARNING: [Synth 8-6014] Unused sequential element lane_cnt_reg[3] was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/lane_deskew_buffer.sv:63]
+WARNING: [Synth 8-6014] Unused sequential element lane_cnt_reg[0] was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/lane_deskew_buffer.sv:63]
+WARNING: [Synth 8-6014] Unused sequential element wr_ptr_bin_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/buffer/async_fifo.sv:88]
+WARNING: [Synth 8-6014] Unused sequential element rd_ptr_bin_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/buffer/async_fifo.sv:84]
+WARNING: [Synth 8-6014] Unused sequential element u_header_ecc_checker/ecc_calc_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/csi2_header_ecc_checker.sv:80]
+INFO: [Synth 8-5546] ROM "packet_done" won't be mapped to RAM because it is too sparse
+WARNING: [Synth 8-6014] Unused sequential element frame_cnt_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/frame_line_sync_fsm.sv:43]
+WARNING: [Synth 8-6014] Unused sequential element line_cnt_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/frame_line_sync_fsm.sv:44]
+DSP Report: Generating DSP bias_value1, operation Mode is: A*B.
+DSP Report: operator bias_value1 is absorbed into DSP bias_value1.
+WARNING: [Synth 8-6014] Unused sequential element wr_ptr_bin_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/buffer/async_fifo.sv:88]
+WARNING: [Synth 8-6014] Unused sequential element rd_ptr_bin_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/buffer/async_fifo.sv:84]
+WARNING: [Synth 8-6014] Unused sequential element wr_ptr_bin_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/buffer/async_fifo.sv:88]
+WARNING: [Synth 8-6014] Unused sequential element rd_ptr_bin_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/buffer/async_fifo.sv:84]
+INFO: [Synth 8-5845] Not enough pipeline registers after wide multiplier. Recommended levels of pipeline registers is 2 [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/addr_gen_frame_based.sv:24]
+DSP Report: Generating DSP line_offset, operation Mode is: A*B.
+DSP Report: operator line_offset is absorbed into DSP line_offset.
+DSP Report: operator line_offset is absorbed into DSP line_offset.
+DSP Report: Generating DSP line_offset, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator line_offset is absorbed into DSP line_offset.
+DSP Report: operator line_offset is absorbed into DSP line_offset.
+INFO: [Synth 8-5546] ROM "u_axi_burst_gen/remaining_beat_cnt" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "u_axi_burst_gen/burst_valid_o" won't be mapped to RAM because it is too sparse
+WARNING: [Synth 8-6014] Unused sequential element u_axi_burst_gen/next_addr_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/axi_burst_gen.sv:68]
+INFO: [Synth 8-4471] merging register 'sys_pack_count_q_reg[2:0]' into 'sys_pack_count_q_reg[2:0]' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/pixel_to_axi_writer.sv:158]
+INFO: [Synth 8-4471] merging register 'sys_pack_count_q_reg[2:0]' into 'sys_pack_count_q_reg[2:0]' [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/pixel_to_axi_writer.sv:158]
+WARNING: [Synth 8-6014] Unused sequential element sys_pack_count_q_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/pixel_to_axi_writer.sv:158]
+WARNING: [Synth 8-6014] Unused sequential element sys_pack_count_q_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/pixel_to_axi_writer.sv:158]
+WARNING: [Synth 8-6014] Unused sequential element discard_bytes_left_q_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/pixel_to_axi_writer.sv:410]
+WARNING: [Synth 8-6014] Unused sequential element sys_line_byte_cnt_q_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/pixel_to_axi_writer.sv:220]
+WARNING: [Synth 8-6014] Unused sequential element u_err_classifier/frame_id_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_classifier.sv:46]
+WARNING: [Synth 8-6014] Unused sequential element u_err_classifier/line_id_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_classifier.sv:47]
+WARNING: [Synth 8-6014] Unused sequential element u_err_frame_line_logger/last_frame_id_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_frame_line_logger.sv:45]
+WARNING: [Synth 8-6014] Unused sequential element u_err_frame_line_logger/last_line_id_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_frame_line_logger.sv:46]
+WARNING: [Synth 8-6014] Unused sequential element u_err_frame_line_logger/last_vc_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_frame_line_logger.sv:47]
+WARNING: [Synth 8-6014] Unused sequential element u_err_frame_line_logger/last_dt_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_frame_line_logger.sv:48]
+WARNING: [Synth 8-6014] Unused sequential element u_resync_ctrl_fsm/resync_done_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/resync_ctrl_fsm.sv:28]
+WARNING: [Synth 8-6014] Unused sequential element u_err_classifier/err_cnt_lane_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_classifier.sv:53]
+WARNING: [Synth 8-6014] Unused sequential element u_err_frame_line_logger/total_err_cnt_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_frame_line_logger.sv:49]
+WARNING: [Synth 8-6014] Unused sequential element u_err_frame_line_logger/ecc_err_cnt_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_frame_line_logger.sv:50]
+WARNING: [Synth 8-6014] Unused sequential element u_err_frame_line_logger/crc_err_cnt_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_frame_line_logger.sv:51]
+WARNING: [Synth 8-6014] Unused sequential element u_err_frame_line_logger/sync_err_cnt_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_frame_line_logger.sv:52]
+WARNING: [Synth 8-6014] Unused sequential element u_err_frame_line_logger/lane_err_cnt_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_frame_line_logger.sv:53]
+WARNING: [Synth 8-6014] Unused sequential element u_err_classifier/err_cnt_ecc_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_classifier.sv:50]
+WARNING: [Synth 8-6014] Unused sequential element u_err_classifier/err_cnt_crc_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_classifier.sv:51]
+WARNING: [Synth 8-6014] Unused sequential element u_err_classifier/err_cnt_sync_o_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_classifier.sv:52]
+WARNING: [Synth 8-6014] Unused sequential element u_fpga_apb_boot_cfg/cfg_idx_q_reg was removed.  [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/top/fpga_apb_boot_cfg.sv:102]
+INFO: [Synth 8-3886] merging instance 'u_fpga_apb_boot_cfg/pwdata_o_reg[11]' (FDRE) to 'u_fpga_apb_boot_cfg/pwdata_o_reg[2]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_cfg_reg_if_apb/cfg_img_height_o_reg[13]' (FDRE) to 'u_mipi_csi2_capture_top/u_cfg_reg_if_apb/cfg_img_height_o_reg[14]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_cfg_reg_if_apb/cfg_img_height_o_reg[14]' (FDRE) to 'u_mipi_csi2_capture_top/u_cfg_reg_if_apb/cfg_img_height_o_reg[15]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_cfg_reg_if_apb/\cfg_img_height_o_reg[15] )
+INFO: [Synth 8-3886] merging instance 'u_fpga_apb_boot_cfg/pwdata_o_reg[6]' (FDRE) to 'u_fpga_apb_boot_cfg/pwdata_o_reg[2]'
+INFO: [Synth 8-3886] merging instance 'u_fpga_apb_boot_cfg/pwdata_o_reg[7]' (FDRE) to 'u_fpga_apb_boot_cfg/pwdata_o_reg[8]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_degrade_recover_fsm/\active_lane_num_o_reg[0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_line_byte_cnt_q0_inferred/\sys_line_byte_cnt_q_reg[0] )
+INFO: [Synth 8-3886] merging instance 'u_fpga_apb_boot_cfg/pwdata_o_reg[2]' (FDRE) to 'u_fpga_apb_boot_cfg/paddr_o_reg[0]'
+INFO: [Synth 8-3886] merging instance 'u_fpga_apb_boot_cfg/pwdata_o_reg[8]' (FDRE) to 'u_fpga_apb_boot_cfg/pwdata_o_reg[9]'
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (\u_fpga_apb_boot_cfg/pwrite_o_reg )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\u_fpga_apb_boot_cfg/penable_o_reg )
+INFO: [Synth 8-3886] merging instance 'u_fpga_apb_boot_cfg/paddr_o_reg[1]' (FDRE) to 'u_fpga_apb_boot_cfg/paddr_o_reg[0]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\u_fpga_apb_boot_cfg/paddr_o_reg[0] )
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[8]' (FDRE) to 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[9]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[9]' (FDRE) to 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[10]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[10]' (FDRE) to 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[11]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[11]' (FDRE) to 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[12]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[12]' (FDRE) to 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[13]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[13]' (FDRE) to 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[14]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[14]' (FDRE) to 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[15]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[15]' (FDRE) to 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[16]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[16]' (FDRE) to 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[17]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[17]' (FDRE) to 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[18]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[18]' (FDRE) to 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[19]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[19]' (FDRE) to 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[20]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[20]' (FDRE) to 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[21]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[21]' (FDRE) to 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[22]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[22]' (FDRE) to 'u_mipi_csi2_capture_top/u_raw8_unpack/pixel_data_o_reg[23]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/\u_raw8_unpack/pixel_data_o_reg[23] )
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_cfg_reg_if_apb/cfg_img_height_o_reg[3]' (FDSE) to 'u_mipi_csi2_capture_top/u_cfg_reg_if_apb/cfg_enable_resync_o_reg'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_cfg_reg_if_apb/cfg_img_height_o_reg[4]' (FDSE) to 'u_mipi_csi2_capture_top/u_cfg_reg_if_apb/cfg_lane_enable_mask_o_reg[0]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_cfg_reg_if_apb/cfg_img_height_o_reg[5]' (FDSE) to 'u_mipi_csi2_capture_top/u_cfg_reg_if_apb/cfg_lane_enable_mask_o_reg[1]'
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (u_mipi_csi2_capture_top/u_cfg_reg_if_apb/\cfg_img_height_o_reg[10] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_line_id_q_reg[10] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_line_id_q_reg[11] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_line_id_q_reg[8] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_line_id_q_reg[9] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_line_id_q_reg[6] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_line_id_q_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_line_id_q_reg[4] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_line_id_q_reg[5] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_line_id_q_reg[2] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_line_id_q_reg[3] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_line_id_q_reg[0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_line_id_q_reg[1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\u_pixel_data_fifo/bin_value_inferred /\u_pixel_data_fifo/wr_ptr_bin_reg[6] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\u_pixel_data_fifo/bin_value_inferred /\u_pixel_data_fifo/wr_ptr_bin_reg[4] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\u_pixel_data_fifo/bin_value_inferred /\u_pixel_data_fifo/wr_ptr_bin_reg[3] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\u_pixel_data_fifo/bin_value_inferred /\u_pixel_data_fifo/wr_ptr_bin_reg[2] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\u_pixel_data_fifo/bin_value_inferred /\u_pixel_data_fifo/wr_ptr_bin_reg[1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\u_pixel_data_fifo/bin_value_inferred /\u_pixel_data_fifo/wr_ptr_bin_reg[0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\u_pixel_data_fifo/bin_value_inferred /\u_pixel_data_fifo/wr_ptr_bin_reg[5] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_line_drop_pending_q_reg)
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_line_id_q_reg[14] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_line_id_q_reg[15] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_line_id_q_reg[12] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_line_id_q_reg[13] )
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_pack_count_q_reg[1]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_line_end_pending_q_reg'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_line_end_pending_q_reg)
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_line_byte_cnt_q0_inferred/\sys_line_byte_cnt_q_reg[6] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_line_byte_cnt_q0_inferred/\sys_line_byte_cnt_q_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_line_byte_cnt_q0_inferred/\sys_line_byte_cnt_q_reg[4] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_line_byte_cnt_q0_inferred/\sys_line_byte_cnt_q_reg[5] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_line_byte_cnt_q0_inferred/\sys_line_byte_cnt_q_reg[1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_line_byte_cnt_q0_inferred/\sys_line_byte_cnt_q_reg[2] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_line_byte_cnt_q0_inferred/\sys_line_byte_cnt_q_reg[3] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_line_byte_cnt_q0_inferred/\sys_line_byte_cnt_q_reg[15] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_line_byte_cnt_q0_inferred/\sys_line_byte_cnt_q_reg[14] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_line_byte_cnt_q0_inferred/\sys_line_byte_cnt_q_reg[12] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_line_byte_cnt_q0_inferred/\sys_line_byte_cnt_q_reg[13] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_line_byte_cnt_q0_inferred/\sys_line_byte_cnt_q_reg[8] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_line_byte_cnt_q0_inferred/\sys_line_byte_cnt_q_reg[9] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_line_byte_cnt_q0_inferred/\sys_line_byte_cnt_q_reg[10] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_line_byte_cnt_q0_inferred/\sys_line_byte_cnt_q_reg[11] )
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_cfg_reg_if_apb/cfg_axi_max_burst_len_o_reg[4]' (FDSE) to 'u_mipi_csi2_capture_top/u_cfg_reg_if_apb/cfg_lane_enable_mask_o_reg[0]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[10]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[0]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_byte_len_q_reg[0]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[0]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[11]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[0]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[8]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[0]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[9]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[0]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[6]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[0]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[7]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[0]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[4]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[0]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[5]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[0]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[2]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[0]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[3]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[0]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[0]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[1]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[1]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[12]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_cmd_byte_len_q_reg[14] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_cmd_byte_len_q_reg[15] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_cmd_byte_len_q_reg[12] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_cmd_byte_len_q_reg[13] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_cmd_byte_len_q_reg[10] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_cmd_byte_len_q_reg[11] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_cmd_byte_len_q_reg[8] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_cmd_byte_len_q_reg[9] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_cmd_byte_len_q_reg[6] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_cmd_byte_len_q_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_cmd_byte_len_q_reg[4] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_cmd_byte_len_q_reg[5] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_cmd_byte_len_q_reg[2] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_cmd_byte_len_q_reg[3] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_cmd_byte_len_q_reg[1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\u_pixel_data_fifo/wr_ptr_gray_reg[6] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\u_pixel_data_fifo/wr_ptr_gray_reg[0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\u_pixel_data_fifo/wr_ptr_gray_reg[1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\u_pixel_data_fifo/wr_ptr_gray_reg[2] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\u_pixel_data_fifo/wr_ptr_gray_reg[3] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\u_pixel_data_fifo/wr_ptr_gray_reg[4] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\u_pixel_data_fifo/wr_ptr_gray_reg[5] )
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_max_burst_meta_q_reg[8]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_enable_meta_q_reg'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_max_burst_meta_q_reg[7]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_enable_meta_q_reg'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_max_burst_meta_q_reg[6]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_enable_meta_q_reg'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_max_burst_meta_q_reg[5]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_enable_meta_q_reg'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_max_burst_meta_q_reg[3]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_enable_meta_q_reg'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_max_burst_meta_q_reg[2]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_enable_meta_q_reg'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_max_burst_meta_q_reg[1]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_enable_meta_q_reg'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_max_burst_meta_q_reg[0]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_enable_meta_q_reg'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_max_burst_axi_q_reg[8]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_enable_meta_q_reg'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_max_burst_axi_q_reg[7]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_enable_meta_q_reg'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_max_burst_axi_q_reg[6]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_enable_meta_q_reg'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_max_burst_axi_q_reg[5]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_enable_meta_q_reg'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_max_burst_axi_q_reg[3]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_enable_meta_q_reg'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_max_burst_axi_q_reg[2]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_enable_meta_q_reg'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_max_burst_axi_q_reg[1]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_enable_meta_q_reg'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_max_burst_axi_q_reg[0]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_enable_meta_q_reg'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_enable_meta_q_reg)
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_drop_q_reg)
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[14]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[12]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[15]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[12]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[12]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_line_id_q_reg[13]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/\sys_cmd_line_id_q_reg[13] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_to_axi_writer/sys_cmd_pending_q_reg)
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff1_reg[6]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff1_reg[0]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff1_reg[0]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff1_reg[1]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff1_reg[1]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff1_reg[2]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff1_reg[2]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff1_reg[3]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff1_reg[3]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff1_reg[4]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff1_reg[4]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff1_reg[5]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_cfg_reg_if_apb/cfg_enable_degrade_o_reg' (FDSE) to 'u_mipi_csi2_capture_top/u_cfg_reg_if_apb/cfg_lane_enable_mask_o_reg[0]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_enable_axi_q_reg' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/cfg_enable_meta_q_reg'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff2_reg[6]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff2_reg[0]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff2_reg[0]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff2_reg[1]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff2_reg[1]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff2_reg[2]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff2_reg[2]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff2_reg[3]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff2_reg[3]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff2_reg[4]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff2_reg[4]' (FDR) to 'u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff2_reg[5]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\luma_max_acc_reg[0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\luma_min_acc_reg[0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\luma_min_acc_reg[1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\luma_max_acc_reg[1] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\luma_min_acc_reg[2] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\luma_max_acc_reg[2] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\luma_min_acc_reg[3] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\luma_max_acc_reg[3] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\luma_min_acc_reg[4] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\luma_max_acc_reg[4] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\luma_min_acc_reg[5] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\luma_max_acc_reg[5] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\luma_min_acc_reg[6] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\luma_max_acc_reg[6] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\luma_max_acc_reg[7] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\luma_min_acc_reg[7] )
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_cfg_reg_if_apb/cfg_lane_num_minus1_o_reg[0]' (FDSE) to 'u_mipi_csi2_capture_top/u_cfg_reg_if_apb/cfg_preprocess_bypass_o_reg'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_cfg_reg_if_apb/cfg_enable_err_log_o_reg' (FDSE) to 'u_mipi_csi2_capture_top/u_cfg_reg_if_apb/cfg_preprocess_bypass_o_reg'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_cfg_reg_if_apb/cfg_lane_enable_mask_o_reg[1]' (FDSE) to 'u_mipi_csi2_capture_top/u_cfg_reg_if_apb/cfg_dt_code_o_reg[5]'
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (u_mipi_csi2_capture_top/u_cfg_reg_if_apb/\cfg_lane_enable_mask_o_reg[0] )
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_max_o_reg[0]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_max_o_reg[7]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_min_o_reg[0]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_min_o_reg[1]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_min_o_reg[1]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_min_o_reg[2]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_max_o_reg[1]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_max_o_reg[7]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_min_o_reg[2]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_min_o_reg[3]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_max_o_reg[2]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_max_o_reg[7]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_min_o_reg[3]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_min_o_reg[4]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_max_o_reg[3]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_max_o_reg[7]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_min_o_reg[4]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_min_o_reg[5]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_max_o_reg[4]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_max_o_reg[7]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_min_o_reg[5]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_min_o_reg[6]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_max_o_reg[5]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_max_o_reg[7]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_min_o_reg[6]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_min_o_reg[7]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_max_o_reg[6]' (FDRE) to 'u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/luma_max_o_reg[7]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\luma_max_o_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\luma_min_o_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\sum_g_acc_reg[47] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\sum_b_acc_reg[47] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\sum_r_acc_reg[47] )
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_adaptive_preprocess_ctrl_v1/stretch_bias_o_reg[0]' (FDRE) to 'u_mipi_csi2_capture_top/u_adaptive_preprocess_ctrl_v1/stretch_bias_o_reg[1]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_adaptive_preprocess_ctrl_v1/stretch_bias_o_reg[1]' (FDRE) to 'u_mipi_csi2_capture_top/u_adaptive_preprocess_ctrl_v1/stretch_bias_o_reg[2]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_adaptive_preprocess_ctrl_v1/stretch_bias_o_reg[2]' (FDRE) to 'u_mipi_csi2_capture_top/u_adaptive_preprocess_ctrl_v1/stretch_bias_o_reg[3]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_adaptive_preprocess_ctrl_v1/stretch_bias_o_reg[3]' (FDRE) to 'u_mipi_csi2_capture_top/u_adaptive_preprocess_ctrl_v1/stretch_bias_o_reg[4]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_adaptive_preprocess_ctrl_v1/stretch_bias_o_reg[4]' (FDRE) to 'u_mipi_csi2_capture_top/u_adaptive_preprocess_ctrl_v1/stretch_bias_o_reg[5]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_adaptive_preprocess_ctrl_v1/stretch_bias_o_reg[5]' (FDRE) to 'u_mipi_csi2_capture_top/u_adaptive_preprocess_ctrl_v1/stretch_bias_o_reg[6]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_adaptive_preprocess_ctrl_v1/stretch_bias_o_reg[6]' (FDRE) to 'u_mipi_csi2_capture_top/u_adaptive_preprocess_ctrl_v1/stretch_bias_o_reg[7]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_adaptive_preprocess_ctrl_v1/stretch_bias_o_reg[7]' (FDRE) to 'u_mipi_csi2_capture_top/u_adaptive_preprocess_ctrl_v1/stretch_bias_o_reg[8]'
+INFO: [Synth 8-3886] merging instance 'u_mipi_csi2_capture_top/u_adaptive_preprocess_ctrl_v1/stretch_gain_o_reg[0]' (FDE) to 'u_mipi_csi2_capture_top/u_adaptive_preprocess_ctrl_v1/stretch_gain_o_reg[1]'
+INFO: [Common 17-14] Message 'Synth 8-3886' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (u_mipi_csi2_capture_top/u_adaptive_preprocess_ctrl_v1/\stretch_gain_o_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_adaptive_preprocess_ctrl_v1/\stretch_gain_o_reg[5] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\sum_g_acc_reg[0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_mipi_csi2_capture_top/u_pixel_frame_stats_v1/\sum_b_acc_reg[0] )
+INFO: [Common 17-14] Message 'Synth 8-3333' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+WARNING: [Synth 8-3332] Sequential element (cfg_enable_o_reg) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (overflow_sticky_q_reg) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_width_o_reg[15]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_width_o_reg[14]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_width_o_reg[13]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_width_o_reg[12]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_width_o_reg[11]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_width_o_reg[10]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_width_o_reg[9]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_width_o_reg[8]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_width_o_reg[7]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_width_o_reg[6]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_width_o_reg[5]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_width_o_reg[4]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_width_o_reg[3]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_width_o_reg[2]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_width_o_reg[1]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_width_o_reg[0]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_height_o_reg[15]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_height_o_reg[12]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_height_o_reg[11]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_height_o_reg[10]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_height_o_reg[9]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_height_o_reg[8]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_height_o_reg[7]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_height_o_reg[6]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_height_o_reg[2]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_height_o_reg[1]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_img_height_o_reg[0]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_lane_num_minus1_o_reg[1]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_lane_enable_mask_o_reg[3]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_lane_enable_mask_o_reg[2]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_dt_code_o_reg[7]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_dt_code_o_reg[6]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_dt_code_o_reg[4]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_dt_code_o_reg[2]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_dt_code_o_reg[1]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_dt_code_o_reg[0]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_vc_id_o_reg[7]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_vc_id_o_reg[6]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_vc_id_o_reg[5]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_vc_id_o_reg[4]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_vc_id_o_reg[3]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_vc_id_o_reg[2]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_vc_id_o_reg[1]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_vc_id_o_reg[0]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[31]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[30]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[29]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[28]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[27]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[26]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[25]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[24]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[23]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[22]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[21]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[20]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[19]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[18]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[17]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[16]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[15]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[14]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[13]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[12]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[11]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[10]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[9]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[8]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[7]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[6]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[5]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[4]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[3]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[2]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[1]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_frame_base_addr_o_reg[0]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_line_stride_o_reg[31]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_line_stride_o_reg[30]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_line_stride_o_reg[29]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_line_stride_o_reg[28]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_line_stride_o_reg[27]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_line_stride_o_reg[26]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_line_stride_o_reg[25]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_line_stride_o_reg[24]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_line_stride_o_reg[23]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_line_stride_o_reg[22]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_line_stride_o_reg[21]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_line_stride_o_reg[20]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_line_stride_o_reg[19]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_line_stride_o_reg[18]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_line_stride_o_reg[17]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_line_stride_o_reg[16]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_line_stride_o_reg[15]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_line_stride_o_reg[14]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_line_stride_o_reg[13]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_line_stride_o_reg[12]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_line_stride_o_reg[11]) is unused and will be removed from module cfg_reg_if_apb.
+WARNING: [Synth 8-3332] Sequential element (cfg_line_stride_o_reg[10]) is unused and will be removed from module cfg_reg_if_apb.
+INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:57 ; elapsed = 00:01:02 . Memory (MB): peak = 1265.098 ; gain = 948.938
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Preliminary Mapping  Report (see note below)
++-------------------------------------------+------------+-----------+----------------------+----------------+
+|Module Name                                | RTL Object | Inference | Size (Depth x Width) | Primitives     | 
++-------------------------------------------+------------+-----------+----------------------+----------------+
+|u_mipi_csi2_capture_top/u_byte_to_sys_fifo | mem_reg    | Implied   | 16 x 8               | RAM32M16 x 1   | 
++-------------------------------------------+------------+-----------+----------------------+----------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+
+DSP: Preliminary Mapping  Report (see note below)
++----------------------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name                 | DSP Mapping    | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++----------------------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|adaptive_preprocess_ctrl_v1 | A*B            | 16     | 8      | -      | -      | 24     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|addr_gen_frame_based        | A*B            | 18     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|addr_gen_frame_based        | (PCIN>>17)+A*B | 17     | 16     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
++----------------------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:16 ; elapsed = 00:01:24 . Memory (MB): peak = 1894.715 ; gain = 1578.555
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:01:18 ; elapsed = 00:01:25 . Memory (MB): peak = 1933.035 ; gain = 1616.875
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Final Mapping  Report
++-------------------------------------------+------------+-----------+----------------------+----------------+
+|Module Name                                | RTL Object | Inference | Size (Depth x Width) | Primitives     | 
++-------------------------------------------+------------+-----------+----------------------+----------------+
+|u_mipi_csi2_capture_top/u_byte_to_sys_fifo | mem_reg    | Implied   | 16 x 8               | RAM32M16 x 1   | 
++-------------------------------------------+------------+-----------+----------------------+----------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:01:18 ; elapsed = 00:01:26 . Memory (MB): peak = 1933.035 ; gain = 1616.875
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:01:19 ; elapsed = 00:01:27 . Memory (MB): peak = 1933.035 ; gain = 1616.875
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:19 ; elapsed = 00:01:27 . Memory (MB): peak = 1933.035 ; gain = 1616.875
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:19 ; elapsed = 00:01:27 . Memory (MB): peak = 1933.035 ; gain = 1616.875
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:19 ; elapsed = 00:01:27 . Memory (MB): peak = 1933.035 ; gain = 1616.875
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:19 ; elapsed = 00:01:27 . Memory (MB): peak = 1933.035 ; gain = 1616.875
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:19 ; elapsed = 00:01:27 . Memory (MB): peak = 1933.035 ; gain = 1616.875
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+---------+------+
+|      |Cell     |Count |
++------+---------+------+
+|1     |BUFG     |     3|
+|2     |LUT1     |    21|
+|3     |LUT2     |    53|
+|4     |LUT3     |   123|
+|5     |LUT4     |   106|
+|6     |LUT5     |    88|
+|7     |LUT6     |   233|
+|8     |MUXF7    |    32|
+|9     |MUXF8    |    16|
+|10    |RAM32M16 |     1|
+|11    |FDRE     |   777|
+|12    |FDSE     |    41|
+|13    |IBUF     |    24|
+|14    |OBUF     |    35|
++------+---------+------+
+
+Report Instance Areas: 
++------+------------------------------+---------------------------+------+
+|      |Instance                      |Module                     |Cells |
++------+------------------------------+---------------------------+------+
+|1     |top                           |                           |  1553|
+|2     |  u_axi_write_null_slave      |axi_write_null_slave       |    22|
+|3     |  u_fpga_apb_boot_cfg         |fpga_apb_boot_cfg          |    17|
+|4     |  u_mipi_csi2_capture_top     |mipi_csi2_capture_top      |  1452|
+|5     |    u_byte_to_sys_fifo        |async_fifo                 |    72|
+|6     |    u_csi2_long_packet_parser |csi2_long_packet_parser    |   239|
+|7     |      u_header_ecc_checker    |csi2_header_ecc_checker    |    27|
+|8     |    u_degrade_recover_fsm     |degrade_recover_fsm        |    13|
+|9     |    u_err_classifier          |err_classifier             |     1|
+|10    |    u_frame_line_sync_fsm     |frame_line_sync_fsm        |     9|
+|11    |    u_lane_deskew_buffer      |lane_deskew_buffer         |   486|
+|12    |    u_lane_reorder_merge      |lane_reorder_merge         |    33|
+|13    |    u_payload_crc_checker     |csi2_payload_crc_checker   |   151|
+|14    |    u_phy_digital_adapter     |phy_digital_adapter        |     2|
+|15    |    u_pixel_to_axi_writer     |pixel_to_axi_writer        |    81|
+|16    |      u_axi_write_master      |axi_write_master           |    38|
+|17    |      u_pixel_data_fifo       |async_fifo__parameterized0 |    30|
+|18    |    u_preprocess_bypass_mux   |preprocess_bypass_mux      |    32|
+|19    |    u_raw10_unpack            |raw10_unpack               |   129|
+|20    |    u_raw8_unpack             |raw8_unpack                |    11|
+|21    |    u_resync_ctrl_fsm         |resync_ctrl_fsm            |     7|
+|22    |    u_rgb888_unpack           |rgb888_unpack              |    64|
+|23    |    u_yuv422_unpack           |yuv422_unpack              |   101|
++------+------------------------------+---------------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:19 ; elapsed = 00:01:27 . Memory (MB): peak = 1933.035 ; gain = 1616.875
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 1661 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:48 ; elapsed = 00:01:03 . Memory (MB): peak = 1933.035 ; gain = 807.117
+Synthesis Optimization Complete : Time (s): cpu = 00:01:20 ; elapsed = 00:01:27 . Memory (MB): peak = 1933.035 ; gain = 1616.875
+INFO: [Project 1-571] Translating synthesized netlist
+INFO: [Netlist 29-17] Analyzing 76 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 28 instances were transformed.
+  BUFG => BUFGCE: 3 instances
+  IBUF => IBUF (IBUFCTRL, INBUF): 24 instances
+  RAM32M16 => RAM32M16 (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 1 instances
+
+INFO: [Common 17-83] Releasing license: Synthesis
+452 Infos, 268 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:01:21 ; elapsed = 00:01:30 . Memory (MB): peak = 1949.219 ; gain = 1677.816
+INFO: [Common 17-1381] The checkpoint 'C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/vivado/work/mipi_csi2_capture_fpga_head_20260519/mipi_csi2_capture_fpga_head_20260519.runs/synth_1/mipi_csi2_capture_fpga_wrapper.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file mipi_csi2_capture_fpga_wrapper_utilization_synth.rpt -pb mipi_csi2_capture_fpga_wrapper_utilization_synth.pb
+report_utilization: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.222 . Memory (MB): peak = 1949.219 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Tue May 19 22:17:00 2026...
+[Tue May 19 22:17:04 2026] synth_1 finished
+wait_on_run: Time (s): cpu = 00:00:00 ; elapsed = 00:01:46 . Memory (MB): peak = 310.641 ; gain = 7.387
+# assert_run_complete synth_1
+# open_run synth_1 -name synth_1
+Design is defaulting to impl run constrset: constrs_1
+Design is defaulting to synth run part: xczu9eg-ffvb1156-2-e
+INFO: [Netlist 29-17] Analyzing 73 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2017.3
+INFO: [Device 21-403] Loading part xczu9eg-ffvb1156-2-e
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Parsing XDC File [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/xdc/top_constraints.xdc]
+Finished Parsing XDC File [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/xdc/top_constraints.xdc]
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 25 instances were transformed.
+  IBUF => IBUF (IBUFCTRL, INBUF): 24 instances
+  RAM32M16 => RAM32M16 (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 1 instances
+
+open_run: Time (s): cpu = 00:00:20 ; elapsed = 00:00:23 . Memory (MB): peak = 1063.262 ; gain = 752.621
+# report_utilization -file [file join $report_root synth_utilization.rpt]
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.233 . Memory (MB): peak = 1063.262 ; gain = 0.000
+# report_timing_summary -file [file join $report_root synth_timing_summary.rpt]
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Temperature grade: E, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+report_timing_summary: Time (s): cpu = 00:00:41 ; elapsed = 00:00:44 . Memory (MB): peak = 2977.199 ; gain = 1913.938
+# report_cdc -file [file join $report_root synth_cdc.rpt]
+INFO: [Timing 38-91] UpdateTimingParams: No interconnect No Cell Dly, Speed grade: -2, Temperature grade: E, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+INFO: [Timing 38-433] Consider using Xilinx recommended XPM_CDC modules to avoid Critical severities
+INFO: [Timing 38-314] The report_cdc command only analyzes and reports clock domain crossing paths where clocks have been defined on both source and destination sides. Ports with no input delay constraint are skipped. Please run check_timing to verify there are no missing clock definitions in your design, nor any unconstrained input port.
+# write_checkpoint -force [file join $report_root post_synth.dcp]
+INFO: [Common 17-1381] The checkpoint 'C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/vivado/reports/mipi_csi2_capture_fpga_head_20260519/post_synth.dcp' has been generated.
+# write_edif -force [file join $report_root "${project_name}_synth.edf"]
+# write_verilog -force [file join $report_root "${project_name}_synth_netlist.v"]
+# write_xdc -no_fixed_only -force [file join $report_root "${project_name}_synth.xdc"]
+# puts "INFO: Starting implementation through route_design."
+INFO: Starting implementation through route_design.
+# reset_run impl_1
+# launch_runs impl_1 -to_step route_design -jobs $jobs
+[Tue May 19 22:18:13 2026] Launched impl_1...
+Run output will be captured here: C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/vivado/work/mipi_csi2_capture_fpga_head_20260519/mipi_csi2_capture_fpga_head_20260519.runs/impl_1/runme.log
+# wait_on_run impl_1
+[Tue May 19 22:18:13 2026] Waiting for impl_1 to finish...
+
+*** Running vivado
+    with args -log mipi_csi2_capture_fpga_wrapper.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source mipi_csi2_capture_fpga_wrapper.tcl -notrace
+
+
+****** Vivado v2017.3 (64-bit)
+  **** SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
+  **** IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
+    ** Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+
+source mipi_csi2_capture_fpga_wrapper.tcl -notrace
+Command: open_checkpoint {C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/vivado/work/mipi_csi2_capture_fpga_head_20260519/mipi_csi2_capture_fpga_head_20260519.runs/impl_1/mipi_csi2_capture_fpga_wrapper.dcp}
+
+Starting open_checkpoint Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.028 . Memory (MB): peak = 238.961 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 73 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 1 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2017.3
+INFO: [Device 21-403] Loading part xczu9eg-ffvb1156-2-e
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Parsing XDC File [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/vivado/work/mipi_csi2_capture_fpga_head_20260519/mipi_csi2_capture_fpga_head_20260519.runs/impl_1/.Xil/Vivado-15472-Icer/dcp3/mipi_csi2_capture_fpga_wrapper.xdc]
+Finished Parsing XDC File [C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/vivado/work/mipi_csi2_capture_fpga_head_20260519/mipi_csi2_capture_fpga_head_20260519.runs/impl_1/.Xil/Vivado-15472-Icer/dcp3/mipi_csi2_capture_fpga_wrapper.xdc]
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 25 instances were transformed.
+  IBUF => IBUF (IBUFCTRL, INBUF): 24 instances
+  RAM32M16 => RAM32M16 (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 1 instances
+
+INFO: [Project 1-604] Checkpoint was created with Vivado v2017.3 (64-bit) build 2018833
+open_checkpoint: Time (s): cpu = 00:00:20 ; elapsed = 00:00:24 . Memory (MB): peak = 1060.859 ; gain = 823.281
+Command: opt_design
+Attempting to get a license for feature 'Implementation' and/or device 'xczu9eg'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xczu9eg'
+Running DRC as a precondition to command opt_design
+
+Starting DRC Task
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Project 1-461] DRC finished with 0 Errors
+INFO: [Project 1-462] Please refer to the DRC report (report_drc) for more information.
+
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 1080.840 ; gain = 0.000
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+
+Starting Logic Optimization Task
+
+Phase 1 Retarget
+INFO: [Opt 31-138] Pushed 1 inverter(s) to 83 load pin(s).
+INFO: [Opt 31-49] Retargeted 0 cell(s).
+Phase 1 Retarget | Checksum: 149f7f9ff
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.146 . Memory (MB): peak = 1575.297 ; gain = 0.000
+INFO: [Opt 31-389] Phase Retarget created 0 cells and removed 3 cells
+
+Phase 2 Constant propagation
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Phase 2 Constant propagation | Checksum: 149f7f9ff
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.177 . Memory (MB): peak = 1575.297 ; gain = 0.000
+INFO: [Opt 31-389] Phase Constant propagation created 0 cells and removed 0 cells
+
+Phase 3 Sweep
+Phase 3 Sweep | Checksum: 10fc43814
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.204 . Memory (MB): peak = 1575.297 ; gain = 0.000
+INFO: [Opt 31-389] Phase Sweep created 3 cells and removed 2 cells
+
+Phase 4 BUFG optimization
+Phase 4 BUFG optimization | Checksum: 10fc43814
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.248 . Memory (MB): peak = 1575.297 ; gain = 0.000
+INFO: [Opt 31-389] Phase BUFG optimization created 0 cells and removed 0 cells
+
+Phase 5 Shift Register Optimization
+Phase 5 Shift Register Optimization | Checksum: 10fc43814
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.270 . Memory (MB): peak = 1575.297 ; gain = 0.000
+INFO: [Opt 31-389] Phase Shift Register Optimization created 0 cells and removed 0 cells
+
+Starting Connectivity Check Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1575.297 ; gain = 0.000
+Ending Logic Optimization Task | Checksum: 1195b85a3
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.292 . Memory (MB): peak = 1575.297 ; gain = 0.000
+
+Starting Power Optimization Task
+INFO: [Pwropt 34-132] Skipping clock gating for clocks with a period < 2.00 ns.
+Ending Power Optimization Task | Checksum: 16a76e08
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.037 . Memory (MB): peak = 1575.297 ; gain = 0.000
+INFO: [Common 17-83] Releasing license: Implementation
+22 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+opt_design completed successfully
+opt_design: Time (s): cpu = 00:00:11 ; elapsed = 00:00:10 . Memory (MB): peak = 1575.297 ; gain = 514.438
+INFO: [Common 17-1381] The checkpoint 'C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/vivado/work/mipi_csi2_capture_fpga_head_20260519/mipi_csi2_capture_fpga_head_20260519.runs/impl_1/mipi_csi2_capture_fpga_wrapper_opt.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_drc -file mipi_csi2_capture_fpga_wrapper_drc_opted.rpt -pb mipi_csi2_capture_fpga_wrapper_drc_opted.pb -rpx mipi_csi2_capture_fpga_wrapper_drc_opted.rpx
+Command: report_drc -file mipi_csi2_capture_fpga_wrapper_drc_opted.rpt -pb mipi_csi2_capture_fpga_wrapper_drc_opted.pb -rpx mipi_csi2_capture_fpga_wrapper_drc_opted.rpx
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Coretcl 2-168] The results of DRC are in file C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/vivado/work/mipi_csi2_capture_fpga_head_20260519/mipi_csi2_capture_fpga_head_20260519.runs/impl_1/mipi_csi2_capture_fpga_wrapper_drc_opted.rpt.
+report_drc completed successfully
+INFO: [Chipscope 16-241] No debug cores found in the current design.
+Before running the implement_debug_core command, either use the Set Up Debug wizard (GUI mode)
+or use the create_debug_core and connect_debug_core Tcl commands to insert debug cores into the design.
+Command: place_design
+Attempting to get a license for feature 'Implementation' and/or device 'xczu9eg'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xczu9eg'
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+Running DRC as a precondition to command place_design
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+Starting Placer Task
+INFO: [Place 30-611] Multithreading enabled for place_design using a maximum of 2 CPUs
+
+Phase 1 Placer Initialization
+
+Phase 1.1 Placer Initialization Netlist Sorting
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1575.297 ; gain = 0.000
+Phase 1.1 Placer Initialization Netlist Sorting | Checksum: 153f834d
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.032 . Memory (MB): peak = 1575.297 ; gain = 0.000
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1575.297 ; gain = 0.000
+
+Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device | Checksum: 14864247a
+
+Time (s): cpu = 00:00:35 ; elapsed = 00:00:35 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+
+Phase 1.3 Build Placer Netlist Model
+Phase 1.3 Build Placer Netlist Model | Checksum: 20abd330d
+
+Time (s): cpu = 00:00:37 ; elapsed = 00:00:37 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+
+Phase 1.4 Constrain Clocks/Macros
+Phase 1.4 Constrain Clocks/Macros | Checksum: 20abd330d
+
+Time (s): cpu = 00:00:37 ; elapsed = 00:00:37 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+Phase 1 Placer Initialization | Checksum: 20abd330d
+
+Time (s): cpu = 00:00:37 ; elapsed = 00:00:37 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+
+Phase 2 Global Placement
+Phase 2 Global Placement | Checksum: 1b17e11a6
+
+Time (s): cpu = 00:00:45 ; elapsed = 00:00:43 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+
+Phase 3 Detail Placement
+
+Phase 3.1 Commit Multi Column Macros
+Phase 3.1 Commit Multi Column Macros | Checksum: 1b17e11a6
+
+Time (s): cpu = 00:00:45 ; elapsed = 00:00:43 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+
+Phase 3.2 Commit Most Macros & LUTRAMs
+Phase 3.2 Commit Most Macros & LUTRAMs | Checksum: 1ae9764c4
+
+Time (s): cpu = 00:00:45 ; elapsed = 00:00:43 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+
+Phase 3.3 Area Swap Optimization
+Phase 3.3 Area Swap Optimization | Checksum: 177ec6c6f
+
+Time (s): cpu = 00:00:45 ; elapsed = 00:00:43 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+
+Phase 3.4 Pipeline Register Optimization
+Phase 3.4 Pipeline Register Optimization | Checksum: 15f25c616
+
+Time (s): cpu = 00:00:45 ; elapsed = 00:00:43 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+
+Phase 3.5 IO Cut Optimizer
+Phase 3.5 IO Cut Optimizer | Checksum: 19e0a3982
+
+Time (s): cpu = 00:00:45 ; elapsed = 00:00:43 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+
+Phase 3.6 Timing Path Optimizer
+Phase 3.6 Timing Path Optimizer | Checksum: 19e0a3982
+
+Time (s): cpu = 00:00:45 ; elapsed = 00:00:43 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+
+Phase 3.7 Fast Optimization
+Phase 3.7 Fast Optimization | Checksum: 2239b1108
+
+Time (s): cpu = 00:00:46 ; elapsed = 00:00:44 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+
+Phase 3.8 Small Shape Clustering
+Phase 3.8 Small Shape Clustering | Checksum: 208510f1a
+
+Time (s): cpu = 00:00:46 ; elapsed = 00:00:44 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+
+Phase 3.9 DP Optimization
+Phase 3.9 DP Optimization | Checksum: 230c81263
+
+Time (s): cpu = 00:00:47 ; elapsed = 00:00:45 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+
+Phase 3.10 Flow Legalize Slice Clusters
+Phase 3.10 Flow Legalize Slice Clusters | Checksum: 1905e6a60
+
+Time (s): cpu = 00:00:47 ; elapsed = 00:00:45 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+
+Phase 3.11 Slice Area Swap
+Phase 3.11 Slice Area Swap | Checksum: 2054023ce
+
+Time (s): cpu = 00:00:48 ; elapsed = 00:00:46 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+
+Phase 3.12 Commit Slice Clusters
+Phase 3.12 Commit Slice Clusters | Checksum: 1a0bf484f
+
+Time (s): cpu = 00:00:48 ; elapsed = 00:00:46 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+
+Phase 3.13 Re-assign LUT pins
+Phase 3.13 Re-assign LUT pins | Checksum: 125f65ec2
+
+Time (s): cpu = 00:00:48 ; elapsed = 00:00:46 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+
+Phase 3.14 Pipeline Register Optimization
+Phase 3.14 Pipeline Register Optimization | Checksum: 125f65ec2
+
+Time (s): cpu = 00:00:48 ; elapsed = 00:00:46 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+
+Phase 3.15 Fast Optimization
+Phase 3.15 Fast Optimization | Checksum: 1beb7e5b8
+
+Time (s): cpu = 00:00:49 ; elapsed = 00:00:47 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+Phase 3 Detail Placement | Checksum: 1beb7e5b8
+
+Time (s): cpu = 00:00:49 ; elapsed = 00:00:47 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+
+Phase 4 Post Placement Optimization and Clean-Up
+
+Phase 4.1 Post Commit Optimization
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+
+Phase 4.1.1 Post Placement Optimization
+Post Placement Optimization Initialization | Checksum: 154b600e3
+
+Phase 4.1.1.1 BUFG Insertion
+INFO: [Physopt 32-721] Multithreading enabled for phys_opt_design using a maximum of 2 CPUs
+INFO: [Place 46-31] BUFG insertion identified 0 candidate nets, 0 success, 0 skipped for placement/routing, 0 skipped for timing, 0 skipped for netlist change reason.
+Phase 4.1.1.1 BUFG Insertion | Checksum: 154b600e3
+
+Time (s): cpu = 00:00:51 ; elapsed = 00:00:48 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+INFO: [Place 30-746] Post Placement Timing Summary WNS=-2.209. For the most accurate timing information please run report_timing.
+Phase 4.1.1 Post Placement Optimization | Checksum: 26b04490d
+
+Time (s): cpu = 00:01:58 ; elapsed = 00:01:59 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+Phase 4.1 Post Commit Optimization | Checksum: 26b04490d
+
+Time (s): cpu = 00:01:58 ; elapsed = 00:01:59 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+
+Phase 4.2 Post Placement Cleanup
+Phase 4.2 Post Placement Cleanup | Checksum: 26b04490d
+
+Time (s): cpu = 00:01:58 ; elapsed = 00:01:59 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+
+Phase 4.3 Placer Reporting
+Phase 4.3 Placer Reporting | Checksum: 2d84f84f9
+
+Time (s): cpu = 00:02:07 ; elapsed = 00:02:09 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+
+Phase 4.4 Final Placement Cleanup
+Phase 4.4 Final Placement Cleanup | Checksum: 25ad07a9e
+
+Time (s): cpu = 00:02:07 ; elapsed = 00:02:09 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+Phase 4 Post Placement Optimization and Clean-Up | Checksum: 25ad07a9e
+
+Time (s): cpu = 00:02:07 ; elapsed = 00:02:09 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+Ending Placer Task | Checksum: 1bd22ab12
+
+Time (s): cpu = 00:02:07 ; elapsed = 00:02:09 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+INFO: [Common 17-83] Releasing license: Implementation
+43 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+place_design completed successfully
+place_design: Time (s): cpu = 00:02:09 ; elapsed = 00:02:10 . Memory (MB): peak = 2890.852 ; gain = 1315.555
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.210 . Memory (MB): peak = 2890.852 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/vivado/work/mipi_csi2_capture_fpga_head_20260519/mipi_csi2_capture_fpga_head_20260519.runs/impl_1/mipi_csi2_capture_fpga_wrapper_placed.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_io -file mipi_csi2_capture_fpga_wrapper_io_placed.rpt
+report_io: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.158 . Memory (MB): peak = 2890.852 ; gain = 0.000
+INFO: [runtcl-4] Executing : report_utilization -file mipi_csi2_capture_fpga_wrapper_utilization_placed.rpt -pb mipi_csi2_capture_fpga_wrapper_utilization_placed.pb
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.254 . Memory (MB): peak = 2890.852 ; gain = 0.000
+INFO: [runtcl-4] Executing : report_control_sets -file mipi_csi2_capture_fpga_wrapper_control_sets_placed.rpt
+report_control_sets: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 2890.852 ; gain = 0.000
+Command: route_design
+Attempting to get a license for feature 'Implementation' and/or device 'xczu9eg'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xczu9eg'
+Running DRC as a precondition to command route_design
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+
+Starting Routing Task
+INFO: [Route 35-254] Multithreading enabled for route_design using a maximum of 2 CPUs
+Checksum: PlaceDB: de7201f9 ConstDB: 0 ShapeSum: 71656d2d RouteDB: 6d4b3bec
+
+Phase 1 Build RT Design
+Phase 1 Build RT Design | Checksum: 69f3305b
+
+Time (s): cpu = 00:01:07 ; elapsed = 00:00:53 . Memory (MB): peak = 2977.277 ; gain = 86.426
+Post Restoration Checksum: NetGraph: 237b7004 NumContArr: c2262945 Constraints: f3a57158 Timing: 0
+
+Phase 2 Router Initialization
+
+Phase 2.1 Create Timer
+Phase 2.1 Create Timer | Checksum: 1d9470aa1
+
+Time (s): cpu = 00:01:07 ; elapsed = 00:00:53 . Memory (MB): peak = 2977.277 ; gain = 86.426
+
+Phase 2.2 Fix Topology Constraints
+Phase 2.2 Fix Topology Constraints | Checksum: 1d9470aa1
+
+Time (s): cpu = 00:01:07 ; elapsed = 00:00:53 . Memory (MB): peak = 2977.277 ; gain = 86.426
+
+Phase 2.3 Pre Route Cleanup
+Phase 2.3 Pre Route Cleanup | Checksum: 1d9470aa1
+
+Time (s): cpu = 00:01:07 ; elapsed = 00:00:53 . Memory (MB): peak = 2977.277 ; gain = 86.426
+
+Phase 2.4 Global Clock Net Routing
+ Number of Nodes with overlaps = 0
+Phase 2.4 Global Clock Net Routing | Checksum: 28d4ed99a
+
+Time (s): cpu = 00:01:08 ; elapsed = 00:00:55 . Memory (MB): peak = 2977.277 ; gain = 86.426
+
+Phase 2.5 Update Timing
+Phase 2.5 Update Timing | Checksum: 2a83e165c
+
+Time (s): cpu = 00:01:09 ; elapsed = 00:00:56 . Memory (MB): peak = 2977.277 ; gain = 86.426
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-1.951 | TNS=-205.965| WHS=-0.398 | THS=-66.425|
+
+Phase 2 Router Initialization | Checksum: 32d56fc41
+
+Time (s): cpu = 00:01:10 ; elapsed = 00:00:56 . Memory (MB): peak = 2977.277 ; gain = 86.426
+
+Phase 3 Initial Routing
+Phase 3 Initial Routing | Checksum: 2c4332b0b
+
+Time (s): cpu = 00:03:50 ; elapsed = 00:02:18 . Memory (MB): peak = 2977.277 ; gain = 86.426
+
+Phase 4 Rip-up And Reroute
+
+Phase 4.1 Global Iteration 0
+ Number of Nodes with overlaps = 666
+ Number of Nodes with overlaps = 167
+ Number of Nodes with overlaps = 16
+ Number of Nodes with overlaps = 8
+ Number of Nodes with overlaps = 1
+ Number of Nodes with overlaps = 0
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-2.813 | TNS=-328.096| WHS=0.011  | THS=0.000  |
+
+Phase 4.1 Global Iteration 0 | Checksum: 24c01eed2
+
+Time (s): cpu = 00:23:36 ; elapsed = 00:13:57 . Memory (MB): peak = 2989.066 ; gain = 98.215
+
+Phase 4.2 Global Iteration 1
+ Number of Nodes with overlaps = 97
+ Number of Nodes with overlaps = 25
+ Number of Nodes with overlaps = 2
+ Number of Nodes with overlaps = 5
+ Number of Nodes with overlaps = 10
+ Number of Nodes with overlaps = 2
+ Number of Nodes with overlaps = 7
+ Number of Nodes with overlaps = 11
+ Number of Nodes with overlaps = 9
+ Number of Nodes with overlaps = 5
+ Number of Nodes with overlaps = 3
+ Number of Nodes with overlaps = 2
+ Number of Nodes with overlaps = 0
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-2.834 | TNS=-332.552| WHS=N/A    | THS=N/A    |
+
+Phase 4.2 Global Iteration 1 | Checksum: 23e623a30
+
+Time (s): cpu = 00:31:41 ; elapsed = 00:19:19 . Memory (MB): peak = 3171.941 ; gain = 281.090
+
+Phase 4.3 Additional Iteration for Hold
+Phase 4.3 Additional Iteration for Hold | Checksum: 2b99aa942
+
+Time (s): cpu = 00:31:41 ; elapsed = 00:19:19 . Memory (MB): peak = 3171.941 ; gain = 281.090
+Phase 4 Rip-up And Reroute | Checksum: 2b99aa942
+
+Time (s): cpu = 00:31:41 ; elapsed = 00:19:19 . Memory (MB): peak = 3171.941 ; gain = 281.090
+
+Phase 5 Delay and Skew Optimization
+
+Phase 5.1 Delay CleanUp
+
+Phase 5.1.1 Update Timing
+Phase 5.1.1 Update Timing | Checksum: 27095265a
+
+Time (s): cpu = 00:31:42 ; elapsed = 00:19:20 . Memory (MB): peak = 3171.941 ; gain = 281.090
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-2.813 | TNS=-328.096| WHS=0.011  | THS=0.000  |
+
+ Number of Nodes with overlaps = 0
+Phase 5.1 Delay CleanUp | Checksum: 32f7ed7a9
+
+Time (s): cpu = 00:31:42 ; elapsed = 00:19:20 . Memory (MB): peak = 3171.941 ; gain = 281.090
+
+Phase 5.2 Clock Skew Optimization
+Phase 5.2 Clock Skew Optimization | Checksum: 32f7ed7a9
+
+Time (s): cpu = 00:31:42 ; elapsed = 00:19:20 . Memory (MB): peak = 3171.941 ; gain = 281.090
+Phase 5 Delay and Skew Optimization | Checksum: 32f7ed7a9
+
+Time (s): cpu = 00:31:42 ; elapsed = 00:19:20 . Memory (MB): peak = 3171.941 ; gain = 281.090
+
+Phase 6 Post Hold Fix
+
+Phase 6.1 Hold Fix Iter
+
+Phase 6.1.1 Update Timing
+Phase 6.1.1 Update Timing | Checksum: 34db3dca6
+
+Time (s): cpu = 00:31:42 ; elapsed = 00:19:20 . Memory (MB): peak = 3171.941 ; gain = 281.090
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-2.748 | TNS=-327.929| WHS=0.011  | THS=0.000  |
+
+Phase 6.1 Hold Fix Iter | Checksum: 32b56b2a2
+
+Time (s): cpu = 00:31:42 ; elapsed = 00:19:20 . Memory (MB): peak = 3171.941 ; gain = 281.090
+Phase 6 Post Hold Fix | Checksum: 32b56b2a2
+
+Time (s): cpu = 00:31:42 ; elapsed = 00:19:20 . Memory (MB): peak = 3171.941 ; gain = 281.090
+
+Phase 7 Route finalize
+
+Router Utilization Summary
+  Global Vertical Routing Utilization    = 0.0639124 %
+  Global Horizontal Routing Utilization  = 0.100044 %
+  Routable Net Status*
+  *Does not include unroutable nets such as driverless and loadless.
+  Run report_route_status for detailed report.
+  Number of Failed Nets               = 0
+  Number of Unrouted Nets             = 0
+  Number of Partially Routed Nets     = 0
+  Number of Node Overlaps             = 0
+
+Utilization threshold used for congestion level computation: 0.85
+Congestion Report
+North Dir 1x1 Area, Max Cong = 30.9859%, No Congested Regions.
+South Dir 1x1 Area, Max Cong = 31.2796%, No Congested Regions.
+East Dir 1x1 Area, Max Cong = 44.2308%, No Congested Regions.
+West Dir 1x1 Area, Max Cong = 49.0385%, No Congested Regions.
+Phase 7 Route finalize | Checksum: 2fcfa1093
+
+Time (s): cpu = 00:31:43 ; elapsed = 00:19:20 . Memory (MB): peak = 3171.941 ; gain = 281.090
+
+Phase 8 Verifying routed nets
+
+ Verification completed successfully
+Phase 8 Verifying routed nets | Checksum: 2fcfa1093
+
+Time (s): cpu = 00:31:43 ; elapsed = 00:19:20 . Memory (MB): peak = 3171.941 ; gain = 281.090
+
+Phase 9 Depositing Routes
+Phase 9 Depositing Routes | Checksum: 2fcfa1093
+
+Time (s): cpu = 00:31:43 ; elapsed = 00:19:20 . Memory (MB): peak = 3171.941 ; gain = 281.090
+
+Phase 10 Post Router Timing
+INFO: [Route 35-57] Estimated Timing Summary | WNS=-2.748 | TNS=-327.929| WHS=0.011  | THS=0.000  |
+
+WARNING: [Route 35-328] Router estimated timing not met.
+Resolution: For a complete and accurate timing signoff, report_timing_summary must be run after route_design. Alternatively, route_design can be run with the -timing_summary option to enable a complete timing signoff at the end of route_design.
+Phase 10 Post Router Timing | Checksum: 2fcfa1093
+
+Time (s): cpu = 00:31:43 ; elapsed = 00:19:20 . Memory (MB): peak = 3171.941 ; gain = 281.090
+INFO: [Route 35-16] Router Completed Successfully
+
+Time (s): cpu = 00:31:43 ; elapsed = 00:19:21 . Memory (MB): peak = 3171.941 ; gain = 281.090
+
+Routing Is Done.
+INFO: [Common 17-83] Releasing license: Implementation
+60 Infos, 1 Warnings, 0 Critical Warnings and 0 Errors encountered.
+route_design completed successfully
+route_design: Time (s): cpu = 00:31:46 ; elapsed = 00:19:22 . Memory (MB): peak = 3171.941 ; gain = 281.090
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.253 . Memory (MB): peak = 3171.941 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/vivado/work/mipi_csi2_capture_fpga_head_20260519/mipi_csi2_capture_fpga_head_20260519.runs/impl_1/mipi_csi2_capture_fpga_wrapper_routed.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_drc -file mipi_csi2_capture_fpga_wrapper_drc_routed.rpt -pb mipi_csi2_capture_fpga_wrapper_drc_routed.pb -rpx mipi_csi2_capture_fpga_wrapper_drc_routed.rpx
+Command: report_drc -file mipi_csi2_capture_fpga_wrapper_drc_routed.rpt -pb mipi_csi2_capture_fpga_wrapper_drc_routed.pb -rpx mipi_csi2_capture_fpga_wrapper_drc_routed.rpx
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Coretcl 2-168] The results of DRC are in file C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/vivado/work/mipi_csi2_capture_fpga_head_20260519/mipi_csi2_capture_fpga_head_20260519.runs/impl_1/mipi_csi2_capture_fpga_wrapper_drc_routed.rpt.
+report_drc completed successfully
+INFO: [runtcl-4] Executing : report_methodology -file mipi_csi2_capture_fpga_wrapper_methodology_drc_routed.rpt -pb mipi_csi2_capture_fpga_wrapper_methodology_drc_routed.pb -rpx mipi_csi2_capture_fpga_wrapper_methodology_drc_routed.rpx
+Command: report_methodology -file mipi_csi2_capture_fpga_wrapper_methodology_drc_routed.rpt -pb mipi_csi2_capture_fpga_wrapper_methodology_drc_routed.pb -rpx mipi_csi2_capture_fpga_wrapper_methodology_drc_routed.rpx
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [DRC 23-133] Running Methodology with 2 threads
+INFO: [Coretcl 2-1520] The results of Report Methodology are in file C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/vivado/work/mipi_csi2_capture_fpga_head_20260519/mipi_csi2_capture_fpga_head_20260519.runs/impl_1/mipi_csi2_capture_fpga_wrapper_methodology_drc_routed.rpt.
+report_methodology completed successfully
+INFO: [runtcl-4] Executing : report_power -file mipi_csi2_capture_fpga_wrapper_power_routed.rpt -pb mipi_csi2_capture_fpga_wrapper_power_summary_routed.pb -rpx mipi_csi2_capture_fpga_wrapper_power_routed.rpx
+Command: report_power -file mipi_csi2_capture_fpga_wrapper_power_routed.rpt -pb mipi_csi2_capture_fpga_wrapper_power_summary_routed.pb -rpx mipi_csi2_capture_fpga_wrapper_power_routed.rpx
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Running Vector-less Activity Propagation...
+
+Finished Running Vector-less Activity Propagation
+WARNING: [Power 33-332] Found switching activity that implies high-fanout reset nets being asserted for excessive periods of time which may result in inaccurate power analysis.
+Resolution: To review and fix problems, please run Power Constraints Advisor in the GUI from Tools > Power Constraints Advisor or run report_power with the -advisory option to generate a text report.
+71 Infos, 2 Warnings, 0 Critical Warnings and 0 Errors encountered.
+report_power completed successfully
+report_power: Time (s): cpu = 00:00:10 ; elapsed = 00:00:08 . Memory (MB): peak = 3171.941 ; gain = 0.000
+INFO: [runtcl-4] Executing : report_route_status -file mipi_csi2_capture_fpga_wrapper_route_status.rpt -pb mipi_csi2_capture_fpga_wrapper_route_status.pb
+INFO: [runtcl-4] Executing : report_timing_summary -file mipi_csi2_capture_fpga_wrapper_timing_summary_routed.rpt -warn_on_violation  -rpx mipi_csi2_capture_fpga_wrapper_timing_summary_routed.rpx
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Temperature grade: E, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+CRITICAL WARNING: [Timing 38-282] The design failed to meet the timing requirements. Please see the timing summary report for details on the timing violations.
+INFO: [runtcl-4] Executing : report_incremental_reuse -file mipi_csi2_capture_fpga_wrapper_incremental_reuse_routed.rpt
+INFO: [Vivado_Tcl 4-545] No incremental reuse to report, no incremental placement and routing data was found.
+INFO: [runtcl-4] Executing : report_clock_utilization -file mipi_csi2_capture_fpga_wrapper_clock_utilization_routed.rpt
+report_clock_utilization: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 3171.941 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Tue May 19 22:40:57 2026...
+[Tue May 19 22:40:59 2026] impl_1 finished
+wait_on_run: Time (s): cpu = 00:00:01 ; elapsed = 00:22:46 . Memory (MB): peak = 2977.199 ; gain = 0.000
+# assert_run_complete impl_1
+# open_run impl_1 -name impl_1
+INFO: [Netlist 29-17] Analyzing 73 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2017.3
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Parsing XDC File [C:/Users/qigua/AppData/Local/Temp/.Xil_qigua/Vivado-2804-Icer/dcp5/mipi_csi2_capture_fpga_wrapper.xdc]
+Finished Parsing XDC File [C:/Users/qigua/AppData/Local/Temp/.Xil_qigua/Vivado-2804-Icer/dcp5/mipi_csi2_capture_fpga_wrapper.xdc]
+Reading XDEF placement.
+Reading placer database...
+Reading XDEF routing.
+Read XDEF File: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.201 . Memory (MB): peak = 2977.199 ; gain = 0.000
+Restored from archive | CPU: 0.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.203 . Memory (MB): peak = 2977.199 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 25 instances were transformed.
+  IBUF => IBUF (IBUFCTRL, INBUF): 24 instances
+  RAM32M16 => RAM32M16 (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 1 instances
+
+# report_utilization -file [file join $report_root impl_utilization.rpt]
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.407 . Memory (MB): peak = 2977.199 ; gain = 0.000
+# report_timing_summary \
+#     -delay_type max \
+#     -report_unconstrained \
+#     -check_timing_verbose \
+#     -file [file join $report_root impl_timing_summary.rpt]
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Temperature grade: E, Delay Type: max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+# report_power -file [file join $report_root impl_power.rpt]
+Command: report_power -file {C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/vivado/reports/mipi_csi2_capture_fpga_head_20260519/impl_power.rpt}
+Running Vector-less Activity Propagation...
+
+Finished Running Vector-less Activity Propagation
+WARNING: [Power 33-332] Found switching activity that implies high-fanout reset nets being asserted for excessive periods of time which may result in inaccurate power analysis.
+Resolution: To review and fix problems, please run Power Constraints Advisor in the GUI from Tools > Power Constraints Advisor or run report_power with the -advisory option to generate a text report.
+0 Infos, 1 Warnings, 0 Critical Warnings and 0 Errors encountered.
+report_power completed successfully
+report_power: Time (s): cpu = 00:00:18 ; elapsed = 00:00:10 . Memory (MB): peak = 2977.199 ; gain = 0.000
+# report_drc -file [file join $report_root impl_drc.rpt]
+Command: report_drc -file {C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/vivado/reports/mipi_csi2_capture_fpga_head_20260519/impl_drc.rpt}
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Coretcl 2-168] The results of DRC are in file C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/vivado/reports/mipi_csi2_capture_fpga_head_20260519/impl_drc.rpt.
+report_drc completed successfully
+# write_checkpoint -force [file join $report_root post_impl.dcp]
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.244 . Memory (MB): peak = 2977.199 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/vivado/reports/mipi_csi2_capture_fpga_head_20260519/post_impl.dcp' has been generated.
+# puts "INFO: Route-level reports written to $report_root"
+INFO: Route-level reports written to C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/vivado/reports/mipi_csi2_capture_fpga_head_20260519
+# close_project
+INFO: [Common 17-206] Exiting Vivado at Tue May 19 22:41:16 2026...

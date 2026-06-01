@@ -1,0 +1,1081 @@
+Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version      : Vivado v.2017.3 (win64) Build 2018833 Wed Oct  4 19:58:22 MDT 2017
+| Date              : Wed May 20 22:20:41 2026
+| Host              : Icer running 64-bit major release  (build 9200)
+| Command           : report_timing_summary -file mipi_csi2_capture_fpga_wrapper_timing_summary_routed.rpt -warn_on_violation -rpx mipi_csi2_capture_fpga_wrapper_timing_summary_routed.rpx
+| Design            : mipi_csi2_capture_fpga_wrapper
+| Device            : xczu9eg-ffvb1156
+| Speed File        : -2  PRODUCTION 1.15 10-03-2017
+| Temperature Grade : E
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Summary Report
+
+------------------------------------------------------------------------------------------------
+| Timer Settings
+| --------------
+------------------------------------------------------------------------------------------------
+
+  Enable Multi Corner Analysis               :  Yes
+  Enable Pessimism Removal                   :  Yes
+  Pessimism Removal Resolution               :  Nearest Common Node
+  Enable Input Delay Default Clock           :  No
+  Enable Preset / Clear Arcs                 :  No
+  Disable Flight Delays                      :  No
+  Ignore I/O Paths                           :  No
+  Timing Early Launch at Borrowing Latches   :  false
+
+  Corner  Analyze    Analyze    
+  Name    Max Paths  Min Paths  
+  ------  ---------  ---------  
+  Slow    Yes        Yes        
+  Fast    Yes        Yes        
+
+
+
+check_timing report
+
+Table of Contents
+-----------------
+1. checking no_clock
+2. checking constant_clock
+3. checking pulse_width_clock
+4. checking unconstrained_internal_endpoints
+5. checking no_input_delay
+6. checking no_output_delay
+7. checking multiple_clock
+8. checking generated_clocks
+9. checking loops
+10. checking partial_input_delay
+11. checking partial_output_delay
+12. checking latch_loops
+
+1. checking no_clock
+--------------------
+ There are 0 register/latch pins with no clock.
+
+
+2. checking constant_clock
+--------------------------
+ There are 0 register/latch pins with constant_clock.
+
+
+3. checking pulse_width_clock
+-----------------------------
+ There are 0 register/latch pins which need pulse_width check
+
+
+4. checking unconstrained_internal_endpoints
+--------------------------------------------
+ There are 0 pins that are not constrained for maximum delay.
+
+ There are 0 pins that are not constrained for maximum delay due to constant clock.
+
+
+5. checking no_input_delay
+--------------------------
+ There are 39 input ports with no input delay specified. (HIGH)
+
+ There are 0 input ports with no input delay but user has a false path constraint.
+
+
+6. checking no_output_delay
+---------------------------
+ There are 35 ports with no output delay specified. (HIGH)
+
+ There are 0 ports with no output delay but user has a false path constraint
+
+ There are 0 ports with no output delay but with a timing clock defined on it or propagating through it
+
+
+7. checking multiple_clock
+--------------------------
+ There are 0 register/latch pins with multiple clocks.
+
+
+8. checking generated_clocks
+----------------------------
+ There are 0 generated clocks that are not connected to a clock source.
+
+
+9. checking loops
+-----------------
+ There are 0 combinational loops in the design.
+
+
+10. checking partial_input_delay
+--------------------------------
+ There are 0 input ports with partial input delay specified.
+
+
+11. checking partial_output_delay
+---------------------------------
+ There are 0 ports with partial output delay specified.
+
+
+12. checking latch_loops
+------------------------
+ There are 0 combinational latch loops in the design through latch input
+
+
+
+------------------------------------------------------------------------------------------------
+| Design Timing Summary
+| ---------------------
+------------------------------------------------------------------------------------------------
+
+    WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+    -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+      1.884        0.000                      0                 2205        0.014        0.000                      0                 2205        2.134        0.000                       0                  1154  
+
+
+All user specified timing constraints are met.
+
+
+------------------------------------------------------------------------------------------------
+| Clock Summary
+| -------------
+------------------------------------------------------------------------------------------------
+
+Clock     Waveform(ns)         Period(ns)      Frequency(MHz)
+-----     ------------         ----------      --------------
+clk_axi   {0.000 2.500}        5.000           200.000         
+clk_byte  {0.000 2.666}        5.333           187.512         
+clk_ddr   {0.000 2.500}        5.000           200.000         
+clk_sys   {0.000 2.500}        5.000           200.000         
+
+
+------------------------------------------------------------------------------------------------
+| Intra Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+Clock             WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+-----             -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+clk_axi             2.615        0.000                      0                  103        0.019        0.000                      0                  103        2.225        0.000                       0                    54  
+clk_byte            2.476        0.000                      0                  914        0.014        0.000                      0                  914        2.134        0.000                       0                   658  
+clk_sys             1.884        0.000                      0                 1186        0.015        0.000                      0                 1186        2.225        0.000                       0                   442  
+
+
+------------------------------------------------------------------------------------------------
+| Inter Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------    --------          -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
+clk_sys       clk_axi             3.167        0.000                      0                    1        0.138        0.000                      0                    1  
+clk_axi       clk_sys             3.222        0.000                      0                    1        0.156        0.000                      0                    1  
+
+
+------------------------------------------------------------------------------------------------
+| Other Path Groups Table
+| -----------------------
+------------------------------------------------------------------------------------------------
+
+Path Group    From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------    ----------    --------          -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
+
+
+------------------------------------------------------------------------------------------------
+| Timing Details
+| --------------
+------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  clk_axi
+  To Clock:  clk_axi
+
+Setup :            0  Failing Endpoints,  Worst Slack        2.615ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.019ns,  Total Violation        0.000ns
+PW    :            0  Failing Endpoints,  Worst Slack        2.225ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             2.615ns  (required time - arrival time)
+  Source:                 u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_axi_write_master/beat_cnt_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by clk_axi  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            u_axi_write_null_slave/aw_seen_q_reg/D
+                            (rising edge-triggered cell FDRE clocked by clk_axi  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk_axi
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk_axi rise@5.000ns - clk_axi rise@0.000ns)
+  Data Path Delay:        2.236ns  (logic 0.717ns (32.066%)  route 1.519ns (67.934%))
+  Logic Levels:           5  (LUT3=1 LUT4=1 LUT5=1 LUT6=2)
+  Clock Path Skew:        -0.038ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    1.267ns = ( 6.267 - 5.000 ) 
+    Source Clock Delay      (SCD):    1.666ns
+    Clock Pessimism Removal (CPR):    0.361ns
+  Clock Uncertainty:      0.135ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.100ns
+  Clock Net Delay (Source):      0.770ns (routing 0.001ns, distribution 0.769ns)
+  Clock Net Delay (Destination): 0.662ns (routing 0.001ns, distribution 0.661ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_axi rise edge)    0.000     0.000 r  
+    P11                                               0.000     0.000 r  clk_axi (IN)
+                         net (fo=0)                   0.000     0.000    clk_axi_IBUF_inst/I
+    P11                  INBUF (Prop_INBUF_HPIOB_M_PAD_O)
+                                                      0.548     0.548 r  clk_axi_IBUF_inst/INBUF_INST/O
+                         net (fo=1, routed)           0.000     0.548    clk_axi_IBUF_inst/OUT
+    P11                  IBUFCTRL (Prop_IBUFCTRL_HPIOB_M_I_O)
+                                                      0.000     0.548 r  clk_axi_IBUF_inst/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.320     0.868    clk_axi_IBUF
+    BUFGCE_X0Y86         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     0.896 r  clk_axi_IBUF_BUFG_inst/O
+    X3Y3 (CLOCK_ROOT)    net (fo=53, routed)          0.770     1.666    u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_axi_write_master/clk_axi_IBUF_BUFG
+    SLICE_X93Y209        FDRE                                         r  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_axi_write_master/beat_cnt_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X93Y209        FDRE (Prop_EFF_SLICEM_C_Q)
+                                                      0.076     1.742 f  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_axi_write_master/beat_cnt_reg[0]/Q
+                         net (fo=8, routed)           0.470     2.212    u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_axi_write_master/beat_cnt[0]
+    SLICE_X94Y209        LUT6 (Prop_G6LUT_SLICEL_I5_O)
+                                                      0.123     2.335 f  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_axi_write_master/state[1]_i_5/O
+                         net (fo=1, routed)           0.044     2.379    u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_axi_write_master/state[1]_i_5_n_0
+    SLICE_X94Y209        LUT4 (Prop_F6LUT_SLICEL_I0_O)
+                                                      0.097     2.476 f  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_axi_write_master/state[1]_i_4/O
+                         net (fo=5, routed)           0.151     2.627    u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_axi_write_master/p_0_in5_in
+    SLICE_X94Y207        LUT3 (Prop_D6LUT_SLICEL_I2_O)
+                                                      0.146     2.773 f  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_axi_write_master/s_axi_bvalid_o_i_4/O
+                         net (fo=1, routed)           0.107     2.880    u_axi_write_null_slave/m_axi_wlast
+    SLICE_X94Y208        LUT6 (Prop_H6LUT_SLICEL_I4_O)
+                                                      0.150     3.030 f  u_axi_write_null_slave/s_axi_bvalid_o_i_2/O
+                         net (fo=2, routed)           0.263     3.293    u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_axi_write_master/aw_seen_q
+    SLICE_X93Y207        LUT5 (Prop_B6LUT_SLICEM_I4_O)
+                                                      0.125     3.418 r  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_axi_write_master/aw_seen_q_i_1/O
+                         net (fo=1, routed)           0.484     3.902    u_axi_write_null_slave/state_reg[0]_0
+    SLICE_X93Y207        FDRE                                         r  u_axi_write_null_slave/aw_seen_q_reg/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_axi rise edge)    5.000     5.000 r  
+    P11                                               0.000     5.000 r  clk_axi (IN)
+                         net (fo=0)                   0.000     5.000    clk_axi_IBUF_inst/I
+    P11                  INBUF (Prop_INBUF_HPIOB_M_PAD_O)
+                                                      0.298     5.298 r  clk_axi_IBUF_inst/INBUF_INST/O
+                         net (fo=1, routed)           0.000     5.298    clk_axi_IBUF_inst/OUT
+    P11                  IBUFCTRL (Prop_IBUFCTRL_HPIOB_M_I_O)
+                                                      0.000     5.298 r  clk_axi_IBUF_inst/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.283     5.581    clk_axi_IBUF
+    BUFGCE_X0Y86         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024     5.605 r  clk_axi_IBUF_BUFG_inst/O
+    X3Y3 (CLOCK_ROOT)    net (fo=53, routed)          0.662     6.267    u_axi_write_null_slave/clk_axi_IBUF_BUFG
+    SLICE_X93Y207        FDRE                                         r  u_axi_write_null_slave/aw_seen_q_reg/C
+                         clock pessimism              0.361     6.628    
+                         clock uncertainty           -0.135     6.493    
+    SLICE_X93Y207        FDRE (Setup_EFF_SLICEM_C_D)
+                                                      0.025     6.518    u_axi_write_null_slave/aw_seen_q_reg
+  -------------------------------------------------------------------
+                         required time                          6.518    
+                         arrival time                          -3.902    
+  -------------------------------------------------------------------
+                         slack                                  2.615    
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.019ns  (arrival time - required time)
+  Source:                 u_axi_write_null_slave/beats_remaining_q_reg[3]/C
+                            (rising edge-triggered cell FDRE clocked by clk_axi  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            u_axi_write_null_slave/beats_remaining_q_reg[3]/D
+                            (rising edge-triggered cell FDRE clocked by clk_axi  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk_axi
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_axi rise@0.000ns - clk_axi rise@0.000ns)
+  Data Path Delay:        0.172ns  (logic 0.089ns (51.744%)  route 0.083ns (48.256%))
+  Logic Levels:           1  (LUT5=1)
+  Clock Path Skew:        0.006ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.060ns
+    Source Clock Delay      (SCD):    0.773ns
+    Clock Pessimism Removal (CPR):    0.281ns
+  Clock Uncertainty:      0.100ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.000ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.100ns
+  Clock Net Delay (Source):      0.424ns (routing 0.000ns, distribution 0.424ns)
+  Clock Net Delay (Destination): 0.484ns (routing 0.001ns, distribution 0.483ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_axi rise edge)    0.000     0.000 r  
+    P11                                               0.000     0.000 r  clk_axi (IN)
+                         net (fo=0)                   0.000     0.000    clk_axi_IBUF_inst/I
+    P11                  INBUF (Prop_INBUF_HPIOB_M_PAD_O)
+                                                      0.183     0.183 r  clk_axi_IBUF_inst/INBUF_INST/O
+                         net (fo=1, routed)           0.000     0.183    clk_axi_IBUF_inst/OUT
+    P11                  IBUFCTRL (Prop_IBUFCTRL_HPIOB_M_I_O)
+                                                      0.000     0.183 r  clk_axi_IBUF_inst/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.149     0.332    clk_axi_IBUF
+    BUFGCE_X0Y86         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.017     0.349 r  clk_axi_IBUF_BUFG_inst/O
+    X3Y3 (CLOCK_ROOT)    net (fo=53, routed)          0.424     0.773    u_axi_write_null_slave/clk_axi_IBUF_BUFG
+    SLICE_X94Y208        FDRE                                         r  u_axi_write_null_slave/beats_remaining_q_reg[3]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X94Y208        FDRE (Prop_DFF2_SLICEL_C_Q)
+                                                      0.041     0.814 r  u_axi_write_null_slave/beats_remaining_q_reg[3]/Q
+                         net (fo=4, routed)           0.077     0.891    u_axi_write_null_slave/beats_remaining_q[3]
+    SLICE_X94Y208        LUT5 (Prop_D5LUT_SLICEL_I4_O)
+                                                      0.048     0.939 r  u_axi_write_null_slave/beats_remaining_q[3]_i_1/O
+                         net (fo=1, routed)           0.006     0.945    u_axi_write_null_slave/beats_remaining_q[3]_i_1_n_0
+    SLICE_X94Y208        FDRE                                         r  u_axi_write_null_slave/beats_remaining_q_reg[3]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_axi rise edge)    0.000     0.000 r  
+    P11                                               0.000     0.000 r  clk_axi (IN)
+                         net (fo=0)                   0.000     0.000    clk_axi_IBUF_inst/I
+    P11                  INBUF (Prop_INBUF_HPIOB_M_PAD_O)
+                                                      0.368     0.368 r  clk_axi_IBUF_inst/INBUF_INST/O
+                         net (fo=1, routed)           0.000     0.368    clk_axi_IBUF_inst/OUT
+    P11                  IBUFCTRL (Prop_IBUFCTRL_HPIOB_M_I_O)
+                                                      0.000     0.368 r  clk_axi_IBUF_inst/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.189     0.557    clk_axi_IBUF
+    BUFGCE_X0Y86         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.019     0.576 r  clk_axi_IBUF_BUFG_inst/O
+    X3Y3 (CLOCK_ROOT)    net (fo=53, routed)          0.484     1.060    u_axi_write_null_slave/clk_axi_IBUF_BUFG
+    SLICE_X94Y208        FDRE                                         r  u_axi_write_null_slave/beats_remaining_q_reg[3]/C
+                         clock pessimism             -0.281     0.779    
+                         clock uncertainty            0.100     0.879    
+    SLICE_X94Y208        FDRE (Hold_DFF2_SLICEL_C_D)
+                                                      0.047     0.926    u_axi_write_null_slave/beats_remaining_q_reg[3]
+  -------------------------------------------------------------------
+                         required time                         -0.926    
+                         arrival time                           0.945    
+  -------------------------------------------------------------------
+                         slack                                  0.019    
+
+
+
+
+
+Pulse Width Checks
+--------------------------------------------------------------------------------------
+Clock Name:         clk_axi
+Waveform(ns):       { 0.000 2.500 }
+Period(ns):         5.000
+Sources:            { clk_axi }
+
+Check Type        Corner  Lib Pin   Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location       Pin
+Min Period        n/a     BUFGCE/I  n/a            1.290         5.000       3.710      BUFGCE_X0Y86   clk_axi_IBUF_BUFG_inst/I
+Low Pulse Width   Slow    FDRE/C    n/a            0.275         2.500       2.225      SLICE_X95Y207  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/u_pixel_data_fifo/wr_ptr_gray_rdclk_ff1_reg[3]/C
+High Pulse Width  Fast    FDRE/C    n/a            0.275         2.500       2.225      SLICE_X93Y207  u_axi_write_null_slave/aw_seen_q_reg/C
+
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  clk_byte
+  To Clock:  clk_byte
+
+Setup :            0  Failing Endpoints,  Worst Slack        2.476ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.014ns,  Total Violation        0.000ns
+PW    :            0  Failing Endpoints,  Worst Slack        2.134ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             2.476ns  (required time - arrival time)
+  Source:                 u_mipi_csi2_capture_top/active_lane_num_byte_reg[2]/C
+                            (rising edge-triggered cell FDSE clocked by clk_byte  {rise@0.000ns fall@2.666ns period=5.333ns})
+  Destination:            u_mipi_csi2_capture_top/u_lane_deskew_buffer/fifo_mem_reg[2][13][1]/CE
+                            (rising edge-triggered cell FDRE clocked by clk_byte  {rise@0.000ns fall@2.666ns period=5.333ns})
+  Path Group:             clk_byte
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.333ns  (clk_byte rise@5.333ns - clk_byte rise@0.000ns)
+  Data Path Delay:        2.600ns  (logic 0.428ns (16.462%)  route 2.172ns (83.538%))
+  Logic Levels:           3  (LUT4=1 LUT6=2)
+  Clock Path Skew:        -0.061ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    1.317ns = ( 6.650 - 5.333 ) 
+    Source Clock Delay      (SCD):    1.687ns
+    Clock Pessimism Removal (CPR):    0.309ns
+  Clock Uncertainty:      0.135ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.100ns
+  Clock Net Delay (Source):      0.794ns (routing 0.001ns, distribution 0.793ns)
+  Clock Net Delay (Destination): 0.715ns (routing 0.001ns, distribution 0.714ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_byte rise edge)
+                                                      0.000     0.000 r  
+    P10                                               0.000     0.000 r  clk_byte (IN)
+                         net (fo=0)                   0.000     0.000    clk_byte_IBUF_inst/I
+    P10                  INBUF (Prop_INBUF_HPIOB_M_PAD_O)
+                                                      0.545     0.545 r  clk_byte_IBUF_inst/INBUF_INST/O
+                         net (fo=1, routed)           0.000     0.545    clk_byte_IBUF_inst/OUT
+    P10                  IBUFCTRL (Prop_IBUFCTRL_HPIOB_M_I_O)
+                                                      0.000     0.545 r  clk_byte_IBUF_inst/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.320     0.865    clk_byte_IBUF
+    BUFGCE_X0Y74         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     0.893 r  clk_byte_IBUF_BUFG_inst/O
+    X3Y3 (CLOCK_ROOT)    net (fo=657, routed)         0.794     1.687    u_mipi_csi2_capture_top/clk_wr
+    SLICE_X91Y188        FDSE                                         r  u_mipi_csi2_capture_top/active_lane_num_byte_reg[2]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X91Y188        FDSE (Prop_GFF2_SLICEM_C_Q)
+                                                      0.079     1.766 r  u_mipi_csi2_capture_top/active_lane_num_byte_reg[2]/Q
+                         net (fo=2, routed)           0.178     1.944    u_mipi_csi2_capture_top/u_lane_deskew_buffer/active_lane_num_byte_reg[2][2]
+    SLICE_X91Y188        LUT4 (Prop_D5LUT_SLICEM_I1_O)
+                                                      0.158     2.102 r  u_mipi_csi2_capture_top/u_lane_deskew_buffer/wr_ptr[2][3]_i_3/O
+                         net (fo=4, routed)           0.311     2.413    u_mipi_csi2_capture_top/u_lane_deskew_buffer/wr_ptr[2][3]_i_3_n_0
+    SLICE_X92Y187        LUT6 (Prop_H6LUT_SLICEL_I1_O)
+                                                      0.090     2.503 r  u_mipi_csi2_capture_top/u_lane_deskew_buffer/wr_ptr[2][3]_i_1/O
+                         net (fo=25, routed)          0.602     3.105    u_mipi_csi2_capture_top/u_lane_deskew_buffer/wr_ptr[2][3]_i_1_n_0
+    SLICE_X88Y180        LUT6 (Prop_H6LUT_SLICEM_I4_O)
+                                                      0.101     3.206 r  u_mipi_csi2_capture_top/u_lane_deskew_buffer/fifo_mem[2][13][7]_i_1/O
+                         net (fo=8, routed)           1.081     4.287    u_mipi_csi2_capture_top/u_lane_deskew_buffer/fifo_mem[2][13][7]_i_1_n_0
+    SLICE_X84Y182        FDRE                                         r  u_mipi_csi2_capture_top/u_lane_deskew_buffer/fifo_mem_reg[2][13][1]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_byte rise edge)
+                                                      5.333     5.333 r  
+    P10                                               0.000     5.333 r  clk_byte (IN)
+                         net (fo=0)                   0.000     5.333    clk_byte_IBUF_inst/I
+    P10                  INBUF (Prop_INBUF_HPIOB_M_PAD_O)
+                                                      0.295     5.628 r  clk_byte_IBUF_inst/INBUF_INST/O
+                         net (fo=1, routed)           0.000     5.628    clk_byte_IBUF_inst/OUT
+    P10                  IBUFCTRL (Prop_IBUFCTRL_HPIOB_M_I_O)
+                                                      0.000     5.628 r  clk_byte_IBUF_inst/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.283     5.911    clk_byte_IBUF
+    BUFGCE_X0Y74         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024     5.935 r  clk_byte_IBUF_BUFG_inst/O
+    X3Y3 (CLOCK_ROOT)    net (fo=657, routed)         0.715     6.650    u_mipi_csi2_capture_top/u_lane_deskew_buffer/clk_wr
+    SLICE_X84Y182        FDRE                                         r  u_mipi_csi2_capture_top/u_lane_deskew_buffer/fifo_mem_reg[2][13][1]/C
+                         clock pessimism              0.309     6.959    
+                         clock uncertainty           -0.135     6.824    
+    SLICE_X84Y182        FDRE (Setup_HFF_SLICEL_C_CE)
+                                                     -0.060     6.764    u_mipi_csi2_capture_top/u_lane_deskew_buffer/fifo_mem_reg[2][13][1]
+  -------------------------------------------------------------------
+                         required time                          6.764    
+                         arrival time                          -4.287    
+  -------------------------------------------------------------------
+                         slack                                  2.476    
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.014ns  (arrival time - required time)
+  Source:                 u_mipi_csi2_capture_top/u_lane_deskew_buffer/wr_ptr_reg[0][0]/C
+                            (rising edge-triggered cell FDRE clocked by clk_byte  {rise@0.000ns fall@2.666ns period=5.333ns})
+  Destination:            u_mipi_csi2_capture_top/u_lane_deskew_buffer/wr_ptr_reg[0][3]/D
+                            (rising edge-triggered cell FDRE clocked by clk_byte  {rise@0.000ns fall@2.666ns period=5.333ns})
+  Path Group:             clk_byte
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_byte rise@0.000ns - clk_byte rise@0.000ns)
+  Data Path Delay:        0.167ns  (logic 0.099ns (59.281%)  route 0.068ns (40.719%))
+  Logic Levels:           1  (LUT4=1)
+  Clock Path Skew:        0.006ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.080ns
+    Source Clock Delay      (SCD):    0.788ns
+    Clock Pessimism Removal (CPR):    0.286ns
+  Clock Uncertainty:      0.100ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.000ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.100ns
+  Clock Net Delay (Source):      0.442ns (routing 0.000ns, distribution 0.442ns)
+  Clock Net Delay (Destination): 0.507ns (routing 0.001ns, distribution 0.506ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_byte rise edge)
+                                                      0.000     0.000 r  
+    P10                                               0.000     0.000 r  clk_byte (IN)
+                         net (fo=0)                   0.000     0.000    clk_byte_IBUF_inst/I
+    P10                  INBUF (Prop_INBUF_HPIOB_M_PAD_O)
+                                                      0.180     0.180 r  clk_byte_IBUF_inst/INBUF_INST/O
+                         net (fo=1, routed)           0.000     0.180    clk_byte_IBUF_inst/OUT
+    P10                  IBUFCTRL (Prop_IBUFCTRL_HPIOB_M_I_O)
+                                                      0.000     0.180 r  clk_byte_IBUF_inst/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.149     0.329    clk_byte_IBUF
+    BUFGCE_X0Y74         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.017     0.346 r  clk_byte_IBUF_BUFG_inst/O
+    X3Y3 (CLOCK_ROOT)    net (fo=657, routed)         0.442     0.788    u_mipi_csi2_capture_top/u_lane_deskew_buffer/clk_wr
+    SLICE_X91Y181        FDRE                                         r  u_mipi_csi2_capture_top/u_lane_deskew_buffer/wr_ptr_reg[0][0]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X91Y181        FDRE (Prop_DFF_SLICEM_C_Q)
+                                                      0.039     0.827 r  u_mipi_csi2_capture_top/u_lane_deskew_buffer/wr_ptr_reg[0][0]/Q
+                         net (fo=20, routed)          0.060     0.887    u_mipi_csi2_capture_top/u_lane_deskew_buffer/wr_ptr_reg_n_0_[0][0]
+    SLICE_X91Y181        LUT4 (Prop_C5LUT_SLICEM_I1_O)
+                                                      0.060     0.947 r  u_mipi_csi2_capture_top/u_lane_deskew_buffer/wr_ptr[0][3]_i_2/O
+                         net (fo=1, routed)           0.008     0.955    u_mipi_csi2_capture_top/u_lane_deskew_buffer/wr_ptr[0][3]_i_2_n_0
+    SLICE_X91Y181        FDRE                                         r  u_mipi_csi2_capture_top/u_lane_deskew_buffer/wr_ptr_reg[0][3]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_byte rise edge)
+                                                      0.000     0.000 r  
+    P10                                               0.000     0.000 r  clk_byte (IN)
+                         net (fo=0)                   0.000     0.000    clk_byte_IBUF_inst/I
+    P10                  INBUF (Prop_INBUF_HPIOB_M_PAD_O)
+                                                      0.365     0.365 r  clk_byte_IBUF_inst/INBUF_INST/O
+                         net (fo=1, routed)           0.000     0.365    clk_byte_IBUF_inst/OUT
+    P10                  IBUFCTRL (Prop_IBUFCTRL_HPIOB_M_I_O)
+                                                      0.000     0.365 r  clk_byte_IBUF_inst/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.189     0.554    clk_byte_IBUF
+    BUFGCE_X0Y74         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.019     0.573 r  clk_byte_IBUF_BUFG_inst/O
+    X3Y3 (CLOCK_ROOT)    net (fo=657, routed)         0.507     1.080    u_mipi_csi2_capture_top/u_lane_deskew_buffer/clk_wr
+    SLICE_X91Y181        FDRE                                         r  u_mipi_csi2_capture_top/u_lane_deskew_buffer/wr_ptr_reg[0][3]/C
+                         clock pessimism             -0.286     0.794    
+                         clock uncertainty            0.100     0.894    
+    SLICE_X91Y181        FDRE (Hold_CFF2_SLICEM_C_D)
+                                                      0.047     0.941    u_mipi_csi2_capture_top/u_lane_deskew_buffer/wr_ptr_reg[0][3]
+  -------------------------------------------------------------------
+                         required time                         -0.941    
+                         arrival time                           0.955    
+  -------------------------------------------------------------------
+                         slack                                  0.014    
+
+
+
+
+
+Pulse Width Checks
+--------------------------------------------------------------------------------------
+Clock Name:         clk_byte
+Waveform(ns):       { 0.000 2.667 }
+Period(ns):         5.333
+Sources:            { clk_byte }
+
+Check Type        Corner  Lib Pin     Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location       Pin
+Min Period        n/a     BUFGCE/I    n/a            1.290         5.333       4.043      BUFGCE_X0Y74   clk_byte_IBUF_BUFG_inst/I
+Low Pulse Width   Slow    RAMD32/CLK  n/a            0.532         2.667       2.135      SLICE_X90Y191  u_mipi_csi2_capture_top/u_byte_to_sys_fifo/mem_reg_0_15_0_5/RAMA/CLK
+High Pulse Width  Fast    RAMD32/CLK  n/a            0.532         2.666       2.134      SLICE_X90Y191  u_mipi_csi2_capture_top/u_byte_to_sys_fifo/mem_reg_0_15_0_5/RAMA/CLK
+
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  clk_sys
+  To Clock:  clk_sys
+
+Setup :            0  Failing Endpoints,  Worst Slack        1.884ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.015ns,  Total Violation        0.000ns
+PW    :            0  Failing Endpoints,  Worst Slack        2.225ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             1.884ns  (required time - arrival time)
+  Source:                 u_mipi_csi2_capture_top/u_csi2_long_packet_parser/word_count_reg[4]/C
+                            (rising edge-triggered cell FDRE clocked by clk_sys  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            u_mipi_csi2_capture_top/u_payload_crc_checker/crc_error_reg/D
+                            (rising edge-triggered cell FDRE clocked by clk_sys  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk_sys
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk_sys rise@5.000ns - clk_sys rise@0.000ns)
+  Data Path Delay:        2.899ns  (logic 0.926ns (31.942%)  route 1.973ns (68.058%))
+  Logic Levels:           8  (LUT6=8)
+  Clock Path Skew:        -0.107ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    1.270ns = ( 6.270 - 5.000 ) 
+    Source Clock Delay      (SCD):    1.687ns
+    Clock Pessimism Removal (CPR):    0.310ns
+  Clock Uncertainty:      0.135ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.100ns
+  Clock Net Delay (Source):      0.804ns (routing 0.001ns, distribution 0.803ns)
+  Clock Net Delay (Destination): 0.680ns (routing 0.001ns, distribution 0.679ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys rise edge)    0.000     0.000 r  
+    T8                                                0.000     0.000 r  clk_sys (IN)
+                         net (fo=0)                   0.000     0.000    clk_sys_IBUF_inst/I
+    T8                   INBUF (Prop_INBUF_HPIOB_M_PAD_O)
+                                                      0.522     0.522 r  clk_sys_IBUF_inst/INBUF_INST/O
+                         net (fo=1, routed)           0.000     0.522    clk_sys_IBUF_inst/OUT
+    T8                   IBUFCTRL (Prop_IBUFCTRL_HPIOB_M_I_O)
+                                                      0.000     0.522 r  clk_sys_IBUF_inst/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.333     0.855    clk_sys_IBUF
+    BUFGCE_X0Y80         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     0.883 r  clk_sys_IBUF_BUFG_inst/O
+    X3Y3 (CLOCK_ROOT)    net (fo=441, routed)         0.804     1.687    u_mipi_csi2_capture_top/u_csi2_long_packet_parser/clk_sys_IBUF_BUFG
+    SLICE_X89Y197        FDRE                                         r  u_mipi_csi2_capture_top/u_csi2_long_packet_parser/word_count_reg[4]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X89Y197        FDRE (Prop_FFF2_SLICEL_C_Q)
+                                                      0.081     1.768 r  u_mipi_csi2_capture_top/u_csi2_long_packet_parser/word_count_reg[4]/Q
+                         net (fo=5, routed)           0.229     1.997    u_mipi_csi2_capture_top/u_csi2_long_packet_parser/pkt_word_count[4]
+    SLICE_X91Y196        LUT6 (Prop_F6LUT_SLICEM_I0_O)
+                                                      0.148     2.145 r  u_mipi_csi2_capture_top/u_csi2_long_packet_parser/payload_cnt[15]_i_15/O
+                         net (fo=5, routed)           0.194     2.339    u_mipi_csi2_capture_top/u_csi2_long_packet_parser/payload_cnt[15]_i_15_n_0
+    SLICE_X88Y196        LUT6 (Prop_B6LUT_SLICEM_I2_O)
+                                                      0.149     2.488 r  u_mipi_csi2_capture_top/u_csi2_long_packet_parser/payload_cnt[15]_i_10/O
+                         net (fo=6, routed)           0.282     2.770    u_mipi_csi2_capture_top/u_csi2_long_packet_parser/payload_cnt[15]_i_10_n_0
+    SLICE_X88Y199        LUT6 (Prop_H6LUT_SLICEM_I2_O)
+                                                      0.039     2.809 r  u_mipi_csi2_capture_top/u_csi2_long_packet_parser/crc_calc[15]_i_5/O
+                         net (fo=1, routed)           0.084     2.893    u_mipi_csi2_capture_top/u_csi2_long_packet_parser/crc_calc[15]_i_5_n_0
+    SLICE_X88Y199        LUT6 (Prop_D6LUT_SLICEM_I5_O)
+                                                      0.051     2.944 r  u_mipi_csi2_capture_top/u_csi2_long_packet_parser/crc_calc[15]_i_4/O
+                         net (fo=11, routed)          0.374     3.318    u_mipi_csi2_capture_top/u_payload_crc_checker/payload_cnt_reg[12]
+    SLICE_X86Y195        LUT6 (Prop_G6LUT_SLICEL_I2_O)
+                                                      0.149     3.467 r  u_mipi_csi2_capture_top/u_payload_crc_checker/crc_error_i_23/O
+                         net (fo=1, routed)           0.154     3.621    u_mipi_csi2_capture_top/u_payload_crc_checker/crc_error_i_23_n_0
+    SLICE_X87Y195        LUT6 (Prop_F6LUT_SLICEM_I2_O)
+                                                      0.123     3.744 r  u_mipi_csi2_capture_top/u_payload_crc_checker/crc_error_i_7/O
+                         net (fo=1, routed)           0.265     4.009    u_mipi_csi2_capture_top/u_payload_crc_checker/crc_error_i_7_n_0
+    SLICE_X86Y191        LUT6 (Prop_E6LUT_SLICEL_I1_O)
+                                                      0.147     4.156 r  u_mipi_csi2_capture_top/u_payload_crc_checker/crc_error_i_2/O
+                         net (fo=1, routed)           0.333     4.489    u_mipi_csi2_capture_top/u_payload_crc_checker/crc_error_i_2_n_0
+    SLICE_X90Y194        LUT6 (Prop_H6LUT_SLICEM_I2_O)
+                                                      0.039     4.528 r  u_mipi_csi2_capture_top/u_payload_crc_checker/crc_error_i_1/O
+                         net (fo=1, routed)           0.058     4.586    u_mipi_csi2_capture_top/u_payload_crc_checker/crc_error_i_1_n_0
+    SLICE_X90Y194        FDRE                                         r  u_mipi_csi2_capture_top/u_payload_crc_checker/crc_error_reg/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys rise edge)    5.000     5.000 r  
+    T8                                                0.000     5.000 r  clk_sys (IN)
+                         net (fo=0)                   0.000     5.000    clk_sys_IBUF_inst/I
+    T8                   INBUF (Prop_INBUF_HPIOB_M_PAD_O)
+                                                      0.272     5.272 r  clk_sys_IBUF_inst/INBUF_INST/O
+                         net (fo=1, routed)           0.000     5.272    clk_sys_IBUF_inst/OUT
+    T8                   IBUFCTRL (Prop_IBUFCTRL_HPIOB_M_I_O)
+                                                      0.000     5.272 r  clk_sys_IBUF_inst/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.294     5.566    clk_sys_IBUF
+    BUFGCE_X0Y80         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024     5.590 r  clk_sys_IBUF_BUFG_inst/O
+    X3Y3 (CLOCK_ROOT)    net (fo=441, routed)         0.680     6.270    u_mipi_csi2_capture_top/u_payload_crc_checker/clk_sys_IBUF_BUFG
+    SLICE_X90Y194        FDRE                                         r  u_mipi_csi2_capture_top/u_payload_crc_checker/crc_error_reg/C
+                         clock pessimism              0.310     6.580    
+                         clock uncertainty           -0.135     6.444    
+    SLICE_X90Y194        FDRE (Setup_HFF_SLICEM_C_D)
+                                                      0.025     6.469    u_mipi_csi2_capture_top/u_payload_crc_checker/crc_error_reg
+  -------------------------------------------------------------------
+                         required time                          6.469    
+                         arrival time                          -4.586    
+  -------------------------------------------------------------------
+                         slack                                  1.884    
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.015ns  (arrival time - required time)
+  Source:                 u_mipi_csi2_capture_top/u_frame_line_sync_fsm/frame_end_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_sys  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            u_mipi_csi2_capture_top/u_degrade_recover_fsm/degraded_o_reg/D
+                            (rising edge-triggered cell FDRE clocked by clk_sys  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk_sys
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_sys rise@0.000ns - clk_sys rise@0.000ns)
+  Data Path Delay:        0.209ns  (logic 0.073ns (34.928%)  route 0.136ns (65.072%))
+  Logic Levels:           1  (LUT6=1)
+  Clock Path Skew:        0.048ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.056ns
+    Source Clock Delay      (SCD):    0.768ns
+    Clock Pessimism Removal (CPR):    0.240ns
+  Clock Uncertainty:      0.100ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.000ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.100ns
+  Clock Net Delay (Source):      0.438ns (routing 0.000ns, distribution 0.438ns)
+  Clock Net Delay (Destination): 0.498ns (routing 0.001ns, distribution 0.497ns)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys rise edge)    0.000     0.000 r  
+    T8                                                0.000     0.000 r  clk_sys (IN)
+                         net (fo=0)                   0.000     0.000    clk_sys_IBUF_inst/I
+    T8                   INBUF (Prop_INBUF_HPIOB_M_PAD_O)
+                                                      0.157     0.157 r  clk_sys_IBUF_inst/INBUF_INST/O
+                         net (fo=1, routed)           0.000     0.157    clk_sys_IBUF_inst/OUT
+    T8                   IBUFCTRL (Prop_IBUFCTRL_HPIOB_M_I_O)
+                                                      0.000     0.157 r  clk_sys_IBUF_inst/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.156     0.313    clk_sys_IBUF
+    BUFGCE_X0Y80         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.017     0.330 r  clk_sys_IBUF_BUFG_inst/O
+    X3Y3 (CLOCK_ROOT)    net (fo=441, routed)         0.438     0.768    u_mipi_csi2_capture_top/u_frame_line_sync_fsm/clk_sys_IBUF_BUFG
+    SLICE_X90Y198        FDRE                                         r  u_mipi_csi2_capture_top/u_frame_line_sync_fsm/frame_end_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X90Y198        FDRE (Prop_EFF_SLICEM_C_Q)
+                                                      0.038     0.806 f  u_mipi_csi2_capture_top/u_frame_line_sync_fsm/frame_end_reg/Q
+                         net (fo=3, routed)           0.115     0.921    u_mipi_csi2_capture_top/u_degrade_recover_fsm/frame_end_reg
+    SLICE_X91Y195        LUT6 (Prop_H6LUT_SLICEM_I5_O)
+                                                      0.035     0.956 r  u_mipi_csi2_capture_top/u_degrade_recover_fsm/degraded_o_i_1/O
+                         net (fo=1, routed)           0.021     0.977    u_mipi_csi2_capture_top/u_degrade_recover_fsm/degraded_o_i_1_n_0
+    SLICE_X91Y195        FDRE                                         r  u_mipi_csi2_capture_top/u_degrade_recover_fsm/degraded_o_reg/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys rise edge)    0.000     0.000 r  
+    T8                                                0.000     0.000 r  clk_sys (IN)
+                         net (fo=0)                   0.000     0.000    clk_sys_IBUF_inst/I
+    T8                   INBUF (Prop_INBUF_HPIOB_M_PAD_O)
+                                                      0.342     0.342 r  clk_sys_IBUF_inst/INBUF_INST/O
+                         net (fo=1, routed)           0.000     0.342    clk_sys_IBUF_inst/OUT
+    T8                   IBUFCTRL (Prop_IBUFCTRL_HPIOB_M_I_O)
+                                                      0.000     0.342 r  clk_sys_IBUF_inst/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.197     0.539    clk_sys_IBUF
+    BUFGCE_X0Y80         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.019     0.558 r  clk_sys_IBUF_BUFG_inst/O
+    X3Y3 (CLOCK_ROOT)    net (fo=441, routed)         0.498     1.056    u_mipi_csi2_capture_top/u_degrade_recover_fsm/clk_sys_IBUF_BUFG
+    SLICE_X91Y195        FDRE                                         r  u_mipi_csi2_capture_top/u_degrade_recover_fsm/degraded_o_reg/C
+                         clock pessimism             -0.240     0.816    
+                         clock uncertainty            0.100     0.916    
+    SLICE_X91Y195        FDRE (Hold_HFF_SLICEM_C_D)
+                                                      0.046     0.962    u_mipi_csi2_capture_top/u_degrade_recover_fsm/degraded_o_reg
+  -------------------------------------------------------------------
+                         required time                         -0.962    
+                         arrival time                           0.977    
+  -------------------------------------------------------------------
+                         slack                                  0.015    
+
+
+
+
+
+Pulse Width Checks
+--------------------------------------------------------------------------------------
+Clock Name:         clk_sys
+Waveform(ns):       { 0.000 2.500 }
+Period(ns):         5.000
+Sources:            { clk_sys }
+
+Check Type        Corner  Lib Pin   Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location       Pin
+Min Period        n/a     BUFGCE/I  n/a            1.290         5.000       3.710      BUFGCE_X0Y80   clk_sys_IBUF_BUFG_inst/I
+Low Pulse Width   Slow    FDRE/C    n/a            0.275         2.500       2.225      SLICE_X88Y196  u_mipi_csi2_capture_top/u_csi2_long_packet_parser/word_count_reg[7]/C
+High Pulse Width  Fast    FDRE/C    n/a            0.275         2.500       2.225      SLICE_X90Y197  u_mipi_csi2_capture_top/u_csi2_long_packet_parser/header_data_reg_reg[1]/C
+
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  clk_sys
+  To Clock:  clk_axi
+
+Setup :            0  Failing Endpoints,  Worst Slack        3.167ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.138ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             3.167ns  (required time - arrival time)
+  Source:                 u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_req_toggle_sys_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_sys  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_req_sync1_axi_reg/D
+                            (rising edge-triggered cell FDRE clocked by clk_axi  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk_axi
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk_axi rise@5.000ns - clk_sys rise@0.000ns)
+  Data Path Delay:        1.334ns  (logic 0.078ns (5.847%)  route 1.256ns (94.153%))
+  Logic Levels:           0  
+  Clock Path Skew:        -0.388ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    1.264ns = ( 6.264 - 5.000 ) 
+    Source Clock Delay      (SCD):    1.653ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.135ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.100ns
+  Clock Net Delay (Source):      0.770ns (routing 0.001ns, distribution 0.769ns)
+  Clock Net Delay (Destination): 0.659ns (routing 0.001ns, distribution 0.658ns)
+  Clock Domain Crossing:  Inter clock paths are considered valid unless explicitly excluded by timing constraints such as set_clock_groups or set_false_path.
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys rise edge)    0.000     0.000 r  
+    T8                                                0.000     0.000 r  clk_sys (IN)
+                         net (fo=0)                   0.000     0.000    clk_sys_IBUF_inst/I
+    T8                   INBUF (Prop_INBUF_HPIOB_M_PAD_O)
+                                                      0.522     0.522 r  clk_sys_IBUF_inst/INBUF_INST/O
+                         net (fo=1, routed)           0.000     0.522    clk_sys_IBUF_inst/OUT
+    T8                   IBUFCTRL (Prop_IBUFCTRL_HPIOB_M_I_O)
+                                                      0.000     0.522 r  clk_sys_IBUF_inst/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.333     0.855    clk_sys_IBUF
+    BUFGCE_X0Y80         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     0.883 r  clk_sys_IBUF_BUFG_inst/O
+    X3Y3 (CLOCK_ROOT)    net (fo=441, routed)         0.770     1.653    u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clk_sys_IBUF_BUFG
+    SLICE_X91Y203        FDRE                                         r  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_req_toggle_sys_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X91Y203        FDRE (Prop_CFF_SLICEM_C_Q)
+                                                      0.078     1.731 r  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_req_toggle_sys_reg/Q
+                         net (fo=2, routed)           1.256     2.987    u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_req_toggle_sys
+    SLICE_X93Y206        FDRE                                         r  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_req_sync1_axi_reg/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_axi rise edge)    5.000     5.000 r  
+    P11                                               0.000     5.000 r  clk_axi (IN)
+                         net (fo=0)                   0.000     5.000    clk_axi_IBUF_inst/I
+    P11                  INBUF (Prop_INBUF_HPIOB_M_PAD_O)
+                                                      0.298     5.298 r  clk_axi_IBUF_inst/INBUF_INST/O
+                         net (fo=1, routed)           0.000     5.298    clk_axi_IBUF_inst/OUT
+    P11                  IBUFCTRL (Prop_IBUFCTRL_HPIOB_M_I_O)
+                                                      0.000     5.298 r  clk_axi_IBUF_inst/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.283     5.581    clk_axi_IBUF
+    BUFGCE_X0Y86         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024     5.605 r  clk_axi_IBUF_BUFG_inst/O
+    X3Y3 (CLOCK_ROOT)    net (fo=53, routed)          0.659     6.264    u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clk_axi_IBUF_BUFG
+    SLICE_X93Y206        FDRE                                         r  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_req_sync1_axi_reg/C
+                         clock pessimism              0.000     6.264    
+                         clock uncertainty           -0.135     6.129    
+    SLICE_X93Y206        FDRE (Setup_EFF_SLICEM_C_D)
+                                                      0.025     6.154    u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_req_sync1_axi_reg
+  -------------------------------------------------------------------
+                         required time                          6.154    
+                         arrival time                          -2.987    
+  -------------------------------------------------------------------
+                         slack                                  3.167    
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.138ns  (arrival time - required time)
+  Source:                 u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_req_toggle_sys_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_sys  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_req_sync1_axi_reg/D
+                            (rising edge-triggered cell FDRE clocked by clk_axi  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk_axi
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_axi rise@0.000ns - clk_sys rise@0.000ns)
+  Data Path Delay:        0.623ns  (logic 0.038ns (6.100%)  route 0.585ns (93.900%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.304ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.065ns
+    Source Clock Delay      (SCD):    0.762ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+  Clock Uncertainty:      0.135ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.100ns
+  Clock Net Delay (Source):      0.432ns (routing 0.000ns, distribution 0.432ns)
+  Clock Net Delay (Destination): 0.489ns (routing 0.001ns, distribution 0.488ns)
+  Clock Domain Crossing:  Inter clock paths are considered valid unless explicitly excluded by timing constraints such as set_clock_groups or set_false_path.
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys rise edge)    0.000     0.000 r  
+    T8                                                0.000     0.000 r  clk_sys (IN)
+                         net (fo=0)                   0.000     0.000    clk_sys_IBUF_inst/I
+    T8                   INBUF (Prop_INBUF_HPIOB_M_PAD_O)
+                                                      0.157     0.157 r  clk_sys_IBUF_inst/INBUF_INST/O
+                         net (fo=1, routed)           0.000     0.157    clk_sys_IBUF_inst/OUT
+    T8                   IBUFCTRL (Prop_IBUFCTRL_HPIOB_M_I_O)
+                                                      0.000     0.157 r  clk_sys_IBUF_inst/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.156     0.313    clk_sys_IBUF
+    BUFGCE_X0Y80         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.017     0.330 r  clk_sys_IBUF_BUFG_inst/O
+    X3Y3 (CLOCK_ROOT)    net (fo=441, routed)         0.432     0.762    u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clk_sys_IBUF_BUFG
+    SLICE_X91Y203        FDRE                                         r  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_req_toggle_sys_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X91Y203        FDRE (Prop_CFF_SLICEM_C_Q)
+                                                      0.038     0.800 r  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_req_toggle_sys_reg/Q
+                         net (fo=2, routed)           0.585     1.385    u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_req_toggle_sys
+    SLICE_X93Y206        FDRE                                         r  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_req_sync1_axi_reg/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_axi rise edge)    0.000     0.000 r  
+    P11                                               0.000     0.000 r  clk_axi (IN)
+                         net (fo=0)                   0.000     0.000    clk_axi_IBUF_inst/I
+    P11                  INBUF (Prop_INBUF_HPIOB_M_PAD_O)
+                                                      0.368     0.368 r  clk_axi_IBUF_inst/INBUF_INST/O
+                         net (fo=1, routed)           0.000     0.368    clk_axi_IBUF_inst/OUT
+    P11                  IBUFCTRL (Prop_IBUFCTRL_HPIOB_M_I_O)
+                                                      0.000     0.368 r  clk_axi_IBUF_inst/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.189     0.557    clk_axi_IBUF
+    BUFGCE_X0Y86         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.019     0.576 r  clk_axi_IBUF_BUFG_inst/O
+    X3Y3 (CLOCK_ROOT)    net (fo=53, routed)          0.489     1.065    u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clk_axi_IBUF_BUFG
+    SLICE_X93Y206        FDRE                                         r  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_req_sync1_axi_reg/C
+                         clock pessimism              0.000     1.065    
+                         clock uncertainty            0.135     1.201    
+    SLICE_X93Y206        FDRE (Hold_EFF_SLICEM_C_D)
+                                                      0.046     1.247    u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_req_sync1_axi_reg
+  -------------------------------------------------------------------
+                         required time                         -1.247    
+                         arrival time                           1.385    
+  -------------------------------------------------------------------
+                         slack                                  0.138    
+
+
+
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  clk_axi
+  To Clock:  clk_sys
+
+Setup :            0  Failing Endpoints,  Worst Slack        3.222ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.156ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             3.222ns  (required time - arrival time)
+  Source:                 u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_commit_toggle_axi_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_axi  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_commit_sync1_sys_reg/D
+                            (rising edge-triggered cell FDRE clocked by clk_sys  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk_sys
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5.000ns  (clk_sys rise@5.000ns - clk_axi rise@0.000ns)
+  Data Path Delay:        1.259ns  (logic 0.080ns (6.354%)  route 1.179ns (93.646%))
+  Logic Levels:           0  
+  Clock Path Skew:        -0.409ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    1.256ns = ( 6.256 - 5.000 ) 
+    Source Clock Delay      (SCD):    1.664ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.135ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.100ns
+  Clock Net Delay (Source):      0.768ns (routing 0.001ns, distribution 0.767ns)
+  Clock Net Delay (Destination): 0.666ns (routing 0.001ns, distribution 0.665ns)
+  Clock Domain Crossing:  Inter clock paths are considered valid unless explicitly excluded by timing constraints such as set_clock_groups or set_false_path.
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_axi rise edge)    0.000     0.000 r  
+    P11                                               0.000     0.000 r  clk_axi (IN)
+                         net (fo=0)                   0.000     0.000    clk_axi_IBUF_inst/I
+    P11                  INBUF (Prop_INBUF_HPIOB_M_PAD_O)
+                                                      0.548     0.548 r  clk_axi_IBUF_inst/INBUF_INST/O
+                         net (fo=1, routed)           0.000     0.548    clk_axi_IBUF_inst/OUT
+    P11                  IBUFCTRL (Prop_IBUFCTRL_HPIOB_M_I_O)
+                                                      0.000     0.548 r  clk_axi_IBUF_inst/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.320     0.868    clk_axi_IBUF
+    BUFGCE_X0Y86         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.028     0.896 r  clk_axi_IBUF_BUFG_inst/O
+    X3Y3 (CLOCK_ROOT)    net (fo=53, routed)          0.768     1.664    u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clk_axi_IBUF_BUFG
+    SLICE_X94Y207        FDRE                                         r  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_commit_toggle_axi_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X94Y207        FDRE (Prop_HFF2_SLICEL_C_Q)
+                                                      0.080     1.744 r  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_commit_toggle_axi_reg/Q
+                         net (fo=2, routed)           1.179     2.923    u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_commit_toggle_axi
+    SLICE_X91Y203        FDRE                                         r  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_commit_sync1_sys_reg/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys rise edge)    5.000     5.000 r  
+    T8                                                0.000     5.000 r  clk_sys (IN)
+                         net (fo=0)                   0.000     5.000    clk_sys_IBUF_inst/I
+    T8                   INBUF (Prop_INBUF_HPIOB_M_PAD_O)
+                                                      0.272     5.272 r  clk_sys_IBUF_inst/INBUF_INST/O
+                         net (fo=1, routed)           0.000     5.272    clk_sys_IBUF_inst/OUT
+    T8                   IBUFCTRL (Prop_IBUFCTRL_HPIOB_M_I_O)
+                                                      0.000     5.272 r  clk_sys_IBUF_inst/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.294     5.566    clk_sys_IBUF
+    BUFGCE_X0Y80         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.024     5.590 r  clk_sys_IBUF_BUFG_inst/O
+    X3Y3 (CLOCK_ROOT)    net (fo=441, routed)         0.666     6.256    u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clk_sys_IBUF_BUFG
+    SLICE_X91Y203        FDRE                                         r  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_commit_sync1_sys_reg/C
+                         clock pessimism              0.000     6.256    
+                         clock uncertainty           -0.135     6.120    
+    SLICE_X91Y203        FDRE (Setup_EFF_SLICEM_C_D)
+                                                      0.025     6.145    u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_commit_sync1_sys_reg
+  -------------------------------------------------------------------
+                         required time                          6.145    
+                         arrival time                          -2.923    
+  -------------------------------------------------------------------
+                         slack                                  3.222    
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.156ns  (arrival time - required time)
+  Source:                 u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_commit_toggle_axi_reg/C
+                            (rising edge-triggered cell FDRE clocked by clk_axi  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Destination:            u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_commit_sync1_sys_reg/D
+                            (rising edge-triggered cell FDRE clocked by clk_sys  {rise@0.000ns fall@2.500ns period=5.000ns})
+  Path Group:             clk_sys
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_sys rise@0.000ns - clk_axi rise@0.000ns)
+  Data Path Delay:        0.611ns  (logic 0.039ns (6.383%)  route 0.572ns (93.617%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.273ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.051ns
+    Source Clock Delay      (SCD):    0.777ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+  Clock Uncertainty:      0.135ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    0.100ns
+  Clock Net Delay (Source):      0.428ns (routing 0.000ns, distribution 0.428ns)
+  Clock Net Delay (Destination): 0.493ns (routing 0.001ns, distribution 0.492ns)
+  Clock Domain Crossing:  Inter clock paths are considered valid unless explicitly excluded by timing constraints such as set_clock_groups or set_false_path.
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_axi rise edge)    0.000     0.000 r  
+    P11                                               0.000     0.000 r  clk_axi (IN)
+                         net (fo=0)                   0.000     0.000    clk_axi_IBUF_inst/I
+    P11                  INBUF (Prop_INBUF_HPIOB_M_PAD_O)
+                                                      0.183     0.183 r  clk_axi_IBUF_inst/INBUF_INST/O
+                         net (fo=1, routed)           0.000     0.183    clk_axi_IBUF_inst/OUT
+    P11                  IBUFCTRL (Prop_IBUFCTRL_HPIOB_M_I_O)
+                                                      0.000     0.183 r  clk_axi_IBUF_inst/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.149     0.332    clk_axi_IBUF
+    BUFGCE_X0Y86         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.017     0.349 r  clk_axi_IBUF_BUFG_inst/O
+    X3Y3 (CLOCK_ROOT)    net (fo=53, routed)          0.428     0.777    u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clk_axi_IBUF_BUFG
+    SLICE_X94Y207        FDRE                                         r  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_commit_toggle_axi_reg/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X94Y207        FDRE (Prop_HFF2_SLICEL_C_Q)
+                                                      0.039     0.816 r  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_commit_toggle_axi_reg/Q
+                         net (fo=2, routed)           0.572     1.388    u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_commit_toggle_axi
+    SLICE_X91Y203        FDRE                                         r  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_commit_sync1_sys_reg/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys rise edge)    0.000     0.000 r  
+    T8                                                0.000     0.000 r  clk_sys (IN)
+                         net (fo=0)                   0.000     0.000    clk_sys_IBUF_inst/I
+    T8                   INBUF (Prop_INBUF_HPIOB_M_PAD_O)
+                                                      0.342     0.342 r  clk_sys_IBUF_inst/INBUF_INST/O
+                         net (fo=1, routed)           0.000     0.342    clk_sys_IBUF_inst/OUT
+    T8                   IBUFCTRL (Prop_IBUFCTRL_HPIOB_M_I_O)
+                                                      0.000     0.342 r  clk_sys_IBUF_inst/IBUFCTRL_INST/O
+                         net (fo=1, routed)           0.197     0.539    clk_sys_IBUF
+    BUFGCE_X0Y80         BUFGCE (Prop_BUFCE_BUFGCE_I_O)
+                                                      0.019     0.558 r  clk_sys_IBUF_BUFG_inst/O
+    X3Y3 (CLOCK_ROOT)    net (fo=441, routed)         0.493     1.051    u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clk_sys_IBUF_BUFG
+    SLICE_X91Y203        FDRE                                         r  u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_commit_sync1_sys_reg/C
+                         clock pessimism              0.000     1.051    
+                         clock uncertainty            0.135     1.186    
+    SLICE_X91Y203        FDRE (Hold_EFF_SLICEM_C_D)
+                                                      0.046     1.232    u_mipi_csi2_capture_top/u_pixel_to_axi_writer/clear_commit_sync1_sys_reg
+  -------------------------------------------------------------------
+                         required time                         -1.232    
+                         arrival time                           1.388    
+  -------------------------------------------------------------------
+                         slack                                  0.156    
+
+
+
+
+

@@ -1,0 +1,30 @@
+# Local tool caches
+.cache/
+.Xil/
+tools/__pycache__/
+raw8_batch2_*.btree
+
+# Vivado / simulation transient files
+*.jou
+*.str
+*.pb
+*.vvp
+*.wdb
+*.vcd
+*.backup.log
+*.backup.jou
+webtalk_*.log
+webtalk_*.jou
+
+# Generated simulation and implementation work areas
+02_vivado_project_and_sim/sim/logs/
+02_vivado_project_and_sim/sim/waves/
+02_vivado_project_and_sim/vivado/work/
+02_vivado_project_and_sim/vivado/reports/
+05_simulation_results/结果验证/正式重验证_20260521/compile/
+05_simulation_results/结果验证/正式重验证_20260521/logs/
+05_simulation_results/结果验证/正式重验证_20260521/xsim_wave_logs/
+
+# Generated presentation/doc previews
+outputs/
+docx_render_check/

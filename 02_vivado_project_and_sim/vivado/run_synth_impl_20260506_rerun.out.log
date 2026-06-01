@@ -1,0 +1,89 @@
+
+****** Vivado v2017.3 (64-bit)
+  **** SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
+  **** IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
+    ** Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+
+source {fpga\vivado\run_synth_impl.tcl}
+# set script_dir [file normalize [file dirname [info script]]]
+# set project_name "mipi_csi2_capture"
+# set top_module   "mipi_csi2_capture_top"
+# set jobs         4
+# if {[info exists ::env(VIVADO_JOBS)] && ($::env(VIVADO_JOBS) ne "")} {
+#     set jobs $::env(VIVADO_JOBS)
+# }
+# if {[llength $argv] >= 1} {
+#     set project_name [lindex $argv 0]
+# }
+# if {[llength $argv] >= 2} {
+#     set top_module [lindex $argv 1]
+# }
+# if {[llength $argv] >= 3} {
+#     set jobs [lindex $argv 2]
+# }
+# proc file_list_has_module {files module_name} {
+#     set module_re [format {(^|[;[:space:]])module[[:space:]]+%s([[:space:]#;(]|$)} $module_name]
+# 
+#     foreach src_file $files {
+#         if {![file exists $src_file]} {
+#             continue
+#         }
+#         set fp [open $src_file r]
+#         set text [read $fp]
+#         close $fp
+#         if {[regexp $module_re $text]} {
+#             return 1
+#         }
+#     }
+#     return 0
+# }
+# proc assert_run_complete {run_name} {
+#     set run_obj [get_runs $run_name]
+#     set progress [get_property PROGRESS $run_obj]
+#     set status   [get_property STATUS $run_obj]
+# 
+#     if {($progress ne "100%") || ![regexp {Complete} $status]} {
+#         puts "ERROR: Run $run_name did not complete successfully."
+#         puts "ERROR: PROGRESS=$progress"
+#         puts "ERROR: STATUS=$status"
+#         return -code error "$run_name failed"
+#     }
+# }
+# set project_file [file join $script_dir work $project_name "${project_name}.xpr"]
+# set report_root  [file join $script_dir reports $project_name]
+# if {![file exists $project_file]} {
+#     puts "ERROR: Vivado project not found: $project_file"
+#     puts "ERROR: Run fpga/vivado/create_project.tcl first."
+#     return -code error "missing Vivado project"
+# }
+# file mkdir $report_root
+# puts "INFO: Opening project : $project_file"
+INFO: Opening project : C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/vivado/work/mipi_csi2_capture_fpga/mipi_csi2_capture_fpga.xpr
+# puts "INFO: Requested top   : $top_module"
+INFO: Requested top   : mipi_csi2_capture_fpga_wrapper
+# puts "INFO: Jobs            : $jobs"
+INFO: Jobs            : 4
+# open_project $project_file
+Scanning sources...
+Finished scanning sources
+# set source_files [get_files -quiet -of_objects [get_filesets sources_1]]
+# if {![file_list_has_module $source_files $top_module]} {
+#     puts "ERROR: Top module '$top_module' was not found in current project sources."
+#     puts "ERROR: This stage only provides scripts; add top integration RTL before running synthesis."
+#     close_project
+#     return -code error "missing top integration RTL"
+# }
+# set_property top $top_module [current_fileset]
+# update_compile_order -fileset sources_1
+# puts "INFO: Starting synthesis."
+INFO: Starting synthesis.
+# reset_run synth_1
+# launch_runs synth_1 -jobs $jobs
+[Wed May  6 15:38:08 2026] Launched synth_1...
+Run output will be captured here: C:/Users/qigua/OneDrive/Desktop/MIPI ALL/fpga/vivado/work/mipi_csi2_capture_fpga/mipi_csi2_capture_fpga.runs/synth_1/runme.log
+# wait_on_run synth_1
+[Wed May  6 15:38:08 2026] Waiting for synth_1 to finish...
+
+*** Running vivado
+    with args -log mipi_csi2_capture_fpga_wrapper.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source mipi_csi2_capture_fpga_wrapper.tcl
+

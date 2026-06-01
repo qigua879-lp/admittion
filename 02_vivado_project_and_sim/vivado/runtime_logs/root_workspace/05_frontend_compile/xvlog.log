@@ -1,0 +1,50 @@
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/buffer/async_fifo.sv" into library work
+INFO: [VRFC 10-311] analyzing module async_fifo
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/csi2_header_ecc_checker.sv" into library work
+INFO: [VRFC 10-311] analyzing module csi2_header_ecc_checker
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/csi2_long_packet_parser.sv" into library work
+INFO: [VRFC 10-311] analyzing module csi2_long_packet_parser
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/csi2_payload_crc_checker.sv" into library work
+INFO: [VRFC 10-311] analyzing module csi2_payload_crc_checker
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/frame_line_sync_fsm.sv" into library work
+INFO: [VRFC 10-311] analyzing module frame_line_sync_fsm
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/lane_deskew_buffer.sv" into library work
+INFO: [VRFC 10-311] analyzing module lane_deskew_buffer
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/csi2_rx/lane_reorder_merge.sv" into library work
+INFO: [VRFC 10-311] analyzing module lane_reorder_merge
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/pixel/raw8_unpack.sv" into library work
+INFO: [VRFC 10-311] analyzing module raw8_unpack
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/pixel/raw10_unpack.sv" into library work
+INFO: [VRFC 10-311] analyzing module raw10_unpack
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/pixel/rgb888_unpack.sv" into library work
+INFO: [VRFC 10-311] analyzing module rgb888_unpack
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/pixel/yuv422_unpack.sv" into library work
+INFO: [VRFC 10-311] analyzing module yuv422_unpack
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/preprocess/brightness_adjust.sv" into library work
+INFO: [VRFC 10-311] analyzing module brightness_adjust
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/preprocess/contrast_adjust.sv" into library work
+INFO: [VRFC 10-311] analyzing module contrast_adjust
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/preprocess/gray_balance.sv" into library work
+INFO: [VRFC 10-311] analyzing module gray_balance
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/preprocess/preprocess_bypass_mux.sv" into library work
+INFO: [VRFC 10-311] analyzing module preprocess_bypass_mux
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/preprocess/adaptive_v1/pixel_frame_stats_v1.sv" into library work
+INFO: [VRFC 10-311] analyzing module pixel_frame_stats_v1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/preprocess/adaptive_v1/adaptive_preprocess_ctrl_v1.sv" into library work
+INFO: [VRFC 10-311] analyzing module adaptive_preprocess_ctrl_v1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_classifier.sv" into library work
+INFO: [VRFC 10-311] analyzing module err_classifier
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/err_frame_line_logger.sv" into library work
+INFO: [VRFC 10-311] analyzing module err_frame_line_logger
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/resync_ctrl_fsm.sv" into library work
+INFO: [VRFC 10-311] analyzing module resync_ctrl_fsm
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/reliability/degrade_recover_fsm.sv" into library work
+INFO: [VRFC 10-311] analyzing module degrade_recover_fsm
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/axi_burst_gen.sv" into library work
+INFO: [VRFC 10-311] analyzing module axi_burst_gen
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/axi_write_master.sv" into library work
+INFO: [VRFC 10-311] analyzing module axi_write_master
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/axi/pixel_to_axi_writer.sv" into library work
+INFO: [VRFC 10-311] analyzing module pixel_to_axi_writer
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/rtl/top/mipi_csi2_capture_top.sv" into library work
+INFO: [VRFC 10-311] analyzing module mipi_csi2_capture_top

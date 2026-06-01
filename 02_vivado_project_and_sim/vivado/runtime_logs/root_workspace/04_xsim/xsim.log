@@ -1,0 +1,20 @@
+#-----------------------------------------------------------
+# xsim v2017.3 (64-bit)
+# SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
+# IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
+# Start of session at: Wed May  6 09:23:12 2026
+# Process ID: 64576
+# Current directory: C:/Users/qigua/OneDrive/Desktop/MIPI ALL
+# Command line: xsim.exe -mode tcl -source {xsim.dir/tb_pixel_to_axi_writer_snap/xsim_script.tcl}
+# Log file: C:/Users/qigua/OneDrive/Desktop/MIPI ALL/xsim.log
+# Journal file: C:/Users/qigua/OneDrive/Desktop/MIPI ALL\xsim.jou
+#-----------------------------------------------------------
+source xsim.dir/tb_pixel_to_axi_writer_snap/xsim_script.tcl
+# xsim {tb_pixel_to_axi_writer_snap} -autoloadwcfg -runall
+Vivado Simulator 2017.3
+Time resolution is 1 ps
+run -all
+[345000] PASS: tb_pixel_to_axi_writer
+$finish called at time : 345 ns : File "C:/Users/qigua/OneDrive/Desktop/MIPI ALL/tb/tests/tb_pixel_to_axi_writer.sv" Line 250
+exit
+INFO: [Common 17-206] Exiting xsim at Wed May  6 09:24:07 2026...

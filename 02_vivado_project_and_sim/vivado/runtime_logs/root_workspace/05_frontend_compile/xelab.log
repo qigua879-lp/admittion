@@ -1,0 +1,17 @@
+Vivado Simulator 2017.3
+Copyright 1986-1999, 2001-2016 Xilinx, Inc. All Rights Reserved.
+Running: D:/Xilinx/Vivado/2017.3/bin/unwrapped/win64.o/xelab.exe -debug typical -top tb_pixel_to_axi_writer -snapshot tb_pixel_to_axi_writer_snap 
+Multi-threading is on. Using 14 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module work.async_fifo(DATA_WIDTH=36)
+Compiling module work.async_fifo(ADDR_WIDTH=3)
+Compiling module work.addr_gen_frame_based
+Compiling module work.axi_burst_gen(MAX_BURST_LEN=4)
+Compiling module work.axi_write_master(MAX_BURST_LEN=4...
+Compiling module work.pixel_to_axi_writer(MAX_BURST_LE...
+Compiling module work.tb_pixel_to_axi_writer
+Built simulation snapshot tb_pixel_to_axi_writer_snap

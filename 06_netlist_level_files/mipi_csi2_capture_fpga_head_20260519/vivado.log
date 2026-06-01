@@ -1,0 +1,37 @@
+#-----------------------------------------------------------
+# Vivado v2017.3 (64-bit)
+# SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
+# IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
+# Start of session at: Sat May 30 10:05:23 2026
+# Process ID: 40692
+# Current directory: C:/Users/qigua/OneDrive/Desktop/admittion/06_netlist_level_files/mipi_csi2_capture_fpga_head_20260519
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent35004 C:\Users\qigua\OneDrive\Desktop\admittion\06_netlist_level_files\mipi_csi2_capture_fpga_head_20260519\post_synth.dcp
+# Log file: C:/Users/qigua/OneDrive/Desktop/admittion/06_netlist_level_files/mipi_csi2_capture_fpga_head_20260519/vivado.log
+# Journal file: C:/Users/qigua/OneDrive/Desktop/admittion/06_netlist_level_files/mipi_csi2_capture_fpga_head_20260519\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_checkpoint {C:\Users\qigua\OneDrive\Desktop\admittion\06_netlist_level_files\mipi_csi2_capture_fpga_head_20260519\post_synth.dcp}
+Command: open_checkpoint {C:\Users\qigua\OneDrive\Desktop\admittion\06_netlist_level_files\mipi_csi2_capture_fpga_head_20260519\post_synth.dcp}
+
+Starting open_checkpoint Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.036 . Memory (MB): peak = 755.938 ; gain = 0.000
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'D:/Xilinx/Vivado/2017.3/data/ip'.
+INFO: [Netlist 29-17] Analyzing 73 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2017.3
+INFO: [Device 21-403] Loading part xczu9eg-ffvb1156-2-e
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Parsing XDC File [C:/Users/qigua/OneDrive/Desktop/admittion/06_netlist_level_files/mipi_csi2_capture_fpga_head_20260519/.Xil/Vivado-40692-Icer/dcp3/mipi_csi2_capture_fpga_wrapper.xdc]
+Finished Parsing XDC File [C:/Users/qigua/OneDrive/Desktop/admittion/06_netlist_level_files/mipi_csi2_capture_fpga_head_20260519/.Xil/Vivado-40692-Icer/dcp3/mipi_csi2_capture_fpga_wrapper.xdc]
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 25 instances were transformed.
+  IBUF => IBUF (IBUFCTRL, INBUF): 24 instances
+  RAM32M16 => RAM32M16 (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 1 instances
+
+INFO: [Project 1-604] Checkpoint was created with Vivado v2017.3 (64-bit) build 2018833
+open_checkpoint: Time (s): cpu = 00:00:54 ; elapsed = 00:00:38 . Memory (MB): peak = 1849.809 ; gain = 1096.820
+exit
+INFO: [Common 17-206] Exiting Vivado at Sat May 30 14:25:14 2026...

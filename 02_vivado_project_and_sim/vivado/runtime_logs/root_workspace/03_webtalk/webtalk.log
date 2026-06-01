@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Webtalk v2017.3 (64-bit)
+# SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
+# IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
+# Start of session at: Tue May 19 21:37:13 2026
+# Process ID: 49352
+# Current directory: C:/Users/qigua/OneDrive/Desktop/MIPI ALL
+# Command line: wbtcv.exe -mode batch -source C:/Users/qigua/OneDrive/Desktop/MIPI ALL/xsim.dir/tb_fpga_wrapper_resync_clean_frame_formal/webtalk/xsim_webtalk.tcl -notrace
+# Log file: C:/Users/qigua/OneDrive/Desktop/MIPI ALL/webtalk.log
+# Journal file: C:/Users/qigua/OneDrive/Desktop/MIPI ALL\webtalk.jou
+#-----------------------------------------------------------
+source C:/Users/qigua/OneDrive/Desktop/MIPI -notrace
+couldn't read file "C:/Users/qigua/OneDrive/Desktop/MIPI": no such file or directory
+INFO: [Common 17-206] Exiting Webtalk at Tue May 19 21:37:13 2026...
