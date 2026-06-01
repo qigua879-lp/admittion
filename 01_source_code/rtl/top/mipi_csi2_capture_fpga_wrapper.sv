@@ -10,7 +10,8 @@ module mipi_csi2_capture_fpga_wrapper #(
     parameter int AXI_FIFO_ADDR_WIDTH  = 6,
     parameter int AXI_ADDR_WIDTH       = 32,
     parameter int AXI_DATA_WIDTH       = 128,
-    parameter int AXI_MAX_BURST_LEN    = 16
+    parameter int AXI_MAX_BURST_LEN    = 16,
+    parameter int AXI_SINK_MEM_ADDR_WIDTH = 12
 ) (
     input  logic                         clk_sys,
     input  logic                         clk_byte,
@@ -166,7 +167,8 @@ module mipi_csi2_capture_fpga_wrapper #(
 
     axi_write_null_slave #(
         .ADDR_WIDTH(AXI_ADDR_WIDTH),
-        .DATA_WIDTH(AXI_DATA_WIDTH)
+        .DATA_WIDTH(AXI_DATA_WIDTH),
+        .MEM_ADDR_WIDTH(AXI_SINK_MEM_ADDR_WIDTH)
     ) u_axi_write_null_slave (
         .clk_axi(clk_axi),
         .rst_n(rst_n),

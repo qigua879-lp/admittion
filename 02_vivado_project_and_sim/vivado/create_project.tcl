@@ -1,11 +1,11 @@
 # Vivado project creation script for the digital MIPI CSI-2 capture project.
 #
 # Usage:
-#   vivado -mode batch -source fpga/vivado/create_project.tcl \
+#   vivado -mode batch -source 02_vivado_project_and_sim/vivado/create_project.tcl \
 #          -tclargs [fpga_part] [project_name] [top_module]
 #
 # Default example:
-#   vivado -mode batch -source fpga/vivado/create_project.tcl \
+#   vivado -mode batch -source 02_vivado_project_and_sim/vivado/create_project.tcl \
 #          -tclargs xczu9eg-ffvb1156-2-e mipi_csi2_capture mipi_csi2_capture_top
 #
 # This repository now defaults to AMD Zynq UltraScale+ MPSoC
@@ -80,19 +80,47 @@ proc file_list_has_module {files module_name} {
     return 0
 }
 
-set project_root [file join $script_dir work $project_name]
-set report_root  [file join $script_dir reports $project_name]
-set rtl_root     [file join $repo_root rtl]
-set xdc_root     [file join $repo_root fpga xdc]
+proc clear_windows_readonly_dir {dir_path} {
+    catch {file attributes $dir_path -readonly 0}
+    if {[info exists ::tcl_platform(platform)] && ($::tcl_platform(platform) eq "windows")} {
+        catch {exec attrib -R [file nativename $dir_path]}
+    }
+}
+
+set work_base   [file join $script_dir work]
+set report_base [file join $script_dir reports]
+
+if {[info exists ::env(VIVADO_WORK_ROOT)] && ($::env(VIVADO_WORK_ROOT) ne "")} {
+    set work_base [file normalize $::env(VIVADO_WORK_ROOT)]
+}
+if {[info exists ::env(VIVADO_REPORT_ROOT)] && ($::env(VIVADO_REPORT_ROOT) ne "")} {
+    set report_base [file normalize $::env(VIVADO_REPORT_ROOT)]
+}
+
+set project_root [file join $work_base $project_name]
+set report_root  [file join $report_base $project_name]
+set rtl_root     [file join $repo_root 01_source_code rtl]
+set xdc_root     [file join $repo_root 02_vivado_project_and_sim xdc]
+
+if {![file isdirectory $rtl_root] && [file isdirectory [file join $repo_root rtl]]} {
+    set rtl_root [file join $repo_root rtl]
+}
+if {![file isdirectory $xdc_root] && [file isdirectory [file join $repo_root fpga xdc]]} {
+    set xdc_root [file join $repo_root fpga xdc]
+}
 
 file mkdir $project_root
 file mkdir $report_root
+clear_windows_readonly_dir $project_root
+clear_windows_readonly_dir $report_root
 
 puts "INFO: Repository root : $repo_root"
 puts "INFO: Project name    : $project_name"
 puts "INFO: Project root    : $project_root"
 puts "INFO: FPGA part       : $fpga_part"
 puts "INFO: Requested top   : $top_module"
+puts "INFO: RTL root        : $rtl_root"
+puts "INFO: XDC root        : $xdc_root"
 
 create_project $project_name $project_root -part $fpga_part -force
 
@@ -116,7 +144,7 @@ if {[file_list_has_module $rtl_files $top_module]} {
     set_property top $top_module [current_fileset]
     puts "INFO: Top module set to $top_module"
 } else {
-    puts "WARNING: Top module '$top_module' was not found in rtl/."
+    puts "WARNING: Top module '$top_module' was not found under $rtl_root."
     puts "WARNING: Project was created as a source/constraint skeleton only."
     puts "WARNING: Add top integration RTL before running synthesis."
 }

@@ -1,15 +1,15 @@
 # Vivado synthesis / implementation runner for the digital MIPI CSI-2 capture project.
 #
 # Usage:
-#   vivado -mode batch -source fpga/vivado/run_synth_impl.tcl \
+#   vivado -mode batch -source 02_vivado_project_and_sim/vivado/run_synth_impl.tcl \
 #          -tclargs [project_name] [top_module] [jobs]
 #
 # Example:
-#   vivado -mode batch -source fpga/vivado/run_synth_impl.tcl \
+#   vivado -mode batch -source 02_vivado_project_and_sim/vivado/run_synth_impl.tcl \
 #          -tclargs mipi_csi2_capture mipi_csi2_capture_top 8
 #
-# Run fpga/vivado/create_project.tcl first. This script intentionally requires
-# a real top integration module before synthesis starts.
+# Run 02_vivado_project_and_sim/vivado/create_project.tcl first. This script
+# intentionally requires a real top integration module before synthesis starts.
 
 set script_dir [file normalize [file dirname [info script]]]
 
@@ -61,16 +61,41 @@ proc assert_run_complete {run_name} {
     }
 }
 
-set project_file [file join $script_dir work $project_name "${project_name}.xpr"]
-set report_root  [file join $script_dir reports $project_name]
+proc clear_windows_readonly_dir {dir_path} {
+    catch {file attributes $dir_path -readonly 0}
+    if {[info exists ::tcl_platform(platform)] && ($::tcl_platform(platform) eq "windows")} {
+        catch {exec attrib -R [file nativename $dir_path]}
+    }
+}
+
+proc warn_if_failed {label script_body} {
+    if {[catch {uplevel 1 $script_body} err_msg]} {
+        puts "WARNING: $label skipped: $err_msg"
+    }
+}
+
+set work_base   [file join $script_dir work]
+set report_base [file join $script_dir reports]
+
+if {[info exists ::env(VIVADO_WORK_ROOT)] && ($::env(VIVADO_WORK_ROOT) ne "")} {
+    set work_base [file normalize $::env(VIVADO_WORK_ROOT)]
+}
+if {[info exists ::env(VIVADO_REPORT_ROOT)] && ($::env(VIVADO_REPORT_ROOT) ne "")} {
+    set report_base [file normalize $::env(VIVADO_REPORT_ROOT)]
+}
+
+set project_file [file join $work_base $project_name "${project_name}.xpr"]
+set report_root  [file join $report_base $project_name]
 
 if {![file exists $project_file]} {
     puts "ERROR: Vivado project not found: $project_file"
-    puts "ERROR: Run fpga/vivado/create_project.tcl first."
+    puts "ERROR: Run 02_vivado_project_and_sim/vivado/create_project.tcl first."
     return -code error "missing Vivado project"
 }
 
 file mkdir $report_root
+clear_windows_readonly_dir $report_root
+clear_windows_readonly_dir [file dirname $project_file]
 
 puts "INFO: Opening project : $project_file"
 puts "INFO: Requested top   : $top_module"
@@ -90,6 +115,7 @@ set_property top $top_module [current_fileset]
 update_compile_order -fileset sources_1
 
 puts "INFO: Starting synthesis."
+clear_windows_readonly_dir [file dirname $project_file]
 reset_run synth_1
 launch_runs synth_1 -jobs $jobs
 wait_on_run synth_1
@@ -100,9 +126,15 @@ report_utilization -file [file join $report_root synth_utilization.rpt]
 report_timing_summary -file [file join $report_root synth_timing_summary.rpt]
 report_cdc -file [file join $report_root synth_cdc.rpt]
 write_checkpoint -force [file join $report_root post_synth.dcp]
-write_edif -force [file join $report_root "${project_name}_synth.edf"]
-write_verilog -force [file join $report_root "${project_name}_synth_netlist.v"]
-write_xdc -no_fixed_only -force [file join $report_root "${project_name}_synth.xdc"]
+warn_if_failed "write_edif" {
+    write_edif -force [file join $report_root "${project_name}_synth.edf"]
+}
+warn_if_failed "write_verilog synth netlist" {
+    write_verilog -force [file join $report_root "${project_name}_synth_netlist.v"]
+}
+warn_if_failed "write_xdc synth constraints" {
+    write_xdc -no_fixed_only -force [file join $report_root "${project_name}_synth.xdc"]
+}
 
 puts "INFO: Starting implementation through bitstream generation."
 reset_run impl_1

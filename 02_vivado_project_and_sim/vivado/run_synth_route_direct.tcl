@@ -1,11 +1,12 @@
-# Vivado synthesis / direct route-only runner.
+# Vivado synthesis / direct implementation runner.
 #
 # This flow keeps synthesis in the normal project run infrastructure, then
-# performs implementation directly in the current Vivado batch session instead
-# of launching impl_1 through the generated WSH/cscript wrapper chain.
+# performs implementation and bitstream generation directly in the current
+# Vivado batch session instead of launching impl_1 through the generated
+# WSH/cscript wrapper chain.
 #
 # Usage:
-#   vivado -mode batch -source fpga/vivado/run_synth_route_direct.tcl \
+#   vivado -mode batch -source 02_vivado_project_and_sim/vivado/run_synth_route_direct.tcl \
 #          -tclargs [project_name] [top_module] [jobs]
 
 set script_dir [file normalize [file dirname [info script]]]
@@ -58,8 +59,31 @@ proc assert_run_complete {run_name} {
     }
 }
 
-set project_file [file join $script_dir work $project_name "${project_name}.xpr"]
-set report_root  [file join $script_dir reports $project_name]
+proc clear_windows_readonly_dir {dir_path} {
+    catch {file attributes $dir_path -readonly 0}
+    if {[info exists ::tcl_platform(platform)] && ($::tcl_platform(platform) eq "windows")} {
+        catch {exec attrib -R [file nativename $dir_path]}
+    }
+}
+
+proc warn_if_failed {label script_body} {
+    if {[catch {uplevel 1 $script_body} err_msg]} {
+        puts "WARNING: $label skipped: $err_msg"
+    }
+}
+
+set work_base   [file join $script_dir work]
+set report_base [file join $script_dir reports]
+
+if {[info exists ::env(VIVADO_WORK_ROOT)] && ($::env(VIVADO_WORK_ROOT) ne "")} {
+    set work_base [file normalize $::env(VIVADO_WORK_ROOT)]
+}
+if {[info exists ::env(VIVADO_REPORT_ROOT)] && ($::env(VIVADO_REPORT_ROOT) ne "")} {
+    set report_base [file normalize $::env(VIVADO_REPORT_ROOT)]
+}
+
+set project_file [file join $work_base $project_name "${project_name}.xpr"]
+set report_root  [file join $report_base $project_name]
 
 if {![file exists $project_file]} {
     puts "ERROR: Vivado project not found: $project_file"
@@ -67,6 +91,8 @@ if {![file exists $project_file]} {
 }
 
 file mkdir $report_root
+clear_windows_readonly_dir $report_root
+clear_windows_readonly_dir [file dirname $project_file]
 
 puts "INFO: Opening project : $project_file"
 puts "INFO: Requested top   : $top_module"
@@ -75,6 +101,7 @@ puts "INFO: Jobs            : $jobs"
 open_project $project_file
 
 set source_files [get_files -quiet -of_objects [get_filesets sources_1]]
+set constraint_files [get_files -quiet -of_objects [get_filesets constrs_1]]
 if {![file_list_has_module $source_files $top_module]} {
     puts "ERROR: Top module '$top_module' was not found in current project sources."
     close_project
@@ -85,6 +112,7 @@ set_property top $top_module [current_fileset]
 update_compile_order -fileset sources_1
 
 puts "INFO: Starting synthesis."
+clear_windows_readonly_dir [file dirname $project_file]
 reset_run synth_1
 launch_runs synth_1 -jobs $jobs
 wait_on_run synth_1
@@ -95,12 +123,18 @@ report_utilization -file [file join $report_root synth_utilization.rpt]
 report_timing_summary -file [file join $report_root synth_timing_summary.rpt]
 report_cdc -file [file join $report_root synth_cdc.rpt]
 write_checkpoint -force [file join $report_root post_synth.dcp]
-write_edif -force [file join $report_root "${project_name}_synth.edf"]
-write_verilog -force [file join $report_root "${project_name}_synth_netlist.v"]
-write_xdc -no_fixed_only -force [file join $report_root "${project_name}_synth.xdc"]
+warn_if_failed "write_edif" {
+    write_edif -force [file join $report_root "${project_name}_synth.edf"]
+}
+warn_if_failed "write_verilog synth netlist" {
+    write_verilog -force [file join $report_root "${project_name}_synth_netlist.v"]
+}
+warn_if_failed "write_xdc synth constraints" {
+    write_xdc -no_fixed_only -force [file join $report_root "${project_name}_synth.xdc"]
+}
 
-puts "INFO: Starting direct implementation through route_design."
-set synth_dcp [file join $script_dir work $project_name "${project_name}.runs" "synth_1" "${top_module}.dcp"]
+puts "INFO: Starting direct implementation through write_bitstream."
+set synth_dcp [file join $work_base $project_name "${project_name}.runs" "synth_1" "${top_module}.dcp"]
 if {![file exists $synth_dcp]} {
     puts "ERROR: Synthesized checkpoint not found: $synth_dcp"
     close_project
@@ -108,6 +142,10 @@ if {![file exists $synth_dcp]} {
 }
 
 open_checkpoint $synth_dcp
+foreach constraint_file $constraint_files {
+    puts "INFO: Applying implementation constraint file: $constraint_file"
+    read_xdc $constraint_file
+}
 
 opt_design
 write_checkpoint -force [file join $report_root post_opt.dcp]
@@ -133,7 +171,8 @@ report_timing_summary \
     -file [file join $report_root impl_timing_summary.rpt]
 report_clock_utilization -file [file join $report_root impl_clock_utilization.rpt]
 report_utilization -file [file join $report_root impl_utilization.rpt]
+write_bitstream -force [file join $report_root "${project_name}.bit"]
 
-puts "INFO: Direct route-level reports written to $report_root"
+puts "INFO: Direct implementation reports and bitstream written to $report_root"
 close_design
 close_project
