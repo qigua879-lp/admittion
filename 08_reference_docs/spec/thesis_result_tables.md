@@ -523,7 +523,7 @@ Stage A 目前已经开始积累下面这些结果：
 - 在当前 FPGA wrapper 和占位时钟约束下，设计的同域主路径可满足 `200 MHz / 187.5 MHz` 目标。
 - 这组数字保留为 `timing_cdc_v1` 问题基线：全局负 slack 主要来自 `clk_byte -> clk_sys` CDC 相关路径。
 - `timing_cdc_v2` 已基于现有异步 FIFO/同步器结构补充 `clk_byte` 与 `clk_sys` 异步时钟组约束；最终论文引用收敛数据前，应使用 v2 约束重新跑 Vivado。
-- 现阶段结果足以支持“RTL 可综合、wrapper 可实现、资源占用较低”的论文结论；若要追求 bitstream 生成和最终时序收敛，仍需补完整板级 `LOC/IOSTANDARD`、IO delay 与 DDR 集成约束。
+- 现阶段结果足以支持“RTL 可综合、wrapper 可实现、资源占用较低”的论文结论；后续 `board_io_v1` 已补实验版 `LOC/IOSTANDARD`、IO delay 并生成 bitstream，但真实上板仍需按原理图替换 pinout 并继续 timing closure。
 
 ### 6.18 timing_cdc_v2 结果更新
 
@@ -567,12 +567,11 @@ Stage A 目前已经开始积累下面这些结果：
 
 - `timing_cdc_v2` 结果证明，在当前异步 FIFO 与同步器结构上补充 `clk_byte` / `clk_sys` 异步时钟组后，原先 `timing_cdc_v1` 中主导全局负 slack 的 CDC 路径不再进入 routed timing 违例。
 - 当前结果可用于论文中“CDC 约束修正后，设计在占位 FPGA 时钟约束下实现收敛”的结论。
-- 但 bitstream 仍不能生成，因为 routed DRC 仍保留板级约束缺失：
-  - `NSTD-1`
-  - `UCIO-1`
+- `board_io_v1` 已进一步补实验版 `LOC/IOSTANDARD/IO delay`，`write_bitstream` 前 DRC 为 `0 Errors`，`impl_drc.rpt` 为 `Violations found: 0`，并生成 `mipi_csi2_capture_board_io_v1_clkfix5.bit`。
 - 因此论文中应明确区分：
   - `timing_cdc_v2`：时序/资源/CDC 收敛验证已完成
-  - 最终板级 bitstream：仍需补全 `LOC/IOSTANDARD`、IO delay 与板级连接约束
+  - `board_io_v1`：实验版 bitstream DRC 已清零
+  - 最终真实上板：仍需按原理图替换 pinout、确认 bank VCCO/外设连接并完成 timing closure
 
 ## 7. Writing Guidance
 

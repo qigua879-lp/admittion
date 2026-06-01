@@ -9,6 +9,7 @@
 | `create_project.tcl` | 创建工程并导入 RTL/XDC。 |
 | `run_synth_impl.tcl` | 运行综合和实现。 |
 | `run_synth_route_direct.tcl` | 运行综合，并在当前 batch 会话内直接执行 `opt/place/route/report/write_bitstream`，绕过 `impl_1` WSH 包装链。 |
+| `check_board_io_drc_v1.ps1` | 检查 board IO v1 bitstream、DRC 报告和 `NSTD-1/UCIO-1` 清零结果。 |
 | `query_package_pins_v1.tcl` | 查询目标器件封装管脚、bank、GC 时钟属性和差分对信息。 |
 | `run_full_build.ps1` | Windows 一键构建入口。 |
 | `run_timing_cdc_v2_build.ps1` | 使用独立工程名重跑 `timing_cdc_v2`，并采用 direct route-only 流程导出时序/资源报告。 |
@@ -43,3 +44,9 @@ set VIVADO_REPORT_ROOT=C:\vivado_admittion\reports
 - `impl_drc.rpt`：`Violations found: 0`
 - 已生成 bitstream：`mipi_csi2_capture_board_io_v1_clkfix5.bit`
 - 时序仍未收敛：`impl_timing_summary.rpt` 中 `WNS=-3.398 ns`，这属于后续 timing closure 工作，不是 `NSTD-1/UCIO-1` 问题。
+
+复查命令：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File 02_vivado_project_and_sim/vivado/check_board_io_drc_v1.ps1
+```

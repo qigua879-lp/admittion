@@ -25,8 +25,8 @@
 | FPGA part | 当前默认使用 `xczu9eg-ffvb1156-2-e`；如需切换板卡/器件可在 Tcl 参数中覆盖。 |
 | Optional board part | 若使用 Vivado board flow，需要在选定板卡后补充。 |
 | 实际时钟频率 | `clk_sys`、`clk_byte`、`clk_axi`、`clk_ddr` 当前只有 placeholder period。 |
-| Pin assignment | 没有 package pin，无法生成可上板 bitstream。 |
-| IO bank / IOSTANDARD / voltage | 当前 `DEFAULT_IOSTANDARD` 为空，不能直接用于真实 IO。 |
+| Pin assignment | `board_io_v1` 已有实验版 package pin，可生成 bitstream；真实可上板 pinout 仍需原理图确认。 |
+| IO bank / IOSTANDARD / voltage | `board_io_v1` 使用 `LVCMOS18` lab 默认；真实 IO 仍需按 bank VCCO 和外设电平确认。 |
 | 外部 PHY/桥接方式 | 当前顶层是数字 lane placeholder，真实 MIPI 或 bridge 输出格式未冻结。 |
 | 最终 CDC / clock group 策略 | XDC 明确禁止盲目设置 clock group，必须结合真实 clocking/CDC 结构决定。 |
 | DDR controller / memory bridge | 当前 AXI write interface 存在，但没有真实 DDR IP、scheduler 和板级 memory path。 |
@@ -342,12 +342,12 @@ opt_design -> place_design -> phys_opt_design -> route_design -> report/write_bi
 | Clock constraints applied | `report_clocks` | `clk_sys`, `clk_byte`, `clk_axi`, `clk_ddr` 存在且 period 正确。 | XDC 当前为 placeholder period。 |
 | No unconstrained paths | `report_timing_summary -report_unconstrained` | 无未解释 unconstrained path。 | 需 part/XDC 后检查。 |
 | CDC is intentional | `report_cdc` | FIFO/synchronizer crossing 被识别，非预期 CDC 为 0 或已解释。 | 最终 clock group 未冻结。 |
-| IO constraints complete | `report_io`, DRC | 所有外部端口有合法 pin/IOSTANDARD。 | 当前缺失，不能上板。 |
+| IO constraints complete | `report_io`, DRC | 所有外部端口有合法 pin/IOSTANDARD。 | `board_io_v1` 已有实验版 LOC/IOSTANDARD 并清零 NSTD/UCIO；真实上板仍需原理图签核。 |
 | Utilization acceptable | `report_utilization` | 不超过目标 FPGA 资源预算。 | 需选定 part 后才有意义。 |
-| Timing closure | `report_timing_summary` | WNS/TNS 满足项目目标，无 hold blocker。 | 当前无真实实现结果。 |
-| DRC clean | `report_drc` | 无 bitstream blocker。 | 当前未跑真实 impl。 |
+| Timing closure | `report_timing_summary` | WNS/TNS 满足项目目标，无 hold blocker。 | `board_io_v1` 可生成 bitstream，但仍有 setup negative slack。 |
+| DRC clean | `report_drc` | 无 bitstream blocker。 | `board_io_v1` 的 `impl_drc.rpt` 为 `Violations found: 0`。 |
 | Power reviewed | `report_power` | 只作为 FPGA 粗估，activity 来源明确。 | 不能用于 ASIC 功耗。 |
-| Bitstream generated | Vivado run output / reports dir | `.bit` 生成且 DRC/timing 可接受。 | 当前不应声称已完成。 |
+| Bitstream generated | Vivado run output / reports dir | `.bit` 生成且 DRC/timing 可接受。 | 实验版 `.bit` 已生成；真实上板前仍需 pinout 与 timing signoff。 |
 | ILA probes inserted | Debug core view / netlist | probes 与 bring-up checklist 对齐。 | 当前未生成 ILA IP。 |
 
 ## Recommended Execution Order

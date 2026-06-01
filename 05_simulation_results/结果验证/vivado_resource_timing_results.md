@@ -184,7 +184,7 @@
 
 ### DRC 状态
 
-routed DRC 仍保留两条板级约束相关告警：
+`timing_cdc_v2` routed DRC 当时仍保留两条板级约束相关告警：
 
 - `NSTD-1`
 - `UCIO-1`
@@ -197,4 +197,48 @@ routed DRC 仍保留两条板级约束相关告警：
 因此：
 
 - `timing_cdc_v2` 可以支撑“RTL + CDC 约束后 routed timing 已满足占位时钟约束”的结论。
-- 但仍不能把这一轮结果表述为“最终板级 bitstream 已完成”。
+- 但这一轮本身不能表述为“最终板级 bitstream 已完成”。
+
+## board_io_v1 bitstream DRC 更新
+
+### 报告来源
+
+- 结果版本：`board_io_v1`
+- 工程名：`mipi_csi2_capture_board_io_v1_clkfix5`
+- 目录：
+  - `C:\vivado_admittion\reports\mipi_csi2_capture_board_io_v1_clkfix5`
+- 顶层：
+  - `mipi_csi2_capture_fpga_wrapper`
+- 器件：
+  - `xczu9eg-ffvb1156-2-e`
+- 执行日期：
+  - `2026-06-01`
+
+### 约束变化
+
+- 新增实验版 `LOC/IOSTANDARD`：
+  - `02_vivado_project_and_sim/xdc/board_lab_placeholder_v1.xdc`
+- 新增/完善 IO delay、输出驱动、CDC 分组：
+  - `02_vivado_project_and_sim/xdc/top_constraints.xdc`
+- `clk_sys` 和 `clk_byte` 已移到 P-side global clock pin，避开 `Place 30-876`。
+
+### DRC 与 bitstream 结果
+
+- `place_design` completed successfully
+- `route_design` completed successfully
+- `write_bitstream` 前 DRC：
+  - `0 Errors`
+- `impl_drc.rpt`：
+  - `Violations found: 0`
+- 已生成 bitstream：
+  - `mipi_csi2_capture_board_io_v1_clkfix5.bit`
+- `NSTD-1` / `UCIO-1`：
+  - final bitgen DRC 中已清零
+
+### 边界说明
+
+`board_io_v1` 解决的是 bitstream 阻塞级 DRC，不等于真实板卡签核：
+
+- 当前 `board_lab_placeholder_v1.xdc` 是实验版 pinout，不是原理图核对后的真实 pinout。
+- 真实上板前仍需确认 schematic、bank VCCO、外部 PHY/bridge 连接和 clock source。
+- 当前 `impl_timing_summary.rpt` 仍显示 timing 未收敛，`WNS=-3.398 ns`，需要后续 timing closure。

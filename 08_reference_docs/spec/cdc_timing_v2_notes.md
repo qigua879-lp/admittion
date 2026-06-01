@@ -47,7 +47,7 @@ This exception is justified by the current top-level CDC structure:
 
 - The `clk_byte`/`clk_sys` clock group exception must be revisited if any new direct combinational or registered path is added between the two domains.
 - Multi-bit configuration values are synchronized for FPGA implementation robustness, but software should update them only while capture is idle or during controlled recovery.
-- The change does not resolve board-level `LOC`, `IOSTANDARD`, input/output delay, or DDR integration constraints.
+- The change itself does not resolve board-level `LOC`, `IOSTANDARD`, input/output delay, or DDR integration constraints. The later `board_io_v1` run adds a lab placeholder pinout and clears bitstream-blocking `NSTD-1/UCIO-1`, but it is still not a schematic-verified board signoff.
 
 ## Self-Check
 
@@ -95,14 +95,22 @@ Key observations:
   - `clk_sys WNS = 1.884 ns`
 - Cross-domain timing table no longer reports `clk_byte -> clk_sys` as a failing synchronous pair.
 
-Remaining limitation:
+Remaining limitation at the `timing_cdc_v2` stage:
 
 - `write_bitstream` still fails because the placeholder XDC intentionally leaves board-level `LOC` and `IOSTANDARD` unspecified.
 - Routed DRC therefore keeps:
   - `NSTD-1`
   - `UCIO-1`
 
+Superseding board-IO result:
+
+- `board_io_v1` adds `board_lab_placeholder_v1.xdc` plus IO delay constraints.
+- `write_bitstream` DRC is `0 Errors`.
+- `impl_drc.rpt` reports `Violations found: 0`.
+- Bitstream is generated as `mipi_csi2_capture_board_io_v1_clkfix5.bit`.
+
 ## Known Limitations
 
 - `timing_cdc_v2` is an FPGA timing-constraint and CDC-annotation update, not a full board timing closure.
-- Final board clocks, IO delays, DDR controller timing, and bitstream-blocking DRC items remain open.
+- `board_io_v1` clears bitstream-blocking IO DRC with a lab placeholder pinout.
+- Final schematic pinout, bank voltage signoff, DDR controller timing, and timing closure remain open.
