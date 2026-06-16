@@ -19,6 +19,9 @@
 
 ## 推荐阅读顺序
 
+> **创新点工作总入口**：[`07_project_result_analysis/行级重采集_工作总结与索引.md`](07_project_result_analysis/行级重采集_工作总结与索引.md)
+> —— 行级选择性重采集（机制/量化边界/条件三支柱）的总结、证据索引与回滚检查点。
+
 1. `总体说明_接口_仿真_验证总览.md`
 2. `07_project_result_analysis/当前工程结果分析.md`
 3. `07_project_result_analysis/本次代码改动分析.md`

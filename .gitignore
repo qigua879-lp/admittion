@@ -4,6 +4,13 @@
 tools/__pycache__/
 raw8_batch2_*.btree
 
+# Ad-hoc xsim build/scratch dirs (xvlog/xelab/xsim work areas)
+.t*build/
+.xvlog_check*/
+.mfbuild/
+.pristine_head/
+xsim.dir/
+
 # Vivado / simulation transient files
 *.jou
 *.str
