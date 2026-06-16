@@ -16,6 +16,7 @@
 | --- | --- | --- | --- | --- |
 | `tb_cfg_reg_if_apb.sv` | 模块级 | `cfg_reg_if_apb` | APB 默认值、RW 字段、sticky clear、状态寄存器读回。 | APB readback 与期望一致，非法/清除行为符合寄存器定义。 |
 | `tb_phy_digital_adapter.sv` | 模块级 | `phy_digital_adapter` | HS/LP gating、lane mask、1/2/4 lane 有效数据抽取。 | lane enable、lane valid、lane data 与配置和输入一致。 |
+| `tb_mipi_dphy_ppi_adapter.sv` | 模块级 | `mipi_dphy_ppi_adapter` | AMD D-PHY RX PPI 字节、active/valid、stopstate、SoT error 到现有数字 lane 接口的整形。 | lane data/valid、HS/LP debug、sync/error mask 与 2 lane 配置一致。 |
 | `tb_short_packet_parser.sv` | 模块级 | `csi2_short_packet_parser` | short packet 的 VC、DT、WC、ECC 字段解析。 | 输出字段与构造 header 一致。 |
 | `tb_long_packet_parser.sv` | 模块级 | `csi2_long_packet_parser` | long packet header、payload valid/start/end、CRC trailer、clear 行为。 | payload 边界、word count、expected CRC 输出正确。 |
 | `tb_header_ecc.sv` | 模块级 | `csi2_header_ecc_checker` | Header ECC good、error、correctable/syndrome 行为。 | ECC ok/error/correctable 标志与参考输入一致。 |
@@ -42,6 +43,10 @@
 | `tb_pixel_frame_stats_v1.sv` | 模块级 | `pixel_frame_stats_v1` | 帧内像素计数、RGB 均值、luma min/max、暗/亮像素统计。 | frame end 后统计值与输入像素集合一致。 |
 | `tb_adaptive_preprocess_ctrl_v1.sv` | 模块级 | `adaptive_preprocess_ctrl_v1` | 基于统计值生成 AWB gain、stretch gain/bias。 | 输出系数在 enable/disable、边界输入下符合策略。 |
 | `tb_fpga_wrapper_boot.sv` | wrapper 系统级 | `mipi_csi2_capture_fpga_wrapper`、`fpga_apb_boot_cfg` | FPGA wrapper 复位启动和片上 APB boot 配置。 | `cfg_init_done_o` 出现，配置使能进入可采集状态。 |
+| `tb_mipi_csi2_capture_dphy_wrapper_compile.sv` | wrapper 系统级 | `mipi_csi2_capture_dphy_wrapper` | D-PHY PPI wrapper 复位启动、片上 APB boot 和 LP/HS debug 口连接。 | `cfg_init_done_o` 出现，PPI debug 输出能从 LP 切到 HS 再回 LP。 |
+| `tb_mipi_csi2_capture_dphy_debug_probe.sv` | wrapper 系统级 | `mipi_csi2_capture_dphy_wrapper` | ILA probe bus bit map、LP/HS/lane/error/drop debug 打包。 | `ila_probe_o[63:0]` 对应 bit 与独立 debug 输出一致，高位保留位为 0。 |
+| `tb_mipi_csi2_capture_dphy_wrapper_raw8_smoke.sv` | wrapper 系统级 | D-PHY PPI 入口 RAW8 主路径 | 通过 `rxbyteclkhs` 和 `dl0/1_*` PPI 信号发送 FS/LS/RAW8/LE/FE 小帧。 | frame/line/pixel marker 出现，scoreboard `exp=act` 且无 ECC/CRC/sync/SoT 错误。 |
+| `tb_mipi_csi2_capture_dphy_no_backpressure_guard.sv` | wrapper 系统级 | D-PHY PPI 入口 no-backpressure guard | 在 `fifo_rd_ready` 受阻时持续灌入 PPI byte stream，验证受损帧被丢弃且下一个 clean RAW8 frame 恢复。 | stale frame 不漏出，clean frame scoreboard `exp=act`，`lane_ready_low` 和 FIFO 压力被观测。 |
 | `tb_fpga_wrapper_raw8_smoke.sv` | wrapper 系统级 | RAW8 顶层主路径 | FS/LS/RAW8 payload/LE/FE 到 pixel 输出的最小闭环。 | frame/line/pixel marker 出现，scoreboard 像素匹配。 |
 | `tb_fpga_wrapper_raw8_metrics.sv` | 指标测试 | RAW8 顶层主路径 | 采集 `init_to_frame`、`frame_to_first_pixel`、`frame_to_end` 等时延。 | 打印 RAW8 metrics，像素 `exp=act`。 |
 | `tb_fpga_wrapper_raw8_multiframe_stability.sv` | wrapper 系统级 | RAW8 连续多帧多行 | 3 帧 9 行 36 像素连续输出稳定性。 | `scoreboard_frames=3`，`mismatch=0`。 |
@@ -77,6 +82,9 @@
 | RAW8 连续多帧 | `tb_fpga_wrapper_raw8_multiframe_stability.sv` | `docs/spec/结果验证/raw8_multiframe_stability_results.md` |
 | RAW8 背压压力扫描 | `tb_fpga_wrapper_raw8_backpressure_stress.sv`、`scripts/run_raw8_backpressure_stress_sweep.ps1` | `docs/spec/结果验证/raw8_backpressure_stress_results.md` |
 | lane 配置 smoke | `tb_fpga_wrapper_raw8_lane_config_smoke.sv`、`scripts/run_raw8_lane_config_smokes.ps1` | `docs/spec/结果验证/raw8_lane_config_results.md` |
+| D-PHY ILA probe map | `tb_mipi_csi2_capture_dphy_debug_probe.sv` | `docs/spec/dphy_ila_probe_map.md` |
+| D-PHY PPI RAW8 smoke | `tb_mipi_csi2_capture_dphy_wrapper_raw8_smoke.sv` | `docs/spec/结果验证/dphy_ppi_raw8_smoke_results.md` |
+| D-PHY no-backpressure guard | `tb_mipi_csi2_capture_dphy_no_backpressure_guard.sv` | `docs/spec/结果验证/dphy_no_backpressure_guard_results.md` |
 | lane skew 扫描 | `tb_fpga_wrapper_lane_skew_scan.sv`、`scripts/run_lane_buffer_sensitivity_sweep.ps1` | `docs/spec/结果验证/lane_skew_scan_results.md`、`docs/spec/结果验证/lane_buffer_sensitivity_results.md` |
 | buffer 深度扫描 | `tb_fpga_wrapper_buffer_depth_sweep.sv`、`scripts/run_buffer_depth_sweep.ps1` | `docs/spec/结果验证/buffer_depth_sweep_results.md` |
 | resync clean frame | `tb_fpga_wrapper_resync_clean_frame.sv` | `docs/spec/结果验证/resync_clean_frame_results.md` |

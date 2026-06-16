@@ -11,7 +11,9 @@ module mipi_csi2_capture_top #(
     parameter int AXI_FIFO_ADDR_WIDTH  = 6,
     parameter int AXI_ADDR_WIDTH       = 32,
     parameter int AXI_DATA_WIDTH       = 32,
-    parameter int AXI_MAX_BURST_LEN    = 16
+    parameter int AXI_MAX_BURST_LEN    = 16,
+    parameter bit ENABLE_NO_BACKPRESSURE_GUARD = 1'b0,
+    parameter int BYTE_FIFO_GUARD_MARGIN = 1
 ) (
     input  logic                         clk_sys,
     input  logic                         clk_byte,
@@ -70,6 +72,12 @@ module mipi_csi2_capture_top #(
     output logic                         retry_mode_o,
     output logic [31:0]                  retry_frame_id_o,
     output logic [31:0]                  retry_line_id_o,
+    // Controllable-source sideband: held high while the upstream source streams
+    // a line-level recapture line (re-sent in response to retry_req). Tie to 0
+    // when no controllable source is present -> recapture write-back stays off.
+    input  logic                         src_recap_line_valid_i,
+    output logic                         no_backpressure_drop_event_o,
+    output logic                         no_backpressure_drop_active_o,
 
     output logic [23:0]                  pixel_data_o,
     output logic                         pixel_valid_o,
@@ -91,6 +99,10 @@ module mipi_csi2_capture_top #(
     localparam logic [2:0] PIXFMT_RAW10  = 3'd1;
     localparam logic [2:0] PIXFMT_RGB888 = 3'd2;
     localparam logic [2:0] PIXFMT_YUV422 = 3'd3;
+    localparam int BYTE_FIFO_DEPTH = (1 << BYTE_FIFO_ADDR_WIDTH);
+    localparam int BYTE_FIFO_GUARD_LEVEL =
+        (BYTE_FIFO_GUARD_MARGIN >= BYTE_FIFO_DEPTH) ? (BYTE_FIFO_DEPTH - 1) :
+                                                       (BYTE_FIFO_DEPTH - BYTE_FIFO_GUARD_MARGIN);
 
     logic cfg_preprocess_bypass;
     logic cfg_enable_resync;
@@ -119,6 +131,7 @@ module mipi_csi2_capture_top #(
     logic [31:0] cfg_dbg_sel_unused;
 
     logic [LANE_NUM-1:0]      phy_lane_valid;
+    logic [LANE_NUM-1:0]      phy_lane_valid_guarded;
     logic [LANE_NUM-1:0]      phy_lane_ready;
     logic [LANE_NUM-1:0][7:0] phy_lane_data;
     logic [LANE_NUM-1:0]      phy_lane_enable_unused;
@@ -144,6 +157,7 @@ module mipi_csi2_capture_top #(
     logic                     lane_error_event_sys;
 
     logic                     merge_byte_valid;
+    logic                     merge_byte_valid_to_fifo;
     logic                     merge_byte_ready;
     logic [7:0]               merge_byte_data;
     logic                     merge_group_done_unused;
@@ -155,6 +169,23 @@ module mipi_csi2_capture_top #(
     logic                     fifo_empty_unused;
     logic [BYTE_FIFO_ADDR_WIDTH:0] fifo_wr_level_unused;
     logic [BYTE_FIFO_ADDR_WIDTH:0] fifo_rd_level_unused;
+
+    logic no_bp_guard_trigger_byte;
+    logic no_bp_guard_drop_active_byte;
+    logic no_bp_guard_clear_pulse_byte;
+    logic no_bp_guard_drop_done_pulse_byte;
+    logic no_bp_guard_toggle_byte;
+    (* ASYNC_REG = "TRUE", SHREG_EXTRACT = "NO" *) logic no_bp_guard_toggle_meta_sys;
+    (* ASYNC_REG = "TRUE", SHREG_EXTRACT = "NO" *) logic no_bp_guard_toggle_sys;
+    logic no_bp_guard_toggle_sys_d;
+    logic no_bp_guard_clear_pulse_sys;
+    (* ASYNC_REG = "TRUE", SHREG_EXTRACT = "NO" *) logic no_bp_guard_drop_active_meta_sys;
+    (* ASYNC_REG = "TRUE", SHREG_EXTRACT = "NO" *) logic no_bp_guard_drop_active_sys;
+    logic stream_clear_pulse_byte;
+    logic byte_frontend_clear_pulse_byte;
+    logic stream_clear_pulse_sys;
+    logic clear_sys;
+    logic drop_current_frame;
 
     logic        hdr_valid;
     logic        hdr_ready;
@@ -184,6 +215,7 @@ module mipi_csi2_capture_top #(
     logic [5:0]  payload_dt_reg;
     logic        payload_fire;
     logic        payload_drop;
+    logic        packet_policy_payload_drop;
     logic        payload_unsupported_dt;
     logic        payload_vc_mismatch;
     logic        short_vc_match;
@@ -193,6 +225,8 @@ module mipi_csi2_capture_top #(
     logic        payload_is_yuv422;
 
     logic        short_event_valid;
+    logic        short_event_candidate;
+    logic        short_event_fs;
     logic        short_event_ready_unused;
     logic        frame_active;
     logic        line_active;
@@ -305,6 +339,10 @@ module mipi_csi2_capture_top #(
     logic [1:0]  retry_vc;
     logic [5:0]  retry_dt;
 
+    logic        recap_active;
+    logic [15:0] recap_line_id;
+    logic        recap_retry_ack;
+
     logic        resync_req;
     logic        resync_drop_packet;
     logic        resync_busy;
@@ -345,6 +383,40 @@ module mipi_csi2_capture_top #(
     logic signed [8:0] adaptive_stretch_bias;
 
     assign clk_ddr_unused = clk_ddr;
+
+    assign no_bp_guard_trigger_byte =
+        ENABLE_NO_BACKPRESSURE_GUARD &&
+        !no_bp_guard_drop_active_byte &&
+        ((merge_byte_valid && !merge_byte_ready) ||
+         (merge_byte_valid && (fifo_wr_level_unused >= BYTE_FIFO_GUARD_LEVEL)));
+
+    assign stream_clear_pulse_byte = resync_clear_pulse_byte || no_bp_guard_clear_pulse_byte;
+    assign byte_frontend_clear_pulse_byte = stream_clear_pulse_byte || no_bp_guard_drop_done_pulse_byte;
+    assign merge_byte_valid_to_fifo = merge_byte_valid && !no_bp_guard_drop_active_byte;
+    assign phy_lane_valid_guarded = no_bp_guard_drop_active_byte ? '0 : phy_lane_valid;
+
+    always_ff @(posedge clk_byte) begin
+        if (!rst_n) begin
+            no_bp_guard_drop_active_byte <= 1'b0;
+            no_bp_guard_clear_pulse_byte <= 1'b0;
+            no_bp_guard_drop_done_pulse_byte <= 1'b0;
+            no_bp_guard_toggle_byte      <= 1'b0;
+        end else begin
+            no_bp_guard_clear_pulse_byte <= 1'b0;
+            no_bp_guard_drop_done_pulse_byte <= 1'b0;
+
+            if (resync_clear_pulse_byte) begin
+                no_bp_guard_drop_active_byte <= 1'b0;
+            end else if (no_bp_guard_trigger_byte) begin
+                no_bp_guard_drop_active_byte <= 1'b1;
+                no_bp_guard_clear_pulse_byte <= 1'b1;
+                no_bp_guard_toggle_byte      <= ~no_bp_guard_toggle_byte;
+            end else if (no_bp_guard_drop_active_byte && lp_mode) begin
+                no_bp_guard_drop_active_byte <= 1'b0;
+                no_bp_guard_drop_done_pulse_byte <= 1'b1;
+            end
+        end
+    end
 
     always_ff @(posedge clk_byte) begin
         if (!rst_n) begin
@@ -497,8 +569,8 @@ module mipi_csi2_capture_top #(
     ) u_lane_deskew_buffer (
         .clk_byte(clk_byte),
         .rst_n(rst_n),
-        .clear_i(resync_clear_pulse_byte),
-        .lane_valid_i(phy_lane_valid),
+        .clear_i(byte_frontend_clear_pulse_byte),
+        .lane_valid_i(phy_lane_valid_guarded),
         .lane_ready_o(phy_lane_ready),
         .lane_data_i(phy_lane_data),
         .deskew_valid_o(deskew_valid),
@@ -512,7 +584,7 @@ module mipi_csi2_capture_top #(
     ) u_lane_reorder_merge (
         .clk_byte(clk_byte),
         .rst_n(rst_n),
-        .clear_i(resync_clear_pulse_byte),
+        .clear_i(byte_frontend_clear_pulse_byte),
         .lane_group_valid_i(deskew_valid),
         .lane_group_ready_o(deskew_ready),
         .lane_group_data_i(deskew_data),
@@ -529,9 +601,9 @@ module mipi_csi2_capture_top #(
         .clk_wr(clk_byte),
         .clk_rd(clk_sys),
         .rst_n(rst_n),
-        .clear_wr_i(resync_clear_pulse_byte),
-        .clear_rd_i(cfg_soft_reset_pulse || resync_clear_pulse_sys),
-        .wr_valid(merge_byte_valid),
+        .clear_wr_i(stream_clear_pulse_byte),
+        .clear_rd_i(clear_sys),
+        .wr_valid(merge_byte_valid_to_fifo),
         .wr_ready(merge_byte_ready),
         .wr_data(merge_byte_data),
         .rd_valid(fifo_rd_valid),
@@ -560,11 +632,21 @@ module mipi_csi2_capture_top #(
             lane_err_sync_d    <= 1'b0;
             resync_req_d       <= 1'b0;
             resync_toggle_sys  <= 1'b0;
+            no_bp_guard_toggle_meta_sys      <= 1'b0;
+            no_bp_guard_toggle_sys           <= 1'b0;
+            no_bp_guard_toggle_sys_d         <= 1'b0;
+            no_bp_guard_drop_active_meta_sys <= 1'b0;
+            no_bp_guard_drop_active_sys      <= 1'b0;
         end else begin
             lane_err_sync_meta <= lane_err_toggle_byte;
             lane_err_sync      <= lane_err_sync_meta;
             lane_err_sync_d    <= lane_err_sync;
             resync_req_d       <= resync_req;
+            no_bp_guard_toggle_meta_sys      <= no_bp_guard_toggle_byte;
+            no_bp_guard_toggle_sys           <= no_bp_guard_toggle_meta_sys;
+            no_bp_guard_toggle_sys_d         <= no_bp_guard_toggle_sys;
+            no_bp_guard_drop_active_meta_sys <= no_bp_guard_drop_active_byte;
+            no_bp_guard_drop_active_sys      <= no_bp_guard_drop_active_meta_sys;
 
             if (resync_req && !resync_req_d) begin
                 resync_toggle_sys <= ~resync_toggle_sys;
@@ -574,6 +656,9 @@ module mipi_csi2_capture_top #(
 
     assign lane_error_event_sys = lane_err_sync ^ lane_err_sync_d;
     assign resync_clear_pulse_sys = resync_req && !resync_req_d;
+    assign no_bp_guard_clear_pulse_sys = no_bp_guard_toggle_sys ^ no_bp_guard_toggle_sys_d;
+    assign stream_clear_pulse_sys = resync_clear_pulse_sys || no_bp_guard_clear_pulse_sys;
+    assign clear_sys = cfg_soft_reset_pulse || stream_clear_pulse_sys;
 
     // A single long-packet parser is used for both zero-word-count short events
     // and nonzero long-packet payloads in this minimum top.
@@ -582,7 +667,7 @@ module mipi_csi2_capture_top #(
     ) u_csi2_long_packet_parser (
         .clk_sys(clk_sys),
         .rst_n(rst_n),
-        .clear_i(cfg_soft_reset_pulse || resync_clear_pulse_sys),
+        .clear_i(clear_sys),
         .byte_valid(fifo_rd_valid),
         .byte_ready(fifo_rd_ready),
         .byte_data(fifo_rd_data),
@@ -612,7 +697,7 @@ module mipi_csi2_capture_top #(
     always_ff @(posedge clk_sys) begin
         if (!rst_n) begin
             payload_dt_reg <= DT_RAW8;
-        end else if (cfg_soft_reset_pulse || resync_clear_pulse_sys) begin
+        end else if (clear_sys) begin
             payload_dt_reg <= DT_RAW8;
         end else if (hdr_valid && hdr_ready && (pkt_word_count != 16'd0)) begin
             payload_dt_reg <= pkt_dt;
@@ -644,7 +729,7 @@ module mipi_csi2_capture_top #(
         .crc_error_i(err_crc_event),
         .resync_drop_packet_i(resync_drop_packet),
         .unsupported_dt_i(payload_unsupported_dt),
-        .payload_drop_o(payload_drop),
+        .payload_drop_o(packet_policy_payload_drop),
         .crc_drop_req_o(crc_drop_req)
     );
 
@@ -666,6 +751,7 @@ module mipi_csi2_capture_top #(
                                     (pkt_dt != cfg_dt_code[5:0]) ||
                                     !(payload_is_raw8 || payload_is_raw10 ||
                                       payload_is_rgb888 || payload_is_yuv422);
+    assign payload_drop = packet_policy_payload_drop || drop_current_frame;
 
     assign payload_sink_ready =
         (payload_drop      ? 1'b1 :
@@ -677,14 +763,28 @@ module mipi_csi2_capture_top #(
 
     assign payload_ready = payload_sink_ready && crc_payload_ready;
 
-    assign short_event_valid = hdr_valid && (pkt_word_count == 16'd0) && short_vc_match &&
-                               ((pkt_dt == DT_FS) || (pkt_dt == DT_FE) ||
-                                (pkt_dt == DT_LS) || (pkt_dt == DT_LE));
+    assign short_event_candidate = hdr_valid && (pkt_word_count == 16'd0) && short_vc_match &&
+                                   ((pkt_dt == DT_FS) || (pkt_dt == DT_FE) ||
+                                    (pkt_dt == DT_LS) || (pkt_dt == DT_LE));
+    assign short_event_fs = short_event_candidate && (pkt_dt == DT_FS);
+    assign short_event_valid = short_event_candidate && (!drop_current_frame || short_event_fs);
+
+    always_ff @(posedge clk_sys) begin
+        if (!rst_n) begin
+            drop_current_frame <= 1'b0;
+        end else if (cfg_soft_reset_pulse || resync_clear_pulse_sys) begin
+            drop_current_frame <= 1'b0;
+        end else if (no_bp_guard_clear_pulse_sys) begin
+            drop_current_frame <= 1'b1;
+        end else if (short_event_fs) begin
+            drop_current_frame <= 1'b0;
+        end
+    end
 
     frame_line_sync_fsm u_frame_line_sync_fsm (
         .clk_sys(clk_sys),
         .rst_n(rst_n),
-        .clear_i(cfg_soft_reset_pulse || resync_clear_pulse_sys),
+        .clear_i(clear_sys),
         .event_valid(short_event_valid),
         .event_ready(short_event_ready_unused),
         .event_dt(pkt_dt),
@@ -707,7 +807,7 @@ module mipi_csi2_capture_top #(
         if (!rst_n) begin
             pending_sof <= 1'b0;
             pending_sol <= 1'b0;
-        end else if (cfg_soft_reset_pulse || resync_clear_pulse_sys) begin
+        end else if (clear_sys) begin
             pending_sof <= 1'b0;
             pending_sol <= 1'b0;
         end else begin
@@ -727,7 +827,7 @@ module mipi_csi2_capture_top #(
     always_ff @(posedge clk_sys) begin
         if (!rst_n) begin
             line_crc_drop_pending <= 1'b0;
-        end else if (cfg_soft_reset_pulse || resync_clear_pulse_sys) begin
+        end else if (clear_sys) begin
             line_crc_drop_pending <= 1'b0;
         end else begin
             if (frame_start) begin
@@ -749,7 +849,7 @@ module mipi_csi2_capture_top #(
     raw8_unpack u_raw8_unpack (
         .clk_sys(clk_sys),
         .rst_n(rst_n),
-        .clear_i(cfg_soft_reset_pulse || resync_clear_pulse_sys),
+        .clear_i(clear_sys),
         .payload_valid_i(payload_valid && payload_is_raw8 && !payload_drop),
         .payload_ready_o(raw8_payload_ready),
         .payload_data_i(payload_data),
@@ -765,7 +865,7 @@ module mipi_csi2_capture_top #(
     raw10_unpack u_raw10_unpack (
         .clk_sys(clk_sys),
         .rst_n(rst_n),
-        .clear_i(cfg_soft_reset_pulse || resync_clear_pulse_sys),
+        .clear_i(clear_sys),
         .payload_valid_i(payload_valid && payload_is_raw10 && !payload_drop),
         .payload_ready_o(raw10_payload_ready),
         .payload_data_i(payload_data),
@@ -781,7 +881,7 @@ module mipi_csi2_capture_top #(
     rgb888_unpack u_rgb888_unpack (
         .clk_sys(clk_sys),
         .rst_n(rst_n),
-        .clear_i(cfg_soft_reset_pulse || resync_clear_pulse_sys),
+        .clear_i(clear_sys),
         .payload_valid_i(payload_valid && payload_is_rgb888 && !payload_drop),
         .payload_ready_o(rgb888_payload_ready),
         .payload_data_i(payload_data),
@@ -797,7 +897,7 @@ module mipi_csi2_capture_top #(
     yuv422_unpack u_yuv422_unpack (
         .clk_sys(clk_sys),
         .rst_n(rst_n),
-        .clear_i(cfg_soft_reset_pulse || resync_clear_pulse_sys),
+        .clear_i(clear_sys),
         .payload_valid_i(payload_valid && payload_is_yuv422 && !payload_drop),
         .payload_ready_o(yuv422_payload_ready),
         .payload_data_i(payload_data),
@@ -864,7 +964,7 @@ module mipi_csi2_capture_top #(
         .clk_sys(clk_sys),
         .rst_n(rst_n),
         .enable_i(cfg_adaptive_enable),
-        .clear_i(cfg_soft_reset_pulse || resync_clear_pulse_sys),
+        .clear_i(clear_sys),
         .pixel_format_i(stats_pixel_format),
         .frame_end_i(frame_end),
         .pixel_valid_i(repack_pixel_valid),
@@ -888,7 +988,7 @@ module mipi_csi2_capture_top #(
         .enable_i(cfg_adaptive_enable),
         .awb_enable_i(cfg_adaptive_awb_enable),
         .stretch_enable_i(cfg_adaptive_stretch_enable),
-        .clear_i(cfg_soft_reset_pulse || resync_clear_pulse_sys),
+        .clear_i(clear_sys),
         .stats_valid_i(stats_valid),
         .pixel_cnt_i(stats_pixel_cnt),
         .mean_r_i(stats_mean_r),
@@ -994,7 +1094,7 @@ module mipi_csi2_capture_top #(
         .clk_sys(clk_sys),
         .rst_n(rst_n),
         .crc_start(crc_start),
-        .crc_clear(cfg_soft_reset_pulse || resync_req),
+        .crc_clear(cfg_soft_reset_pulse || resync_req || no_bp_guard_clear_pulse_sys),
         .crc_finish(1'b0),
         .payload_valid(payload_valid && payload_sink_ready),
         .payload_ready(crc_payload_ready),
@@ -1044,7 +1144,7 @@ module mipi_csi2_capture_top #(
     err_frame_line_logger u_err_frame_line_logger (
         .clk_sys(clk_sys),
         .rst_n(rst_n),
-        .clear_i(cfg_soft_reset_pulse || resync_clear_pulse_sys),
+        .clear_i(clear_sys),
         .err_valid_i(err_valid_to_logger),
         .err_ready_o(err_ready),
         .err_type_i(err_type),
@@ -1071,7 +1171,7 @@ module mipi_csi2_capture_top #(
         .clk_sys(clk_sys),
         .rst_n(rst_n),
         .clear_i(cfg_soft_reset_pulse),
-        .ack_i(cfg_retry_ack_pulse),
+        .ack_i(cfg_retry_ack_pulse || recap_retry_ack),
         .cfg_enable_retry_i(cfg_enable_retry),
         .cfg_retry_line_mode_i(cfg_retry_line_mode),
         .err_valid_i(err_valid && err_ready),
@@ -1088,6 +1188,22 @@ module mipi_csi2_capture_top #(
         .retry_line_id_o(retry_line_id),
         .retry_vc_o(retry_vc),
         .retry_dt_o(retry_dt)
+    );
+
+    // Line-level recapture write-back: closes the loop from a located retry
+    // request to an addressed overwrite of the corrupted line in the frame
+    // buffer, given a controllable source that re-sends the line.
+    recapture_writeback_ctrl u_recapture_writeback_ctrl (
+        .clk_sys(clk_sys),
+        .rst_n(rst_n),
+        .retry_pending_i(retry_pending),
+        .retry_mode_i(retry_mode),
+        .retry_line_id_i(retry_line_id),
+        .src_recap_line_valid_i(src_recap_line_valid_i),
+        .line_end_i(line_end),
+        .recap_active_o(recap_active),
+        .recap_line_id_o(recap_line_id),
+        .retry_ack_o(recap_retry_ack)
     );
 
     resync_ctrl_fsm u_resync_ctrl_fsm (
@@ -1110,7 +1226,7 @@ module mipi_csi2_capture_top #(
         .clk_sys(clk_sys),
         .rst_n(rst_n),
         .enable_degrade_i(cfg_enable_degrade),
-        .lane_error_i(lane_error_event_sys),
+        .lane_error_i(lane_error_event_sys && !ENABLE_NO_BACKPRESSURE_GUARD),
         .good_frame_i(frame_end && !err_valid),
         .degraded_o(degraded),
         .recovering_o(recovering),
@@ -1127,7 +1243,7 @@ module mipi_csi2_capture_top #(
         .clk_axi(clk_axi),
         .rst_n(rst_n),
         .enable_i(cfg_capture_enable),
-        .clear_i(cfg_soft_reset_pulse || resync_clear_pulse_sys),
+        .clear_i(clear_sys),
         .clear_busy_o(axi_clear_busy),
         .frame_base_addr_i(cfg_frame_base_addr),
         .line_stride_i(cfg_line_stride),
@@ -1136,6 +1252,8 @@ module mipi_csi2_capture_top #(
         .frame_start_i(frame_start),
         .line_end_i(line_end),
         .discard_line_i(line_end && line_crc_drop_pending),
+        .recap_active_i(recap_active),
+        .recap_line_id_i(recap_line_id),
         .pixel_valid_i(final_pixel_valid),
         .pixel_ready_o(final_pixel_ready),
         .pixel_data_i(final_pixel_data),
@@ -1172,6 +1290,8 @@ module mipi_csi2_capture_top #(
     assign retry_mode_o     = retry_mode;
     assign retry_frame_id_o = retry_frame_id;
     assign retry_line_id_o  = retry_line_id;
+    assign no_backpressure_drop_event_o  = no_bp_guard_clear_pulse_sys;
+    assign no_backpressure_drop_active_o = drop_current_frame || no_bp_guard_drop_active_sys;
 
     assign pixel_data_o  = final_pixel_data;
     assign pixel_valid_o = final_pixel_valid;

@@ -47,7 +47,10 @@ module phy_digital_adapter #(
         endcase
     end
 
-    assign phy_active_o = hs_mode_i && !lp_mode_i;
+    // HS byte-valid strobes already encode whether bytes are present. LP mode is
+    // a slow state hint for reset/resync policy and must not mask the first HS
+    // bytes while a synchronized stop-state indication is draining.
+    assign phy_active_o = hs_mode_i;
 
     always_comb begin
         lane_valid_o  = '0;

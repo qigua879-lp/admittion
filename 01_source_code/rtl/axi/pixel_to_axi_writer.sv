@@ -21,6 +21,14 @@ module pixel_to_axi_writer #(
     input  logic                         frame_start_i,
     input  logic                         line_end_i,
     input  logic                         discard_line_i,
+    // Line-level recapture write-back: when a controllable source re-sends a
+    // line in response to a retry request, recap_active_i is held high for that
+    // line and recap_line_id_i selects the target slot. The line is then
+    // addressed by recap_line_id_i (overwriting the corrupted/dropped line)
+    // without advancing the normal line counter or hitting the height drop.
+    // Both default to 0 -> behaviour identical to the non-recapture datapath.
+    input  logic                         recap_active_i,
+    input  logic [15:0]                  recap_line_id_i,
     input  logic                         pixel_valid_i,
     output logic                         pixel_ready_o,
     input  logic [23:0]                  pixel_data_i,
@@ -61,6 +69,8 @@ module pixel_to_axi_writer #(
     logic [$clog2(PIXELS_PER_BEAT+1)-1:0] sys_pack_count_q;
     logic        sys_line_end_pending_q;
     logic        sys_line_drop_pending_q;
+    logic        sys_line_recap_pending_q;
+    logic [15:0] sys_recap_line_id_q;
     logic        sys_data_fifo_wr_valid;
     logic [DATA_FIFO_WIDTH-1:0] sys_data_fifo_wr_data;
     logic        pixel_fire_sys;
@@ -227,6 +237,8 @@ module pixel_to_axi_writer #(
             sys_pack_count_q       <= '0;
             sys_line_end_pending_q <= 1'b0;
             sys_line_drop_pending_q <= 1'b0;
+            sys_line_recap_pending_q <= 1'b0;
+            sys_recap_line_id_q     <= 16'd0;
             clear_req_toggle_sys   <= 1'b0;
             clear_commit_sync1_sys <= 1'b0;
             clear_commit_sync2_sys <= 1'b0;
@@ -255,6 +267,8 @@ module pixel_to_axi_writer #(
                 sys_pack_count_q        <= '0;
                 sys_line_end_pending_q  <= 1'b0;
                 sys_line_drop_pending_q <= 1'b0;
+            sys_line_recap_pending_q <= 1'b0;
+            sys_recap_line_id_q     <= 16'd0;
             end else if (clear_busy_sys_q &&
                          (clear_commit_sync2_sys ^ clear_commit_sync2_d_sys)) begin
                 clear_busy_sys_q        <= 1'b0;
@@ -271,6 +285,8 @@ module pixel_to_axi_writer #(
                 sys_pack_count_q        <= '0;
                 sys_line_end_pending_q  <= 1'b0;
                 sys_line_drop_pending_q <= 1'b0;
+            sys_line_recap_pending_q <= 1'b0;
+            sys_recap_line_id_q     <= 16'd0;
             end else if (!enable_i) begin
                 sys_line_id_q           <= 16'd0;
                 sys_line_byte_cnt_q     <= 16'd0;
@@ -283,6 +299,8 @@ module pixel_to_axi_writer #(
                 sys_pack_count_q        <= '0;
                 sys_line_end_pending_q  <= 1'b0;
                 sys_line_drop_pending_q <= 1'b0;
+            sys_line_recap_pending_q <= 1'b0;
+            sys_recap_line_id_q     <= 16'd0;
             end else begin
                 if (cmd_fifo_wr_valid && cmd_fifo_wr_ready) begin
                     sys_cmd_pending_q <= 1'b0;
@@ -306,21 +324,33 @@ module pixel_to_axi_writer #(
                 end
 
                 if (line_end_i && sys_can_accept_line_end) begin
-                    sys_line_end_pending_q  <= 1'b1;
-                    sys_line_drop_pending_q <= discard_line_i || (sys_line_id_q >= frame_height_i);
+                    sys_line_end_pending_q   <= 1'b1;
+                    // A recapture line is never height-dropped or discard-dropped:
+                    // it carries the corrected data for an already-located slot.
+                    sys_line_drop_pending_q  <= recap_active_i ? 1'b0 :
+                                                (discard_line_i || (sys_line_id_q >= frame_height_i));
+                    sys_line_recap_pending_q <= recap_active_i;
+                    sys_recap_line_id_q      <= recap_line_id_i;
                 end
 
                 if (sys_line_end_pending_q && !sys_force_flush && !sys_cmd_pending_q) begin
                     if (sys_line_byte_cnt_q != 16'd0) begin
                         sys_cmd_pending_q  <= 1'b1;
-                        sys_cmd_line_id_q  <= sys_line_id_q;
+                        // Recapture line: address by the located slot id and do NOT
+                        // advance the running line counter (normal lines keep their
+                        // slots). Otherwise behave exactly as before.
+                        sys_cmd_line_id_q  <= sys_line_recap_pending_q ? sys_recap_line_id_q
+                                                                       : sys_line_id_q;
                         sys_cmd_byte_len_q <= sys_line_byte_cnt_q;
                         sys_cmd_drop_q     <= sys_line_drop_pending_q;
-                        sys_line_id_q      <= sys_line_id_q + 16'd1;
+                        if (!sys_line_recap_pending_q) begin
+                            sys_line_id_q  <= sys_line_id_q + 16'd1;
+                        end
                     end
-                    sys_line_byte_cnt_q     <= 16'd0;
-                    sys_line_end_pending_q  <= 1'b0;
-                    sys_line_drop_pending_q <= 1'b0;
+                    sys_line_byte_cnt_q      <= 16'd0;
+                    sys_line_end_pending_q   <= 1'b0;
+                    sys_line_drop_pending_q  <= 1'b0;
+                    sys_line_recap_pending_q <= 1'b0;
                 end
             end
         end

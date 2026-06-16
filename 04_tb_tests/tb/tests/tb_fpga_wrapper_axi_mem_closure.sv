@@ -420,14 +420,11 @@ module tb_fpga_wrapper_axi_mem_closure;
         repeat (6) @(posedge clk_sys);
         rst_n = 1'b1;
 
+        // The on-chip boot sequencer now configures cfg_reg_if_apb over a
+        // properly phased APB transfer, so no force is needed here. The wrapper
+        // passes LANE_NUM through to the boot block, so the latched lane config
+        // matches the testbench lane count.
         wait (cfg_init_done_o);
-        force dut.u_mipi_csi2_capture_top.u_cfg_reg_if_apb.cfg_enable_o = 1'b1;
-        force dut.u_mipi_csi2_capture_top.u_cfg_reg_if_apb.cfg_lane_num_minus1_o = LANE_NUM - 1;
-        case (LANE_NUM)
-            1: force dut.u_mipi_csi2_capture_top.u_cfg_reg_if_apb.cfg_lane_enable_mask_o = 4'b0001;
-            2: force dut.u_mipi_csi2_capture_top.u_cfg_reg_if_apb.cfg_lane_enable_mask_o = 4'b0011;
-            default: force dut.u_mipi_csi2_capture_top.u_cfg_reg_if_apb.cfg_lane_enable_mask_o = 4'b1111;
-        endcase
         repeat (4) @(posedge clk_byte);
 
         fork

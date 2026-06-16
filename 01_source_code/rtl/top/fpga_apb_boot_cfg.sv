@@ -16,6 +16,10 @@ module fpga_apb_boot_cfg #(
     parameter logic [7:0] VC_ID = 8'd0,
     parameter logic [AXI_ADDR_WIDTH-1:0] FRAME_BASE_ADDR = '0,
     parameter logic [AXI_ADDR_WIDTH-1:0] LINE_STRIDE = 32'd4096,
+    // ERR_POLICY register value written at boot. Default 0x39 = err_log +
+    // resync + degrade + retry(frame mode). Override e.g. to 0x7D to add
+    // CRC-drop (bit2) + line-mode retry (bit6) for line-level recapture.
+    parameter logic [31:0] ERR_POLICY_VALUE = 32'h0000_0039,
     parameter logic [8:0] AXI_MAX_BURST_LEN_CFG = AXI_MAX_BURST_LEN[8:0]
 ) (
     input  logic                  clk_sys,
@@ -87,7 +91,7 @@ module fpga_apb_boot_cfg #(
             end
             6: begin
                 cfg_addr_next = APB_ADDR_ERR_POLICY;
-                cfg_data_next = 32'h0000_0039;
+                cfg_data_next = ERR_POLICY_VALUE;
             end
             default: begin
                 cfg_addr_next = APB_ADDR_AXI_CFG;
@@ -127,10 +131,16 @@ module fpga_apb_boot_cfg #(
                 end
 
                 ST_ENABLE: begin
+                    // ACCESS phase: hold psel/penable asserted on the bus. The
+                    // registered penable_o only reaches the slave one cycle after
+                    // we leave ST_SETUP, so sampling pready_i must wait until
+                    // penable_o is actually high on the bus (penable_o == 1).
+                    // Otherwise penable would be cleared the same cycle it is set
+                    // and apb_write_fire (psel & penable & pwrite) never asserts.
                     psel_o    <= 1'b1;
                     penable_o <= 1'b1;
 
-                    if (pready_i) begin
+                    if (penable_o && pready_i) begin
                         psel_o    <= 1'b0;
                         penable_o <= 1'b0;
 

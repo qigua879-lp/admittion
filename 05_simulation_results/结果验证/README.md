@@ -71,6 +71,27 @@
     - `tb_fpga_wrapper_raw8_lane_config_smoke`
     - `scripts/run_raw8_lane_config_smokes.ps1`
 
+- `dphy_ppi_raw8_smoke_results.md`
+  - 固化 `mipi_csi2_capture_dphy_wrapper` 的 PPI 入口 RAW8 最小端到端闭环
+  - 数据来源：
+    - `tb_mipi_csi2_capture_dphy_wrapper_raw8_smoke`
+
+- `dphy_ila_probe_results.md`
+  - 固化 `mipi_csi2_capture_dphy_wrapper` 的 `ila_probe_o[63:0]` debug bus 映射验证
+  - 数据来源：
+    - `tb_mipi_csi2_capture_dphy_debug_probe`
+
+- `dphy_no_backpressure_guard_results.md`
+  - 固化 D-PHY PPI 无 `rxreadyhs` 场景下的 byte-stream 保护和 clean frame 恢复
+  - 数据来源：
+    - `tb_mipi_csi2_capture_dphy_no_backpressure_guard`
+
+- `dphy_wrapper_synth_results.md`
+  - 固化 `mipi_csi2_capture_dphy_wrapper` 在 Vivado 2017.3 下的 synthesis-only 入口验证
+  - 数据来源：
+    - `run_dphy_wrapper_synth.ps1`
+    - `dphy_wrapper_constraints.xdc`
+
 - `raw8_backpressure_stress_results.md`
   - 固化真实 wrapper 路径下 `RAW8` 连续流背压强化扫描与浅 FIFO 失稳边界
   - 数据来源：

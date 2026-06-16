@@ -19,6 +19,8 @@ module tb_pixel_to_axi_writer;
     logic                         frame_start_i;
     logic                         line_end_i;
     logic                         discard_line_i;
+    logic                         recap_active_i;
+    logic [15:0]                  recap_line_id_i;
     logic                         pixel_valid_i;
     logic                         pixel_ready_o;
     logic [23:0]                  pixel_data_i;
@@ -65,6 +67,8 @@ module tb_pixel_to_axi_writer;
         .frame_start_i(frame_start_i),
         .line_end_i(line_end_i),
         .discard_line_i(discard_line_i),
+        .recap_active_i(recap_active_i),
+        .recap_line_id_i(recap_line_id_i),
         .pixel_valid_i(pixel_valid_i),
         .pixel_ready_o(pixel_ready_o),
         .pixel_data_i(pixel_data_i),
@@ -168,6 +172,8 @@ module tb_pixel_to_axi_writer;
             frame_start_i     = 1'b0;
             line_end_i        = 1'b0;
             discard_line_i    = 1'b0;
+            recap_active_i    = 1'b0;
+            recap_line_id_i   = 16'd0;
             pixel_valid_i     = 1'b0;
             pixel_data_i      = 24'd0;
             repeat (5) @(posedge clk_sys);

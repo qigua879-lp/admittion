@@ -19,6 +19,7 @@ The integration keeps the external interface style from `top_io.md`:
 | File | Role |
 | --- | --- |
 | `rtl/top/mipi_csi2_capture_top.sv` | Minimum top-level wrapper connecting the main receive path, debug/status outputs, preprocess bypass, reliability monitor, and reserved AXI write interface. |
+| `rtl/top/mipi_csi2_capture_dphy_wrapper.sv` | Board-oriented D-PHY PPI entry wrapper that maps AMD D-PHY RX byte-lane signals into the existing FPGA wrapper input style. |
 | `docs/spec/top_integration_notes.md` | Documents connected modules, placeholders, clock domains, APB-lite control bits, and follow-up tasks. |
 
 ## Main Path
@@ -40,6 +41,30 @@ lane_data_0..3[7:0] + lane_valid_0..3
 ```
 
 The top currently treats each external `lane_data_x[31:0]` as an already digital lane word. `phy_digital_adapter` applies HS/LP gating plus `LANE_CFG` lane masking, and forwards only `[7:0]` into the current byte-lane receive path. The effective lane count is further limited by `degrade_recover_fsm.active_lane_num_o`, so lane degradation now changes the actual receive path width instead of only reporting status.
+
+For AMD D-PHY RX IP bring-up, `mipi_csi2_capture_dphy_wrapper` adds this
+entry path in front of the FPGA wrapper:
+
+```text
+rxbyteclkhs + dl*_rxdatahs/rxvalidhs/rxactivehs/rxsynchs
+  -> mipi_dphy_ppi_adapter
+  -> mipi_csi2_capture_fpga_wrapper
+  -> existing receive / pixel / AXI path
+```
+
+This wrapper does not instantiate the AMD IP itself. It expects the generated
+D-PHY RX IP or a Vivado block design to provide the PPI-side byte signals.
+It also exports `ila_probe_o[63:0]`, a narrow debug bus that packs D-PHY PPI
+state, frame/line markers, pixel activity, and error pulses for first-board ILA
+bring-up. The bit map is documented in `dphy_ila_probe_map.md`.
+
+The D-PHY wrapper enables `ENABLE_NO_BACKPRESSURE_GUARD` because AMD D-PHY RX
+PPI does not provide an RX ready/credit signal. When the byte/sys path cannot
+accept the incoming stream, the guard clears byte-domain residual state and the
+system parser/FIFO/writer path, suppresses the damaged frame, and resumes on the
+next valid FS short packet. The generic FPGA wrapper keeps this guard disabled
+so existing sensor-model tests still exercise the ready/valid backpressure
+contract.
 
 ## Real Connections
 
@@ -118,7 +143,7 @@ Connected error sources:
 | Lane | `lane_deskew_buffer` overflow, crossed from `clk_byte` to `clk_sys` with a toggle synchronizer |
 | CRC | `csi2_payload_crc_checker` plus configurable line discard policy |
 
-`err_classifier` and `err_frame_line_logger` bind errors to current `frame_cnt`, `line_cnt`, VC, and DT. `cfg_enable_err_log` gates logger entry creation. `degrade_recover_fsm.active_lane_num_o` now limits the effective lane count seen by `phy_digital_adapter`. `resync_ctrl_fsm` still does not directly reset or drain parser state in this phase.
+`err_classifier` and `err_frame_line_logger` bind errors to current `frame_cnt`, `line_cnt`, VC, and DT. `cfg_enable_err_log` gates logger entry creation. `degrade_recover_fsm.active_lane_num_o` now limits the effective lane count seen by `phy_digital_adapter`. When the D-PHY no-backpressure guard is enabled, lane overflow caused by downstream byte backpressure is not fed into lane degradation, because it is a buffering condition rather than proof that one physical lane should be removed. `resync_ctrl_fsm` still does not directly reset or drain parser state in this phase.
 
 ## APB Register Block
 
@@ -195,12 +220,16 @@ Direct top-level debug/status outputs:
 | `err_sync_o` | sync FSM error pulse |
 | `frame_cnt_o`, `line_cnt_o` | sync FSM counters |
 | `err_cnt_ecc_o`, `err_cnt_crc_o` | error classifier counters |
+| `no_backpressure_drop_event_o` | D-PHY no-backpressure guard clear/drop event |
+| `no_backpressure_drop_active_o` | D-PHY no-backpressure guard frame-drop active state |
 | `pixel_data_o`, `pixel_valid_o`, `pixel_sof_o`, `pixel_sol_o` | preprocess/bypass output |
 
 ## Placeholders And TODO
 
 - Replace the minimum `pixel_to_axi_writer` path with a higher-efficiency
   line/frame buffer architecture when DDR throughput targets are frozen.
+- Add a board-specific wrapper or block design that instantiates the AMD MIPI
+  D-PHY RX IP and connects its PPI ports to `mipi_csi2_capture_dphy_wrapper`.
 - Decide whether `DT_CFG` should stay as a strict stream filter or evolve into a wider allow-list.
 - Decide whether unsupported DT should raise an explicit parser or policy error.
 - Extend system-level TB to instantiate the real top, not only the TB skeleton chain.

@@ -1,10 +1,18 @@
 `timescale 1ns/1ps
 
-// FPGA-oriented wrapper that keeps the system RTL top intact while moving APB,
-// AXI, and wide debug buses on-chip. This avoids exhausting package pins when
-// the design is synthesized for board use.
-module mipi_csi2_capture_fpga_wrapper #(
-    parameter int LANE_NUM             = 4,
+// Verification wrapper for the line-level recapture closed loop.
+//
+// Same structure as mipi_csi2_capture_fpga_wrapper (self-booting APB config +
+// internal AXI sink memory), but:
+//   * exposes src_recap_line_valid_i so a controllable source (the testbench
+//     camera) can drive the recapture sideband into the core, and
+//   * boots ERR_POLICY in line-level recapture mode (CRC-drop + retry line mode)
+//     with a small demo frame geometry.
+//
+// This wrapper exists only for the recapture closed-loop testbench; the
+// production wrapper (mipi_csi2_capture_fpga_wrapper) ties the sideband to 0.
+module mipi_csi2_capture_recap_wrapper #(
+    parameter int LANE_NUM             = 2,
     parameter int DESKEW_DEPTH         = 16,
     parameter int BYTE_FIFO_ADDR_WIDTH = 4,
     parameter int AXI_FIFO_ADDR_WIDTH  = 6,
@@ -12,8 +20,13 @@ module mipi_csi2_capture_fpga_wrapper #(
     parameter int AXI_DATA_WIDTH       = 128,
     parameter int AXI_MAX_BURST_LEN    = 16,
     parameter int AXI_SINK_MEM_ADDR_WIDTH = 12,
-    parameter bit ENABLE_NO_BACKPRESSURE_GUARD = 1'b0,
-    parameter int BYTE_FIFO_GUARD_MARGIN = 1
+    // Demo frame geometry (small): RAW8, 4 px/line.
+    parameter logic [15:0] IMG_WIDTH   = 16'd4,
+    parameter logic [15:0] IMG_HEIGHT  = 16'd4,
+    parameter logic [AXI_ADDR_WIDTH-1:0] LINE_STRIDE = 32'd64,
+    // ERR_POLICY: 0x7D = err_log(0) + crc_drop(2) + resync(3) + degrade(4)
+    //                 + retry_enable(5) + retry_line_mode(6)
+    parameter logic [31:0] ERR_POLICY_VALUE = 32'h0000_007D
 ) (
     input  logic                         clk_sys,
     input  logic                         clk_byte,
@@ -32,6 +45,9 @@ module mipi_csi2_capture_fpga_wrapper #(
     input  logic                         hs_mode,
     input  logic                         lp_mode,
 
+    // Controllable-source recapture sideband (driven by the TB camera).
+    input  logic                         src_recap_line_valid_i,
+
     output logic                         frame_start_o,
     output logic                         frame_end_o,
     output logic                         line_start_o,
@@ -48,8 +64,6 @@ module mipi_csi2_capture_fpga_wrapper #(
     output logic                         retry_mode_o,
     output logic [31:0]                  retry_frame_id_o,
     output logic [31:0]                  retry_line_id_o,
-    output logic                         no_backpressure_drop_event_o,
-    output logic                         no_backpressure_drop_active_o,
     output logic                         cfg_init_done_o
 );
 
@@ -77,23 +91,25 @@ module mipi_csi2_capture_fpga_wrapper #(
     logic                         m_axi_bvalid;
     logic                         m_axi_bready;
 
+    logic                         no_bp_drop_event_unused;
+    logic                         no_bp_drop_active_unused;
     logic [31:0] frame_cnt_unused;
     logic [31:0] line_cnt_unused;
     logic [31:0] err_cnt_ecc_unused;
     logic [31:0] err_cnt_crc_unused;
-
-    // Derive the boot-time lane configuration from LANE_NUM so the on-chip
-    // sequencer programs the correct lane count/mask on a real board (no force).
-    localparam logic [1:0] BOOT_LANE_NUM_MINUS1  = LANE_NUM[1:0] - 2'd1;
-    localparam logic [3:0] BOOT_LANE_ENABLE_MASK = 4'((1 << LANE_NUM) - 1);
 
     fpga_apb_boot_cfg #(
         .ADDR_WIDTH(16),
         .DATA_WIDTH(32),
         .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
         .AXI_MAX_BURST_LEN(AXI_MAX_BURST_LEN),
-        .LANE_NUM_MINUS1(BOOT_LANE_NUM_MINUS1),
-        .LANE_ENABLE_MASK(BOOT_LANE_ENABLE_MASK)
+        .IMG_WIDTH(IMG_WIDTH),
+        .IMG_HEIGHT(IMG_HEIGHT),
+        .LANE_NUM_MINUS1(LANE_NUM[1:0] - 2'd1),
+        .LANE_ENABLE_MASK(4'b0011),
+        .DT_CODE(8'h2a),
+        .LINE_STRIDE(LINE_STRIDE),
+        .ERR_POLICY_VALUE(ERR_POLICY_VALUE)
     ) u_fpga_apb_boot_cfg (
         .clk_sys(clk_sys),
         .rst_n(rst_n),
@@ -115,9 +131,7 @@ module mipi_csi2_capture_fpga_wrapper #(
         .AXI_FIFO_ADDR_WIDTH(AXI_FIFO_ADDR_WIDTH),
         .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
         .AXI_DATA_WIDTH(AXI_DATA_WIDTH),
-        .AXI_MAX_BURST_LEN(AXI_MAX_BURST_LEN),
-        .ENABLE_NO_BACKPRESSURE_GUARD(ENABLE_NO_BACKPRESSURE_GUARD),
-        .BYTE_FIFO_GUARD_MARGIN(BYTE_FIFO_GUARD_MARGIN)
+        .AXI_MAX_BURST_LEN(AXI_MAX_BURST_LEN)
     ) u_mipi_csi2_capture_top (
         .clk_sys(clk_sys),
         .clk_byte(clk_byte),
@@ -172,10 +186,9 @@ module mipi_csi2_capture_fpga_wrapper #(
         .retry_mode_o(retry_mode_o),
         .retry_frame_id_o(retry_frame_id_o),
         .retry_line_id_o(retry_line_id_o),
-        // No controllable recapture source at the FPGA wrapper level.
-        .src_recap_line_valid_i(1'b0),
-        .no_backpressure_drop_event_o(no_backpressure_drop_event_o),
-        .no_backpressure_drop_active_o(no_backpressure_drop_active_o),
+        .src_recap_line_valid_i(src_recap_line_valid_i),
+        .no_backpressure_drop_event_o(no_bp_drop_event_unused),
+        .no_backpressure_drop_active_o(no_bp_drop_active_unused),
         .pixel_data_o(pixel_data_o),
         .pixel_valid_o(pixel_valid_o),
         .pixel_sof_o(pixel_sof_o),

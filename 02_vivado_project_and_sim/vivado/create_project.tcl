@@ -2,11 +2,11 @@
 #
 # Usage:
 #   vivado -mode batch -source 02_vivado_project_and_sim/vivado/create_project.tcl \
-#          -tclargs [fpga_part] [project_name] [top_module]
+#          -tclargs [fpga_part] [project_name] [top_module] [xdc_profile]
 #
 # Default example:
 #   vivado -mode batch -source 02_vivado_project_and_sim/vivado/create_project.tcl \
-#          -tclargs xczu9eg-ffvb1156-2-e mipi_csi2_capture mipi_csi2_capture_top
+#          -tclargs xczu9eg-ffvb1156-2-e mipi_csi2_capture mipi_csi2_capture_top all
 #
 # This repository now defaults to AMD Zynq UltraScale+ MPSoC
 # xczu9eg-ffvb1156-2-e. This aligns with the existing XDC placeholder and with
@@ -20,6 +20,7 @@ set repo_root  [file normalize [file join $script_dir ../..]]
 set project_name "mipi_csi2_capture"
 set top_module   "mipi_csi2_capture_top"
 set fpga_part    "xczu9eg-ffvb1156-2-e"
+set xdc_profile  "all"
 
 if {[info exists ::env(FPGA_PART)] && ($::env(FPGA_PART) ne "")} {
     set fpga_part $::env(FPGA_PART)
@@ -33,6 +34,9 @@ if {[llength $argv] >= 2} {
 }
 if {[llength $argv] >= 3} {
     set top_module [lindex $argv 2]
+}
+if {[llength $argv] >= 4} {
+    set xdc_profile [lindex $argv 3]
 }
 
 if {$fpga_part eq "FPGA_PART_PLACEHOLDER"} {
@@ -119,6 +123,7 @@ puts "INFO: Project name    : $project_name"
 puts "INFO: Project root    : $project_root"
 puts "INFO: FPGA part       : $fpga_part"
 puts "INFO: Requested top   : $top_module"
+puts "INFO: XDC profile     : $xdc_profile"
 puts "INFO: RTL root        : $rtl_root"
 puts "INFO: XDC root        : $xdc_root"
 
@@ -133,7 +138,21 @@ if {[llength $rtl_files] == 0} {
 }
 add_files -fileset sources_1 $rtl_files
 
-set xdc_files [collect_files_recursive $xdc_root [list "*.xdc"]]
+set xdc_files_all [collect_files_recursive $xdc_root [list "*.xdc"]]
+set xdc_files {}
+
+if {$xdc_profile eq "all"} {
+    set xdc_files $xdc_files_all
+} elseif {$xdc_profile eq "dphy_minimal"} {
+    set dphy_xdc [file normalize [file join $xdc_root dphy_wrapper_constraints.xdc]]
+    if {![file exists $dphy_xdc]} {
+        return -code error "dphy_minimal XDC profile requested but missing $dphy_xdc"
+    }
+    set xdc_files [list $dphy_xdc]
+} else {
+    return -code error "unknown XDC profile '$xdc_profile'; expected 'all' or 'dphy_minimal'"
+}
+
 if {[llength $xdc_files] > 0} {
     add_files -fileset constrs_1 $xdc_files
 } else {
