@@ -236,6 +236,7 @@ module mipi_csi2_capture_top #(
     logic        line_end;
     logic [31:0] frame_cnt;
     logic [31:0] line_cnt;
+    logic [31:0] line_in_frame;
     logic [1:0]  active_vc_unused;
     logic        sync_error;
 
@@ -797,6 +798,7 @@ module mipi_csi2_capture_top #(
         .line_end(line_end),
         .frame_cnt(frame_cnt),
         .line_cnt(line_cnt),
+        .line_in_frame(line_in_frame),
         .active_vc(active_vc_unused),
         .sync_error(sync_error)
     );
@@ -1122,7 +1124,9 @@ module mipi_csi2_capture_top #(
         .err_sync_i(sync_error),
         .err_lane_i(lane_error_event_sys),
         .frame_id_i(frame_cnt),
-        .line_id_i(line_cnt),
+        // Frame-relative line index (not the free-running line_cnt) so the
+        // located line maps to the per-frame slot for recapture across frames.
+        .line_id_i(line_in_frame),
         .vc_i(pkt_vc),
         .dt_i(pkt_dt),
         .err_valid_o(err_valid),

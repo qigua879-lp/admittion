@@ -18,6 +18,11 @@ module frame_line_sync_fsm (
     output logic        line_end,
     output logic [31:0] frame_cnt,
     output logic [31:0] line_cnt,
+    // Frame-relative line index: resets to 0 on frame start, increments on each
+    // line start (1-based within the frame). Unlike line_cnt (free-running over
+    // the whole stream), this maps to the per-frame write-buffer slot, which is
+    // what the recapture write-back needs so the loop works across frames.
+    output logic [31:0] line_in_frame,
     output logic [1:0]  active_vc,
     output logic        sync_error
 );
@@ -42,6 +47,7 @@ module frame_line_sync_fsm (
             line_end     <= 1'b0;
             frame_cnt    <= 32'd0;
             line_cnt     <= 32'd0;
+            line_in_frame <= 32'd0;
             active_vc    <= 2'd0;
             sync_error   <= 1'b0;
         end else if (clear_i) begin
@@ -70,6 +76,7 @@ module frame_line_sync_fsm (
                         line_active  <= 1'b0;
                         frame_start  <= 1'b1;
                         frame_cnt    <= frame_cnt + 32'd1;
+                        line_in_frame <= 32'd0;
                         active_vc    <= event_vc;
                     end
 
@@ -91,6 +98,7 @@ module frame_line_sync_fsm (
                             line_active <= 1'b1;
                             line_start  <= 1'b1;
                             line_cnt    <= line_cnt + 32'd1;
+                            line_in_frame <= line_in_frame + 32'd1;
                         end
                     end
 
