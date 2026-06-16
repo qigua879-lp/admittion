@@ -17,7 +17,8 @@
 // Strategy selected at elaboration: xelab -generic_top "STRATEGY=<n>"
 // (0 = C discard, 1 = A line-level recapture, 2 = B full-frame retransmit).
 module tb_recapture_strategy_compare #(
-    parameter int STRATEGY = 1
+    parameter int STRATEGY = 1,
+    parameter int D_LINES  = 1        // recapture sent D lines after the error (A)
 );
 
     localparam int LANE_NUM = 2;
@@ -27,7 +28,6 @@ module tb_recapture_strategy_compare #(
     localparam int H         = 8;     // lines per frame
     localparam int BAD_LINE  = 3;     // 0-based writer slot of the corrupted line
     localparam int SLOTK_WORD = 16 * BAD_LINE;
-    localparam int D_LINES   = 1;     // modelled upstream window (lines) for A
 
     logic clk_sys, clk_byte, clk_axi, clk_ddr, rst_n;
     logic [31:0] lane_data_0, lane_data_1, lane_data_2, lane_data_3;

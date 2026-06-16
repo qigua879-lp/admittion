@@ -186,7 +186,38 @@ def main():
     print("-" * 78)
 
     _t3_measured_crosscheck(pr)
+    _t4_design_space(pr)
     _maybe_plot(pr, bers)
+
+
+def _t4_design_space(pr):
+    """T4 design-space sweep over the round-trip window D.
+
+    Line-level (A) extra memory = D*L and recovery latency = D*T_l grow linearly
+    with D; full-frame (B) costs are fixed at the frame (H). So A's advantage is
+    exactly H/D and the profitability boundary is rho = D/H: A wins while D < H,
+    degenerates to B at D = H. Simulation anchors (tb_recapture_strategy_compare
+    runners tb_strat_a_d1/d2/d4) confirm buffer_lines scales as D and the recovery
+    cost stays one line.
+    """
+    print("T4 设计空间扫描 (扫往返窗口 D, 与整帧重传 B 比):")
+    print(f"  {'D(行)':>6}{'rho=D/H':>10}{'A额外内存':>14}{'A恢复时延':>12}"
+          f"{'省内存/时延':>12}{'划算?':>8}")
+    d_list = sorted(set([1, 2, 4, 8, max(1, pr.H // 4), pr.H // 2, pr.H]))
+    for d in d_list:
+        if d < 1 or d > pr.H:
+            continue
+        rho = d / pr.H
+        mem = d * pr.L
+        lat = d * pr.T_l
+        adv = pr.H / d
+        worth = "是" if d < pr.H else "退化=B"
+        print(f"  {d:>6}{rho:>10.4f}{fmt_bytes(mem):>14}{fmt_time(lat):>12}"
+              f"{adv:>10.0f}x{worth:>8}")
+    print(f"  边界: rho=D/H<1 时行级严格更优(省 H/D 倍内存与时延); D->H 退化为整帧重传。")
+    print(f"  仿真锚点: tb_strat_a_d1/d2/d4 实测 buffer_lines=D, 恢复流量恒=1 行(18B)。")
+    print(f"  时间窗 C2: 单次未决请求, 注错快于服务则旧行丢失(tb_recapture_window_limit)。")
+    print("-" * 78)
 
 
 def _t3_measured_crosscheck(pr):
