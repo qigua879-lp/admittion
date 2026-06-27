@@ -408,6 +408,74 @@ Vivado xsim 2017.3（`xvlog`/`xelab`/`xsim`）。
 
 ---
 
+# 第 8 章 板级实施方案
+
+> 本章给出从当前"仿真闭环 + 可综合"到真正板级测试的硬件选型、连接方案、实施路线与预算。
+> 守红线：板级未收口前不作"已上板"表述；4-lane 维持"仿真已验 + 能力可配"，板级按实际 lane 数说明。
+
+## 8.1 硬件选型与清单
+
+平台必须为 **Xilinx（Zynq / UltraScale+）**——因为 `mipi_dphy_ppi_adapter` 是按 AMD MIPI D-PHY
+RX IP 的 PPI 接口实现的。最终选型（¥5 万预算内，实花约 ¥2 万）：
+
+| 角色 | 型号 | 订货号 | 数量 | 价格(约) |
+|---|---|---|---|---|
+| RX 主板（本设计实现载体）| Digilent Genesys ZU-5EV（Zynq UltraScale+ ZU5EV）| 410-383-5EV | 1 | ¥1.6–1.8 万 |
+| 可控 MIPI 发送端（重采集硬件演示）| Digilent Zybo Z7-20（Zynq-7020）| 410-351-20 | 1 | ¥2.8–3.2 k |
+| 真实相机（数据源）| Digilent Pcam 5C（OV5640，2-lane MIPI CSI-2）| 410-358 | 1 | ¥0.5–0.7 k |
+| 配件 | 电源 ×2、micro-USB、microSD、反向通道杜邦线 | — | — | ¥0.5 k |
+| 可选 | 第 2 个 Pcam 5C（演示多相机/VC，Genesys 有 2 个 MIPI 口）| 410-358 | (1) | (+¥0.5 k) |
+
+**选型理由**：① Genesys ZU-5EV 原生 MIPI D-PHY + DDR4 + UltraScale+ 大资源，一次消除 7 系列
+MIPI 娇气/资源紧/lane 受限等硬伤，且 Digilent 生态、有 Pcam 参考设计、自定义 RTL 友好；
+② 第二块板提供"可控可重发源"，把创新点从仿真验证升级到**硬件演示**；③ 真相机验证 RX 主链路
+端到端落地。
+
+## 8.2 系统连接
+
+两条数据路径共用 RX 主板：
+
+**路径 1 —— 真实采集（验证 RX 主链路）**
+```
+Pcam 5C → Genesys 板载 MIPI D-PHY RX IP（输出 PPI）→ mipi_dphy_ppi_adapter
+        → lane 对齐/解析/帧行同步/像素重组 → AXI → PS DDR4
+```
+
+**路径 2 —— 双板重采集闭环演示（验证创新点）**
+```
+ Zybo(TX, 可控源) ──① MIPI 数据(含坏行)──▶ Genesys(RX, 本设计)
+        ▲                                        │② 检出CRC坏行→定位→retry_req
+        │③ 反向通道(GPIO/I²C)"重发第k行"          │
+        └──────④ 重发干净第k行 ───────────────────┘⑤ 写回覆盖坏行槽→读DDR核对
+```
+- **可控发送端**：Zybo 编程为 MIPI CSI-2 发送器，发已知测试帧、可注入坏行、并**响应"重发第 k 行"**。
+- **反向通道**：两板间几根 GPIO 或一条 I²C，承载重采请求（即 T5 的 CCI/I²C 反向通道前提）。
+- 普通相机不可控、不响应重发，故重采集闭环必须用可控源演示——此即 §5.5 可行性条件 C1–C2 的硬件实现。
+
+## 8.3 板级实施路线（从现状到上板）
+
+1. **工程切器件**：Vivado part 切到 Genesys ZU-5EV（XCZU5EV，封装/速度从 Digilent board file 取），挂 board file。
+2. **真实约束**：基于 Digilent 主 XDC 写真实时钟（板载振荡器）、MIPI/Pcam 引脚 LOC/IOSTANDARD、
+   DDR4 约束，并给 CDC 同步器补 `set_false_path`/`set_max_delay`（第 7.2 节差距 ②）。
+3. **时序收敛**（T6）：跑实现、读时序报告、对关键路径（128bit AXI / 格雷码组合 / 长解析链）插
+   流水或重定时，迭代至 WNS≥0。
+4. **真 D-PHY 接入**：实例化 Genesys 的 MIPI D-PHY RX IP，PPI 接到 `mipi_dphy_ppi_adapter`。
+5. **真 DDR4 后端**：用 PS DDR4 / MIG 替换仿真 sink，过 DDR 接口。
+6. **真相机采集**：接 Pcam 5C，验证端到端 RX（路径 1）。
+7. **双板重采集演示**：Zybo 配可控 TX + 反向通道，跑路径 2，读 DDR 核对坏行恢复。
+
+> 其中 4/5/6 的功能正确性可先在仿真侧用更真实模型预验（行为级 D-PHY 错误注入、AXI-VIP/MIG 仿真），
+> 与器件无关、降低板级风险。
+
+## 8.4 预算分配与边界
+
+- 实花约 ¥2 万 / ¥5 万预算，余量 ¥3 万留给 4-lane 升级或意外。
+- **4-lane 边界**：仿真已验（1/2/4 lane 配置闭环）；Pcam 5C 为 2-lane、板级演示 2-lane；真要
+  4-lane 上板需 4-lane MIPI 源 + 4-lane 通道（如 FMC 4-lane MIPI 采集卡，约 ¥1 万内），列为按需追加。
+- **不采购**：MIPI 协议分析仪等高价实验室设备（远超本项目需求）。
+
+---
+
 # 附录
 
 ## 附录 A 寄存器映射（节选）
