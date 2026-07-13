@@ -35,3 +35,6 @@ webtalk_*.jou
 # Generated presentation/doc previews
 outputs/
 docx_render_check/
+
+# Waveform capture scratch
+.wavebuild/

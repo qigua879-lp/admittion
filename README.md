@@ -16,6 +16,7 @@
 | `06_netlist_level_files/` | 综合后 Verilog/EDF/DCP、实现报告和 ASIC 评估说明 |
 | `07_project_result_analysis/` | 当前工程预期目标、完成情况、未完成情况和改进策略 |
 | `08_reference_docs/` | 原工程中的规格、寄存器、时序和结果参考文档 |
+| `09_汇报材料/` | 中期汇报讲稿与各版本 PPT |
 
 ## 推荐阅读顺序
 
