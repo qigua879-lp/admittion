@@ -38,3 +38,4 @@ docx_render_check/
 
 # Waveform capture scratch
 .wavebuild/
+fsm_encoding.os
