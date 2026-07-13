@@ -74,6 +74,24 @@ module tb_adaptive_preprocess_ctrl_v1;
         end
     endtask
 
+    // The coefficient engine is multi-cycle (shared iterative divider), so
+    // checks must wait for coeff_valid_o instead of sampling one cycle after
+    // stats_valid. Bounded wait keeps the test self-failing on a hang.
+    task automatic wait_coeff_valid;
+        int t;
+        begin
+            t = 0;
+            while (!coeff_valid_o) begin
+                @(posedge clk_sys);
+                #1;
+                t = t + 1;
+                if (t > 400) begin
+                    fail("timeout waiting for coeff_valid");
+                end
+            end
+        end
+    endtask
+
     task automatic drive_stats(
         input logic [15:0] mean_r,
         input logic [15:0] mean_g,
@@ -100,9 +118,7 @@ module tb_adaptive_preprocess_ctrl_v1;
         apply_reset();
 
         drive_stats(16'd64, 16'd96, 16'd128, 8'd16, 8'd200);
-        if (!coeff_valid_o) begin
-            fail("expected coeff_valid pulse");
-        end
+        wait_coeff_valid();
         if (!(awb_gain_r_o > 8'h80) || awb_gain_g_o !== 8'h80 || !(awb_gain_b_o < 8'h80)) begin
             fail($sformatf("unexpected awb gains r=%0d g=%0d b=%0d",
                            awb_gain_r_o, awb_gain_g_o, awb_gain_b_o));
@@ -115,6 +131,7 @@ module tb_adaptive_preprocess_ctrl_v1;
         awb_enable_i = 1'b0;
         stretch_enable_i = 1'b0;
         drive_stats(16'd32, 16'd32, 16'd32, 8'd4, 8'd250);
+        wait_coeff_valid();
         if (awb_gain_r_o !== 8'h80 || awb_gain_g_o !== 8'h80 || awb_gain_b_o !== 8'h80 ||
             stretch_gain_o !== 8'h80 || stretch_bias_o !== 9'sd0) begin
             fail("disable bits did not force identity coefficients");

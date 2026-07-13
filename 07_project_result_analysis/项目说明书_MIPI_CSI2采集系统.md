@@ -365,9 +365,15 @@ Vivado xsim 2017.3（`xvlog`/`xelab`/`xsim`）。
 
 - 已生成 bitstream，`write_bitstream` DRC = 0 Errors，`impl_drc.rpt` Violations = 0，NSTD-1/UCIO-1
   已清零，并有验收脚本与留痕。
-- **时序未收敛**：`WNS = −3.398 ns`。**LOC/IOSTANDARD 为实验占位版（无真实原理图）**。
+- **核内时序已收敛（面向目标器件）**：在 Genesys ZU-5EV 实际器件 `xczu5ev-sfvc784-1-e`（速度级 -1）
+  上，200 MHz（sys/axi/ddr）+ 187.5 MHz（byteclk）目标下 **WNS = +0.194 ns、TNS = 0、hold 满足、
+  0 布线错误**；资源仅 LUT 1.88% / FF 1.02%。收敛过程中定位并修复了两处帧级路径的单周期组合除法
+  （adaptive 系数计算与帧末均值，重构为迭代除法器，功能零回归），详见
+  `05_simulation_results/结果验证/zu5ev_timing_closure_results.md`。
+- 该结果为 core timing-only 口径（占位 wrapper 边界 false-path，时钟组间异步）；
+  **LOC/IOSTANDARD 仍为实验占位版（无真实原理图）**。
 - 因此**本工程不作"已上板/上板验证"结论**；当前结论是"数字前端 RTL 主体完成、系统级仿真闭环、
-  具备 FPGA 可实现性评估"。距离真正板级测试的差距详见 7.2。
+  **面向目标器件完成综合实现与核内时序收敛评估**"。距离真正板级测试的差距详见 7.2。
 
 ---
 
@@ -385,10 +391,10 @@ Vivado xsim 2017.3（`xvlog`/`xelab`/`xsim`）。
 
 如实列出距离真正"上板测试"的差距（不可写"已上板"）：
 
-1. **时序收敛**：`WNS=−3.398 ns` 未收敛，需定位关键路径（128bit AXI、格雷码组合、长解析链）做
-   插流水/重定时/约束细化。
-2. **真实约束**：占位 LOC/IOSTANDARD 需按真实原理图替换；补 `create_clock`、`set_input/output_delay`，
-   **以及给 CDC 同步器补 `set_false_path`/`set_max_delay`**（当前可能缺，与时序未收敛或相关）。
+1. **时序收敛**：~~未收敛~~ **已完成核内收敛**——XCZU5EV-1 上 200 MHz 目标 WNS=+0.194 ns
+   （见 6.6）。板级剩余时序工作是集成时序（真实 IP/引脚/生成时钟），不是核内路径。
+2. **真实约束**：占位 LOC/IOSTANDARD 需按真实原理图替换；补板级 `create_clock`、
+   `set_input/output_delay`（时钟组间异步已在现有 XDC 声明）。
 3. **真实 D-PHY 前端**：现仅数字抽象输入；接真摄像头需真实 D-PHY RX（硬 IP / CSI-2 RX 子系统 / 桥）。
 4. **真实后端 DDR**：现写内部 sink 存储；上板需真实 DDR 控制器 + AXI 互联并过 DDR 时序。
 5. **重采集的板级前提**：需真有"可控可重发源 + 反向通道(CCI/I²C)"；普通 sensor 不按行重发，否则

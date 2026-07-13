@@ -97,6 +97,23 @@ module tb_pixel_frame_stats_v1;
         end
     endtask
 
+    // Means are produced by a multi-cycle divider engine (~48 cycles after
+    // frame_end), so checks wait for stats_valid_o with a bounded timeout.
+    task automatic wait_stats_valid;
+        int t;
+        begin
+            t = 0;
+            while (!stats_valid_o) begin
+                @(posedge clk_sys);
+                #1;
+                t = t + 1;
+                if (t > 200) begin
+                    fail("timeout waiting for stats_valid");
+                end
+            end
+        end
+    endtask
+
     initial begin
         apply_reset();
 
@@ -106,10 +123,7 @@ module tb_pixel_frame_stats_v1;
         send_pixel(24'h304050, 1'b0);
         send_pixel(24'h405060, 1'b0);
         pulse_frame_end();
-
-        if (!stats_valid_o) begin
-            fail("expected rgb frame stats_valid pulse");
-        end
+        wait_stats_valid();
         if (pixel_cnt_o !== 32'd4 ||
             mean_r_o !== 16'd40 ||
             mean_g_o !== 16'd56 ||
@@ -129,10 +143,7 @@ module tb_pixel_frame_stats_v1;
         send_pixel(24'h000005, 1'b1);
         send_pixel(24'h0000f8, 1'b0);
         pulse_frame_end();
-
-        if (!stats_valid_o) begin
-            fail("expected raw8 frame stats_valid pulse");
-        end
+        wait_stats_valid();
         if (pixel_cnt_o !== 32'd2 ||
             mean_r_o !== 16'd126 ||
             mean_g_o !== 16'd126 ||
