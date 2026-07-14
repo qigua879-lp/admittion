@@ -15,7 +15,15 @@ routing errors = 0
 时钟目标（与 `02_vivado_project_and_sim/xdc/dphy_wrapper_constraints.xdc` 一致）：
 `clk_sys / clk_axi / clk_ddr = 200 MHz`，`rxbyteclkhs = 187.5 MHz`（对应 1.5 Gbps/lane HS）。
 
-资源占用（ZU5EV）：CLB LUT **2199（1.88%）**、CLB FF **2378（1.02%）**、BRAM 0、极小占用。
+资源占用（ZU5EV）：CLB LUT **2199（1.88%）**、CLB FF **2378（1.02%）**、CARRY8 105（0.72%）、
+**BRAM 0、DSP 0**、BUFGCE 3——极轻量，为扩展留有充裕余量。
+
+功耗（Vivado 无向量估计，**置信度 Low，仅初步参考**）：片上总功耗约 **0.432 W**
+（动态 0.093 W + 静态 0.339 W），结温约 26 ℃。精确功耗需仿真活动文件（SAIF）或板级实测，
+论文表述用"初步估计约 0.43 W"。
+
+> 说明：报告中 Bonded IOB 达 87.7% 是"人工顶层综合"假象——当前把 PPI/调试端口都当封装引脚；
+> 真实板级 D-PHY IP 集成后多数变为片内连线，不构成真实 I/O 瓶颈。
 
 ## 收敛过程（三次迭代，问题→修法）
 
