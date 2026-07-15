@@ -11,11 +11,11 @@
 推荐与本文档配套阅读的主文件：
 
 - [论文结果总表](thesis_result_tables.md)
-- [当前缺口检查](结果验证/progress_gap_check.md)
+- [当前缺口检查](../../05_simulation_results/结果验证/progress_gap_check.md)
 - [阶段交接记录](thesis_progress_handoff_2026-05-19.md)
 - [实验矩阵](thesis_experiment_matrix.md)
 - [状态矩阵](thesis_status_matrix.md)
-- [结果验证索引](结果验证/README.md)
+- [结果验证索引](../../05_simulation_results/结果验证/README.md)
 
 ## 2. 当前总体结论
 
@@ -35,15 +35,15 @@
 
 | 总体结论 | 直接证明方式 | 主要 testbench / 脚本 | 对应结果留痕 |
 | --- | --- | --- | --- |
-| 数字前端主链路已完成 | 通过真实 wrapper 路径验证 `FS/LS/payload/LE/FE -> pixel -> AXI` 闭环 | `tb_fpga_wrapper_raw8_metrics`、`tb_fpga_wrapper_raw10_metrics`、`tb_fpga_wrapper_rgb888_metrics`、`tb_fpga_wrapper_yuv422_metrics`、`tb_fpga_wrapper_axi_backpressure_metrics` | [thesis_result_tables.md](thesis_result_tables.md)、[format_comparison_results.md](结果验证/format_comparison_results.md)、[reliability_metrics_overview.png](结果验证/reliability_metrics_overview.png) |
-| `RAW8 / RAW10 / RGB888 / YUV422` 四类格式已经闭环 | 四条格式路径均已得到时延、像素数和 frame 收尾结果；`RAW10` 已补 full-frame closure | `tb_fpga_wrapper_raw8_metrics`、`tb_fpga_wrapper_raw10_smoke`、`tb_fpga_wrapper_raw10_metrics`、`tb_fpga_wrapper_rgb888_metrics`、`tb_fpga_wrapper_yuv422_metrics` | [format_comparison_results.md](结果验证/format_comparison_results.md)、[raw10_full_frame_results.md](结果验证/raw10_full_frame_results.md) |
-| `1 / 2 / 4 lane` 配置能力已经实现 | `lane1` 与 `lane4` 已有 wrapper 级 smoke，`lane2` 是主验证路径 | `tb_fpga_wrapper_raw8_lane_config_smoke`、`scripts/run_raw8_lane_config_smokes.ps1`，配合既有 `lane2` RAW8 smoke/metrics | [raw8_lane_config_results.md](结果验证/raw8_lane_config_results.md)、[thesis_result_tables.md](thesis_result_tables.md) |
-| ECC/CRC/sync/lane 异常检测与恢复链已经实现 | 错误注入后可观察到 `err_*`、恢复链状态和恢复后的 clean frame / multiframe 结果 | `tb_fpga_wrapper_crc_error`、`tb_fpga_wrapper_ecc_error`、`tb_fpga_wrapper_resync_metrics`、`tb_fpga_wrapper_resync_clean_frame`、`tb_fpga_wrapper_resync_backpressure_multiframe` | [resync_clean_frame_results.md](结果验证/resync_clean_frame_results.md)、[resync_backpressure_multiframe_results.md](结果验证/resync_backpressure_multiframe_results.md)、[正式波形 README](结果验证/正式波形/README.md) |
-| lane skew 容忍窗口与 overflow 边界已经量化 | 对 `lead_bytes`、`DESKEW_DEPTH`、后级 FIFO 参数做系统扫描，得到稳定窗口规律 | `tb_fpga_wrapper_lane_skew_scan`、`scripts/run_lane_buffer_sensitivity_sweep.ps1` | [lane_skew_scan_results.md](结果验证/lane_skew_scan_results.md)、[lane_buffer_sensitivity_results.md](结果验证/lane_buffer_sensitivity_results.md) |
-| buffer 深度与 AXI 背压传播规律已经形成基础结论 | 对 `BYTE FIFO / AXI FIFO / stall / multiframe` 做参数扫描，并观察 `lane_ready` 回压与失稳边界 | `tb_fpga_wrapper_buffer_depth_sweep`、`scripts/run_buffer_depth_sweep.ps1`、`tb_fpga_wrapper_raw8_backpressure_stress`、`scripts/run_raw8_backpressure_stress_sweep.ps1` | [buffer_depth_sweep_results.md](结果验证/buffer_depth_sweep_results.md)、[raw8_backpressure_stress_results.md](结果验证/raw8_backpressure_stress_results.md) |
-| 系统已经不止能跑单帧样例，而具备基础连续工作能力 | 多帧多行和恢复后 multiframe 场景都已保持 scoreboard 闭合 | `tb_fpga_wrapper_raw8_multiframe_stability`、`tb_fpga_wrapper_resync_backpressure_multiframe` | [raw8_multiframe_stability_results.md](结果验证/raw8_multiframe_stability_results.md)、[resync_backpressure_multiframe_results.md](结果验证/resync_backpressure_multiframe_results.md) |
-| 当前 RTL / wrapper 已具备 FPGA 实现评估基础 | 当前 `HEAD` 的综合、实现、资源和时序报告都已固定留痕 | `fpga/vivado/run_synth_impl.tcl`、`fpga/vivado/run_impl_route_only.tcl` | [vivado_resource_timing_results.md](结果验证/vivado_resource_timing_results.md)、`fpga/vivado/reports/mipi_csi2_capture_fpga_head_20260519/` |
-| 当前结果足以支撑“数字前端工程原型”口径 | 功能闭环、恢复闭环、参数边界、连续流与实现评估都已具备证据，但边界限制也已明确列出 | 上述所有系统级 TB、参数脚本和 Vivado 报告的组合证据 | [verification_master_report.md](verification_master_report.md)、[progress_gap_check.md](结果验证/progress_gap_check.md)、[thesis_status_matrix.md](thesis_status_matrix.md) |
+| 数字前端主链路已完成 | 通过真实 wrapper 路径验证 `FS/LS/payload/LE/FE -> pixel -> AXI` 闭环 | `tb_fpga_wrapper_raw8_metrics`、`tb_fpga_wrapper_raw10_metrics`、`tb_fpga_wrapper_rgb888_metrics`、`tb_fpga_wrapper_yuv422_metrics`、`tb_fpga_wrapper_axi_backpressure_metrics` | [thesis_result_tables.md](thesis_result_tables.md)、[format_comparison_results.md](../../05_simulation_results/结果验证/format_comparison_results.md)、[reliability_metrics_overview.png](../../05_simulation_results/结果验证/reliability_metrics_overview.png) |
+| `RAW8 / RAW10 / RGB888 / YUV422` 四类格式已经闭环 | 四条格式路径均已得到时延、像素数和 frame 收尾结果；`RAW10` 已补 full-frame closure | `tb_fpga_wrapper_raw8_metrics`、`tb_fpga_wrapper_raw10_smoke`、`tb_fpga_wrapper_raw10_metrics`、`tb_fpga_wrapper_rgb888_metrics`、`tb_fpga_wrapper_yuv422_metrics` | [format_comparison_results.md](../../05_simulation_results/结果验证/format_comparison_results.md)、[raw10_full_frame_results.md](../../05_simulation_results/结果验证/raw10_full_frame_results.md) |
+| `1 / 2 / 4 lane` 配置能力已经实现 | `lane1` 与 `lane4` 已有 wrapper 级 smoke，`lane2` 是主验证路径 | `tb_fpga_wrapper_raw8_lane_config_smoke`、`scripts/run_raw8_lane_config_smokes.ps1`，配合既有 `lane2` RAW8 smoke/metrics | [raw8_lane_config_results.md](../../05_simulation_results/结果验证/raw8_lane_config_results.md)、[thesis_result_tables.md](thesis_result_tables.md) |
+| ECC/CRC/sync/lane 异常检测与恢复链已经实现 | 错误注入后可观察到 `err_*`、恢复链状态和恢复后的 clean frame / multiframe 结果 | `tb_fpga_wrapper_crc_error`、`tb_fpga_wrapper_ecc_error`、`tb_fpga_wrapper_resync_metrics`、`tb_fpga_wrapper_resync_clean_frame`、`tb_fpga_wrapper_resync_backpressure_multiframe` | [resync_clean_frame_results.md](../../05_simulation_results/结果验证/resync_clean_frame_results.md)、[resync_backpressure_multiframe_results.md](../../05_simulation_results/结果验证/resync_backpressure_multiframe_results.md)、[正式波形 README](../../05_simulation_results/结果验证/正式波形/README.md) |
+| lane skew 容忍窗口与 overflow 边界已经量化 | 对 `lead_bytes`、`DESKEW_DEPTH`、后级 FIFO 参数做系统扫描，得到稳定窗口规律 | `tb_fpga_wrapper_lane_skew_scan`、`scripts/run_lane_buffer_sensitivity_sweep.ps1` | [lane_skew_scan_results.md](../../05_simulation_results/结果验证/lane_skew_scan_results.md)、[lane_buffer_sensitivity_results.md](../../05_simulation_results/结果验证/lane_buffer_sensitivity_results.md) |
+| buffer 深度与 AXI 背压传播规律已经形成基础结论 | 对 `BYTE FIFO / AXI FIFO / stall / multiframe` 做参数扫描，并观察 `lane_ready` 回压与失稳边界 | `tb_fpga_wrapper_buffer_depth_sweep`、`scripts/run_buffer_depth_sweep.ps1`、`tb_fpga_wrapper_raw8_backpressure_stress`、`scripts/run_raw8_backpressure_stress_sweep.ps1` | [buffer_depth_sweep_results.md](../../05_simulation_results/结果验证/buffer_depth_sweep_results.md)、[raw8_backpressure_stress_results.md](../../05_simulation_results/结果验证/raw8_backpressure_stress_results.md) |
+| 系统已经不止能跑单帧样例，而具备基础连续工作能力 | 多帧多行和恢复后 multiframe 场景都已保持 scoreboard 闭合 | `tb_fpga_wrapper_raw8_multiframe_stability`、`tb_fpga_wrapper_resync_backpressure_multiframe` | [raw8_multiframe_stability_results.md](../../05_simulation_results/结果验证/raw8_multiframe_stability_results.md)、[resync_backpressure_multiframe_results.md](../../05_simulation_results/结果验证/resync_backpressure_multiframe_results.md) |
+| 当前 RTL / wrapper 已具备 FPGA 实现评估基础 | 当前 `HEAD` 的综合、实现、资源和时序报告都已固定留痕 | `fpga/vivado/run_synth_impl.tcl`、`fpga/vivado/run_impl_route_only.tcl` | [vivado_resource_timing_results.md](../../05_simulation_results/结果验证/vivado_resource_timing_results.md)、`fpga/vivado/reports/mipi_csi2_capture_fpga_head_20260519/` |
+| 当前结果足以支撑“数字前端工程原型”口径 | 功能闭环、恢复闭环、参数边界、连续流与实现评估都已具备证据，但边界限制也已明确列出 | 上述所有系统级 TB、参数脚本和 Vivado 报告的组合证据 | [verification_master_report.md](verification_master_report.md)、[progress_gap_check.md](../../05_simulation_results/结果验证/progress_gap_check.md)、[thesis_status_matrix.md](thesis_status_matrix.md) |
 
 对应理解建议：
 
@@ -79,18 +79,18 @@
 
 | 类别 | 主要 testbench / 脚本 | 主要结果留痕 |
 | --- | --- | --- |
-| 基础格式路径 | `tb_fpga_wrapper_raw8_metrics`、`tb_fpga_wrapper_raw10_metrics`、`tb_fpga_wrapper_rgb888_metrics`、`tb_fpga_wrapper_yuv422_metrics` | [format_comparison_results.md](结果验证/format_comparison_results.md) |
-| RAW10 full-frame 收尾 | `tb_fpga_wrapper_raw10_smoke`、`tb_fpga_wrapper_raw10_metrics` | [raw10_full_frame_results.md](结果验证/raw10_full_frame_results.md) |
-| AXI 背压 | `tb_fpga_wrapper_axi_backpressure_metrics` | [reliability_metrics_overview.png](结果验证/reliability_metrics_overview.png) |
-| Buffer 深度趋势 | `tb_fpga_wrapper_buffer_depth_sweep`、`scripts/run_buffer_depth_sweep.ps1` | [buffer_depth_sweep_results.md](结果验证/buffer_depth_sweep_results.md) |
-| 连续流背压强化 | `tb_fpga_wrapper_raw8_backpressure_stress`、`scripts/run_raw8_backpressure_stress_sweep.ps1` | [raw8_backpressure_stress_results.md](结果验证/raw8_backpressure_stress_results.md) |
-| Lane skew 窗口 | `tb_fpga_wrapper_lane_skew_scan` | [lane_skew_scan_results.md](结果验证/lane_skew_scan_results.md) |
-| Lane / buffer 联合敏感性 | `tb_fpga_wrapper_lane_skew_scan`、`scripts/run_lane_buffer_sensitivity_sweep.ps1` | [lane_buffer_sensitivity_results.md](结果验证/lane_buffer_sensitivity_results.md) |
-| Resync 恢复 | `tb_fpga_wrapper_resync_metrics`、`tb_fpga_wrapper_resync_clean_frame`、`tb_fpga_wrapper_resync_backpressure_multiframe` | [resync_clean_frame_results.md](结果验证/resync_clean_frame_results.md)、[resync_backpressure_multiframe_results.md](结果验证/resync_backpressure_multiframe_results.md) |
-| 连续多帧稳定性 | `tb_fpga_wrapper_raw8_multiframe_stability` | [raw8_multiframe_stability_results.md](结果验证/raw8_multiframe_stability_results.md) |
-| 1/2/4 lane 配置 | `tb_fpga_wrapper_raw8_lane_config_smoke`、`scripts/run_raw8_lane_config_smokes.ps1` | [raw8_lane_config_results.md](结果验证/raw8_lane_config_results.md) |
-| Vivado 资源/时序 | `fpga/vivado/run_synth_impl.tcl`、`fpga/vivado/run_impl_route_only.tcl` | [vivado_resource_timing_results.md](结果验证/vivado_resource_timing_results.md) |
-| 正式波形截图 | `fpga/vivado/build_one_xsim_snapshot.ps1`、`fpga/vivado/capture_one_xsim_wave.ps1` | [正式波形 README](结果验证/正式波形/README.md) |
+| 基础格式路径 | `tb_fpga_wrapper_raw8_metrics`、`tb_fpga_wrapper_raw10_metrics`、`tb_fpga_wrapper_rgb888_metrics`、`tb_fpga_wrapper_yuv422_metrics` | [format_comparison_results.md](../../05_simulation_results/结果验证/format_comparison_results.md) |
+| RAW10 full-frame 收尾 | `tb_fpga_wrapper_raw10_smoke`、`tb_fpga_wrapper_raw10_metrics` | [raw10_full_frame_results.md](../../05_simulation_results/结果验证/raw10_full_frame_results.md) |
+| AXI 背压 | `tb_fpga_wrapper_axi_backpressure_metrics` | [reliability_metrics_overview.png](../../05_simulation_results/结果验证/reliability_metrics_overview.png) |
+| Buffer 深度趋势 | `tb_fpga_wrapper_buffer_depth_sweep`、`scripts/run_buffer_depth_sweep.ps1` | [buffer_depth_sweep_results.md](../../05_simulation_results/结果验证/buffer_depth_sweep_results.md) |
+| 连续流背压强化 | `tb_fpga_wrapper_raw8_backpressure_stress`、`scripts/run_raw8_backpressure_stress_sweep.ps1` | [raw8_backpressure_stress_results.md](../../05_simulation_results/结果验证/raw8_backpressure_stress_results.md) |
+| Lane skew 窗口 | `tb_fpga_wrapper_lane_skew_scan` | [lane_skew_scan_results.md](../../05_simulation_results/结果验证/lane_skew_scan_results.md) |
+| Lane / buffer 联合敏感性 | `tb_fpga_wrapper_lane_skew_scan`、`scripts/run_lane_buffer_sensitivity_sweep.ps1` | [lane_buffer_sensitivity_results.md](../../05_simulation_results/结果验证/lane_buffer_sensitivity_results.md) |
+| Resync 恢复 | `tb_fpga_wrapper_resync_metrics`、`tb_fpga_wrapper_resync_clean_frame`、`tb_fpga_wrapper_resync_backpressure_multiframe` | [resync_clean_frame_results.md](../../05_simulation_results/结果验证/resync_clean_frame_results.md)、[resync_backpressure_multiframe_results.md](../../05_simulation_results/结果验证/resync_backpressure_multiframe_results.md) |
+| 连续多帧稳定性 | `tb_fpga_wrapper_raw8_multiframe_stability` | [raw8_multiframe_stability_results.md](../../05_simulation_results/结果验证/raw8_multiframe_stability_results.md) |
+| 1/2/4 lane 配置 | `tb_fpga_wrapper_raw8_lane_config_smoke`、`scripts/run_raw8_lane_config_smokes.ps1` | [raw8_lane_config_results.md](../../05_simulation_results/结果验证/raw8_lane_config_results.md) |
+| Vivado 资源/时序 | `fpga/vivado/run_synth_impl.tcl`、`fpga/vivado/run_impl_route_only.tcl` | [vivado_resource_timing_results.md](../../05_simulation_results/结果验证/vivado_resource_timing_results.md) |
+| 正式波形截图 | `fpga/vivado/build_one_xsim_snapshot.ps1`、`fpga/vivado/capture_one_xsim_wave.ps1` | [正式波形 README](../../05_simulation_results/结果验证/正式波形/README.md) |
 
 ## 4. 结果总览
 
@@ -262,7 +262,7 @@
 
 当前论文候选波形截图位于：
 
-- [正式波形目录](结果验证/正式波形/README.md)
+- [正式波形目录](../../05_simulation_results/结果验证/正式波形/README.md)
 
 当前已固化的关键截图包括：
 
@@ -315,7 +315,7 @@
 
 为便于对外整理，当前仓库已增加交付导出脚本：
 
-- [交付目录说明](../../deliverables/README.md)
+- [交付目录说明](../../README.md)
 - `scripts/package_delivery_release.ps1`
 
 该脚本会生成一个独立的可交付目录，包含：
@@ -344,4 +344,4 @@
 
 ---
 
-本报告是当前验证方法和验证结果的统一总入口；数字细节以 [论文结果总表](thesis_result_tables.md) 和 [结果验证目录](结果验证/README.md) 为准。
+本报告是当前验证方法和验证结果的统一总入口；数字细节以 [论文结果总表](thesis_result_tables.md) 和 [结果验证目录](../../05_simulation_results/结果验证/README.md) 为准。

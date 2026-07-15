@@ -2,7 +2,7 @@
 
 > 用于 MIPI CSI-2 采集系统板级测试与重采集硬件演示。平台限定 **Xilinx（Zynq / UltraScale+）**，
 > 因 `mipi_dphy_ppi_adapter` 按 AMD MIPI D-PHY RX IP 的 PPI 实现。预算 ¥5 万内，实花约 ¥2.5–3 万。
-> 配套说明见 [项目说明书 第 8 章](项目说明书_MIPI_CSI2采集系统.md)。
+> 配套说明见 [项目说明书 第 8 章](../2_论文材料/项目说明书_MIPI_CSI2采集系统.md)。
 
 ## 主清单
 

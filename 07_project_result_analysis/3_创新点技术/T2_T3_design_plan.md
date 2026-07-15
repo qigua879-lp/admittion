@@ -11,14 +11,14 @@
 核查结论（已读源码确认）：
 
 1. **写地址由行号驱动，但行号是内部计数器。**
-   - [addr_gen_frame_based.sv](../01_source_code/rtl/axi/addr_gen_frame_based.sv): `addr = frame_base + line_stride·line_id + byte_offset`。
-   - [pixel_to_axi_writer.sv](../01_source_code/rtl/axi/pixel_to_axi_writer.sv): 喂给 addr_gen 的 `line_id` 来自内部计数器 `sys_line_id_q`，在 `frame_start` 清零、每个 `line_end` +1（L292/L319）。
+   - [addr_gen_frame_based.sv](../../01_source_code/rtl/axi/addr_gen_frame_based.sv): `addr = frame_base + line_stride·line_id + byte_offset`。
+   - [pixel_to_axi_writer.sv](../../01_source_code/rtl/axi/pixel_to_axi_writer.sv): 喂给 addr_gen 的 `line_id` 来自内部计数器 `sys_line_id_q`，在 `frame_start` 清零、每个 `line_end` +1（L292/L319）。
    - **含义**：朴素地“多发一行”会被写到计数器的下一槽，而**不会覆盖坏行 k**。且 `sys_line_id_q >= frame_height` 的行会被丢弃（L310）。
    - **结论**：要做真正的“覆盖坏行”闭环，必须让重采行的写地址按 `retry_line_id` 寻址，而不是按计数器 → 这是 T2 的核心 RTL 增量。
 
-2. **CRC 坏行已能被丢弃。** [packet_error_policy.sv](../01_source_code/rtl/reliability/packet_error_policy.sv) 的 `crc_drop_req_o` + writer 的 `discard_line_i` 通路可把坏行丢掉（不写 DDR），留出空槽等重采填补。
+2. **CRC 坏行已能被丢弃。** [packet_error_policy.sv](../../01_source_code/rtl/reliability/packet_error_policy.sv) 的 `crc_drop_req_o` + writer 的 `discard_line_i` 通路可把坏行丢掉（不写 DDR），留出空槽等重采填补。
 
-3. **retry 当前是纯观测。** [mipi_csi2_capture_top.sv](../01_source_code/rtl/top/mipi_csi2_capture_top.sv) 中 `retry_request_ctrl`（L1162）输出只进了 APB 状态寄存器（L517），**没有任何模块消费 retry 去改写地址**。这正是 §2.4 说的“闭环未完成”。
+3. **retry 当前是纯观测。** [mipi_csi2_capture_top.sv](../../01_source_code/rtl/top/mipi_csi2_capture_top.sv) 中 `retry_request_ctrl`（L1162）输出只进了 APB 状态寄存器（L517），**没有任何模块消费 retry 去改写地址**。这正是 §2.4 说的“闭环未完成”。
 
 4. **标准 CSI-2 长包不带行号**，行靠顺序隐式确定 → 重采行的“目标行号”必须由**可控图像源的旁路信号**带出。这正对应 §3 的“条件（上游可控）”，是可行性前提，不是标准链路能力——与论文红线一致。
 
@@ -102,7 +102,7 @@ output retry_ack_o                                              // 写回完成�
 
 ### T2.4 TB：`recapture_camera_model.sv`（可控图像源）
 
-**相对现有 [sensor_model.sv](../04_tb_tests/tb/models/sensor_model.sv) 的升级**（现有只发**单行帧**、发完即停）：
+**相对现有 [sensor_model.sv](../../04_tb_tests/tb/models/sensor_model.sv) 的升级**（现有只发**单行帧**、发完即停）：
 - **多行帧**：`FS, {LS,long(line i),LE}×H, FE`，H 小（如 8）。每行长包 payload 由 golden 函数 `line_pixel(frame,line,idx)` 决定。
 - **保留窗口 D**：内部 ring 记录最近 D 个已发行的 (frame,line)；只有窗口内的行可被重采（请求窗口外 → 拒绝并置 `recap_reject_o`，用于演示 T1 的 D 边界）。
 - **坏行注入**：参数 `INJ_FRAME/INJ_LINE`，仅**首发**时对该行 payload 异或扰动（触发 CRC 错）；用 `recaptured[frame][line]` 标记，使重采发干净数据。
@@ -111,7 +111,7 @@ output retry_ack_o                                              // 写回完成�
 
 ### T2.5 TB：`tb_recapture_line_level_closed_loop.sv`（系统级闭环演示）
 
-参考 [tb_fpga_wrapper_crc_error.sv](../04_tb_tests/tb/tests/tb_fpga_wrapper_crc_error.sv) 的 AXI sink memory readback 骨架。
+参考 [tb_fpga_wrapper_crc_error.sv](../../04_tb_tests/tb/tests/tb_fpga_wrapper_crc_error.sv) 的 AXI sink memory readback 骨架。
 
 **步骤**：
 1. 配置 IMG_WIDTH/HEIGHT（小尺寸，如 64×8）、DT=RAW8、`ERR_POLICY` 使能 retry + line_mode + CRC 丢行。
@@ -124,7 +124,7 @@ output retry_ack_o                                              // 写回完成�
 
 ### T2.6 编译/回归接入
 
-- 把新 RTL 加入 [compile.f](../04_tb_tests/compile.f) 与 vcs compile.f。
+- 把新 RTL 加入 [compile.f](../../04_tb_tests/compile.f) 与 vcs compile.f。
 - 新 TB 跑通（xsim/vcs，按现有脚本）。
 - 跑一遍既有 wrapper 回归，确认新端口默认 0 未引入回归。
 

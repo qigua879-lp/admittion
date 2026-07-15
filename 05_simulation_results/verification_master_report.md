@@ -12,9 +12,9 @@
 
 - [论文结果总表](thesis_result_tables.md)
 - [当前缺口检查](结果验证/progress_gap_check.md)
-- [阶段交接记录](thesis_progress_handoff_2026-05-19.md)
-- [实验矩阵](thesis_experiment_matrix.md)
-- [状态矩阵](thesis_status_matrix.md)
+- [阶段交接记录](../08_reference_docs/spec/thesis_progress_handoff_2026-05-19.md)
+- [实验矩阵](../08_reference_docs/spec/thesis_experiment_matrix.md)
+- [状态矩阵](../08_reference_docs/spec/thesis_status_matrix.md)
 - [结果验证索引](结果验证/README.md)
 
 ## 2. 当前总体结论
@@ -43,7 +43,7 @@
 | buffer 深度与 AXI 背压传播规律已经形成基础结论 | 对 `BYTE FIFO / AXI FIFO / stall / multiframe` 做参数扫描，并观察 `lane_ready` 回压与失稳边界 | `tb_fpga_wrapper_buffer_depth_sweep`、`scripts/run_buffer_depth_sweep.ps1`、`tb_fpga_wrapper_raw8_backpressure_stress`、`scripts/run_raw8_backpressure_stress_sweep.ps1` | [buffer_depth_sweep_results.md](结果验证/buffer_depth_sweep_results.md)、[raw8_backpressure_stress_results.md](结果验证/raw8_backpressure_stress_results.md) |
 | 系统已经不止能跑单帧样例，而具备基础连续工作能力 | 多帧多行和恢复后 multiframe 场景都已保持 scoreboard 闭合 | `tb_fpga_wrapper_raw8_multiframe_stability`、`tb_fpga_wrapper_resync_backpressure_multiframe` | [raw8_multiframe_stability_results.md](结果验证/raw8_multiframe_stability_results.md)、[resync_backpressure_multiframe_results.md](结果验证/resync_backpressure_multiframe_results.md) |
 | 当前 RTL / wrapper 已具备 FPGA 实现评估基础 | 当前 `HEAD` 的综合、实现、资源和时序报告都已固定留痕 | `fpga/vivado/run_synth_impl.tcl`、`fpga/vivado/run_impl_route_only.tcl` | [vivado_resource_timing_results.md](结果验证/vivado_resource_timing_results.md)、`fpga/vivado/reports/mipi_csi2_capture_fpga_head_20260519/` |
-| 当前结果足以支撑“数字前端工程原型”口径 | 功能闭环、恢复闭环、参数边界、连续流与实现评估都已具备证据，但边界限制也已明确列出 | 上述所有系统级 TB、参数脚本和 Vivado 报告的组合证据 | [verification_master_report.md](verification_master_report.md)、[progress_gap_check.md](结果验证/progress_gap_check.md)、[thesis_status_matrix.md](thesis_status_matrix.md) |
+| 当前结果足以支撑“数字前端工程原型”口径 | 功能闭环、恢复闭环、参数边界、连续流与实现评估都已具备证据，但边界限制也已明确列出 | 上述所有系统级 TB、参数脚本和 Vivado 报告的组合证据 | [verification_master_report.md](verification_master_report.md)、[progress_gap_check.md](结果验证/progress_gap_check.md)、[thesis_status_matrix.md](../08_reference_docs/spec/thesis_status_matrix.md) |
 
 对应理解建议：
 
@@ -315,7 +315,7 @@
 
 为便于对外整理，当前仓库已增加交付导出脚本：
 
-- [交付目录说明](../../deliverables/README.md)
+- [交付目录说明](../README.md)
 - `scripts/package_delivery_release.ps1`
 
 该脚本会生成一个独立的可交付目录，包含：

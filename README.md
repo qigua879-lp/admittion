@@ -14,18 +14,18 @@
 | `04_tb_tests/` | SystemVerilog testbench、模型、scoreboard、编译文件 |
 | `05_simulation_results/` | 仿真结果文档、正式波形截图、验证总报告 |
 | `06_netlist_level_files/` | 综合后 Verilog/EDF/DCP、实现报告和 ASIC 评估说明 |
-| `07_project_result_analysis/` | 当前工程预期目标、完成情况、未完成情况和改进策略 |
+| `07_project_result_analysis/` | 已按工程分析、论文材料、创新点技术、板级 BOM 分为 4 个子文件夹，入口见 [`07_project_result_analysis/README.md`](07_project_result_analysis/README.md) |
 | `08_reference_docs/` | 原工程中的规格、寄存器、时序和结果参考文档 |
 | `09_汇报材料/` | 中期汇报讲稿与各版本 PPT |
 
 ## 推荐阅读顺序
 
-> **创新点工作总入口**：[`07_project_result_analysis/行级重采集_工作总结与索引.md`](07_project_result_analysis/行级重采集_工作总结与索引.md)
+> **创新点工作总入口**：[`07_project_result_analysis/3_创新点技术/行级重采集_工作总结与索引.md`](07_project_result_analysis/3_创新点技术/行级重采集_工作总结与索引.md)
 > —— 行级选择性重采集（机制/量化边界/条件三支柱）的总结、证据索引与回滚检查点。
 
 1. `总体说明_接口_仿真_验证总览.md`
-2. `07_project_result_analysis/当前工程结果分析.md`
-3. `07_project_result_analysis/本次代码改动分析.md`
+2. `07_project_result_analysis/1_工程分析/当前工程结果分析.md`
+3. `07_project_result_analysis/1_工程分析/本次代码改动分析.md`
 4. `01_source_code/源码介绍.md`
 5. `03_interface_tables/接口表格及说明.md`
 6. `04_tb_tests/TB测试说明.md`

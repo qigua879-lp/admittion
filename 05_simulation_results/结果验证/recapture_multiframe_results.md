@@ -12,12 +12,12 @@
 - **修法（向后兼容）**：在 sync FSM 新增**帧内行号** `line_in_frame`（FS 复位、LS 自增、帧内 1 基），
   并把 `err_classifier.line_id_i` 由 `line_cnt` 改接 `line_in_frame`；`line_cnt` 保留作全局 LINE_CNT。
   首帧 `line_in_frame == line_cnt`，故**所有既有首帧测试不受影响**。
-  - 改动：[frame_line_sync_fsm.sv](01_source_code/rtl/csi2_rx/frame_line_sync_fsm.sv)、
-    [mipi_csi2_capture_top.sv](01_source_code/rtl/top/mipi_csi2_capture_top.sv)。
+  - 改动：[frame_line_sync_fsm.sv](../../01_source_code/rtl/csi2_rx/frame_line_sync_fsm.sv)、
+    [mipi_csi2_capture_top.sv](../../01_source_code/rtl/top/mipi_csi2_capture_top.sv)。
 
 ## 场景与判据
 
-[tb_recapture_multiframe.sv](04_tb_tests/tb/tests/tb_recapture_multiframe.sv)：
+[tb_recapture_multiframe.sv](../../04_tb_tests/tb/tests/tb_recapture_multiframe.sv)：
 先发**一整帧干净**（帧 1，把自由计数推进到 H=4），再发**帧 2** 并在其 line2 注 CRC 坏行 → 重采。
 
 **判别性证据**（这是多帧修复的关键）：定位行号是**帧内相对**的——

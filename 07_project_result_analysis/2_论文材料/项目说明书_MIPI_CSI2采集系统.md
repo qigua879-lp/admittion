@@ -501,12 +501,12 @@ LI-IMX274(4-lane) ─接 FMC ─┘   → lane 对齐/解析/帧行同步/像素
 见 `03_interface_tables/接口表格及说明.md` 与 `08_reference_docs/spec/top_io.md`。
 
 ## 附录 C 测试用例与结果索引
-- 闭环：[recapture_line_level_closed_loop_results.md](../05_simulation_results/结果验证/recapture_line_level_closed_loop_results.md)
-- 多帧：[recapture_multiframe_results.md](../05_simulation_results/结果验证/recapture_multiframe_results.md)
-- 三基线：[recapture_strategy_compare_results.md](../05_simulation_results/结果验证/recapture_strategy_compare_results.md)
-- 设计空间/C2：[recapture_design_space_results.md](../05_simulation_results/结果验证/recapture_design_space_results.md)
-- 模型与条件：[line_level_recapture_model.md](line_level_recapture_model.md)、[unidirectional_recapture_feasibility.md](unidirectional_recapture_feasibility.md)
-- 总入口：[行级重采集_工作总结与索引.md](行级重采集_工作总结与索引.md)
+- 闭环：[recapture_line_level_closed_loop_results.md](../../05_simulation_results/结果验证/recapture_line_level_closed_loop_results.md)
+- 多帧：[recapture_multiframe_results.md](../../05_simulation_results/结果验证/recapture_multiframe_results.md)
+- 三基线：[recapture_strategy_compare_results.md](../../05_simulation_results/结果验证/recapture_strategy_compare_results.md)
+- 设计空间/C2：[recapture_design_space_results.md](../../05_simulation_results/结果验证/recapture_design_space_results.md)
+- 模型与条件：[line_level_recapture_model.md](../3_创新点技术/line_level_recapture_model.md)、[unidirectional_recapture_feasibility.md](../3_创新点技术/unidirectional_recapture_feasibility.md)
+- 总入口：[行级重采集_工作总结与索引.md](../3_创新点技术/行级重采集_工作总结与索引.md)
 
 ## 附录 D 仿真复现命令（要点）
 ```

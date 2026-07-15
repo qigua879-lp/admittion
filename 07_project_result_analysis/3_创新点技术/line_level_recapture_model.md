@@ -6,7 +6,7 @@
 > 取得更优折中；本文给出三种策略各自的闭式表达、可行性条件与量化边界。
 >
 > 对应交接文档 §3 命题、§4 任务 T1。模型与 RTL 解耦，可直接写入论文方法章。
-> 数值脚本：[`tools/recapture_model.py`](../tools/recapture_model.py)。
+> 数值脚本：[`tools/recapture_model.py`](../../tools/recapture_model.py)。
 
 ---
 
